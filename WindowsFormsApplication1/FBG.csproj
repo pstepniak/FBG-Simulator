@@ -53,6 +53,9 @@
     <Compile Include="FBGForm.Designer.cs">
       <DependentUpon>FBGForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FBGManagement\Range.cs" />
+    <Compile Include="FBGManagement\Grating.cs" />
+    <Compile Include="FBGManagement\LightSource.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FBGForm.resx">

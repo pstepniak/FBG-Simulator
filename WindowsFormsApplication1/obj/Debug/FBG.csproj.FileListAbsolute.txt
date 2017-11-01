@@ -1,0 +1,9 @@
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.FBGForm.resources
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\FBG.csproj.GenerateResource.Cache
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\FBG.csprojResolveAssemblyReference.cache

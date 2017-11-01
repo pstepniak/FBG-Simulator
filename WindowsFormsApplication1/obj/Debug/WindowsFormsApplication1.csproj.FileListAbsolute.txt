@@ -6,3 +6,12 @@ c:\users\p1stepni\documents\visual studio 2015\Projects\WindowsFormsApplication1
 c:\users\p1stepni\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
 c:\users\p1stepni\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 c:\users\p1stepni\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.FBGForm.resources
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\p1stepni\Documents\studia doktoranckie\FBG\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
