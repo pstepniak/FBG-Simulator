@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WindowsFormsApplication1
 {
@@ -19,7 +20,15 @@ namespace WindowsFormsApplication1
 
         private void FBGForm_Load(object sender, EventArgs e)
         {
-            chartReflection.Series["Reflection"].Points.AddXY(1500, 1);
+            chartReflection.Series["Reflection"].Points.AddXY(1300, 1);
+            chartReflection.Series["Reflection"].Points.AddXY(1425, 1);
+            chartReflection.Series["Reflection"].Points.AddXY(1430, 0.98);
+            chartReflection.Series["Reflection"].Points.AddXY(1435, 0.95);
+            chartReflection.Series["Reflection"].Points.AddXY(1440, 0.95);
+            chartReflection.Series["Reflection"].Points.AddXY(1445, 0.96);
+            chartReflection.Series["Reflection"].Points.AddXY(1450, 0.97);
+            chartReflection.Series["Reflection"].Points.AddXY(1455, 0.99);
+            chartReflection.Series["Reflection"].Points.AddXY(1500, 0.99);
             chartReflection.Series["Reflection"].Points.AddXY(1510, 0.97);
             chartReflection.Series["Reflection"].Points.AddXY(1520, 0.92);
             chartReflection.Series["Reflection"].Points.AddXY(1530, 0.83);
@@ -40,6 +49,15 @@ namespace WindowsFormsApplication1
             chartReflection.Series["Reflection"].Points.AddXY(1680, 0.92);
             chartReflection.Series["Reflection"].Points.AddXY(1690, 0.97);
             chartReflection.Series["Reflection"].Points.AddXY(1700, 1);
+            chartReflection.Series["Reflection"].Points.AddXY(1900, 1);
+
+            foreach (DataPoint p in chartReflection.Series["Reflection"].Points)
+            {
+                double x = p.YValues.First();
+                Random rnd = new Random();
+                double r = (rnd.Next(1, 10))/10;
+                p.SetValueY(x - r);
+            }
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
