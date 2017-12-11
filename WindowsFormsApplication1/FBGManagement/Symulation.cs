@@ -70,11 +70,11 @@ namespace WindowsFormsApplication1.FBGManagement
             double[,] gammaB = new double[ilosc_lambda, ilosc_sekcji];
             for (int ll = 0; ll < ilosc_lambda; ll++)
             {
-                for (int nn = 0; nn < ilosc_lambda; nn++)
+                for (int nn = 0; nn < ilosc_lambda; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
                     k[ll, nn] = (Math.PI / lambda.ElementAt(ll)) * delta_n * apodyzacja.ElementAt(nn);
                     delta[ll, nn] = 2 * Math.PI * neff * ((1 / lambda.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
-                    sigma[ll, nn] = delta[ll, nn];
+                    sigma[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = Math.Pow(k[ll, nn], 2);
                     sigma2[ll, nn] = Math.Pow(sigma[ll, nn], 2);
                     if (k2[ll, nn] > sigma[ll, nn])
@@ -94,27 +94,53 @@ namespace WindowsFormsApplication1.FBGManagement
 
 
 
-            %% dla danego "lambda" z zakresu od 1546nm do 1555nm
-            %% oraz dla danego z
-            lambda = (s:(3 / ilosc_lambda):1533.75)*10 ^ (-9);
-            for ll = 1:1:ilosc_lambda;
-            for nn = 1:1:ilosc_sekcji;
-                k(ll, nn) = (pi / lambda(ll)) * delta_n * apodyzacja(nn);
-                delta(ll, nn) = 2 * pi * neff * ((1 / lambda(ll)) - (1 / lambdaBy(nn)));
-                sigma(ll, nn) = delta(ll, nn);               %%%%%%%%% -chirp(nn);
-                k2(ll, nn) = (k(ll, nn)) ^ 2;
-                sigma2(ll, nn) = (sigma(ll, nn)) ^ 2;
 
-            if (k2(ll, nn)) > (sigma2(ll, nn));
-            gammaB(ll, nn) = ((k2(ll, nn) - sigma2(ll, nn)) ^ (1 / 2));
-            elseif(k2(ll, nn)) < (sigma2(ll, nn));
-            gammaB(ll, nn) = j * ((sigma2(ll, nn) - k2(ll, nn)) ^ (1 / 2));
-else
-    gammB(ll, nn) = 0;
+
+            // macierz Fj, gdzie j mówi o pozycji rozpatrywania siatki
+            // (j jest od L do 0 !!!!!, a nie odwrotnie !!!!!)
+            // wszystkie Fj trzeba zapisywać, żeby potem je wymnożyć
+
+            double[,] F11 = new double[ilosc_lambda, ilosc_sekcji];
+            double[,] F12 = new double[ilosc_lambda, ilosc_sekcji];
+            double[,] F21 = new double[ilosc_lambda, ilosc_sekcji];
+            double[,] F22 = new double[ilosc_lambda, ilosc_sekcji];
+
+            for (int ll = 0; ll < ilosc_lambda; ll++)
+            {
+                for (int nn = 0; nn < ilosc_lambda; nn++) //w pętli lecimy po lambda oraz dla danego z
+                {
+                    F11[ll,nn] = Math.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + j * (sigma[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                    F12[ll,nn] = j * (k[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                }
+            }
+
+            //lj = (t:t: 1)*L; --to już mamy obliczone
+            for ll = 1:1:ilosc_lambda;
+                for nn = 1:1:ilosc_sekcji;
+                    F11(ll, nn) = cosh(gammaB(ll, nn) * lj(nn)) + j * (sigma(ll, nn) / gammaB(ll, nn)) * sinh(gammaB(ll, nn) * lj(nn));
+                    F12(ll, nn) = j * (k(ll, nn) / gammaB(ll, nn)) * sinh(gammaB(ll, nn) * lj(nn));
+                    F21(ll, nn) = conj(F12(ll, nn)); % conj to jest sprzężenie
+                    F22(ll, nn) = conj(F11(ll, nn));
+                end;
             end;
-            end;
-            end;
+
         }
+        //private double F11(double c, double d)
+        //{
+
+        //}
+        //private double F12(double c, double d)
+        //{
+
+        //}
+        //private double F21(double c, double d)
+        //{
+
+        //}
+        //private double F22(double c, double d)
+        //{
+
+        //}
 
     }
 }
