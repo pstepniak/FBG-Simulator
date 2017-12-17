@@ -111,18 +111,25 @@ namespace WindowsFormsApplication1.FBGManagement
                 {
                     F11[ll,nn] = Math.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + j * (sigma[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
                     F12[ll,nn] = j * (k[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                    F21[ll, nn] = F12[ll, nn];
+                    F22[ll, nn] = F11[ll, nn];
                 }
             }
 
-            //lj = (t:t: 1)*L; --to już mamy obliczone
-            for ll = 1:1:ilosc_lambda;
-                for nn = 1:1:ilosc_sekcji;
-                    F11(ll, nn) = cosh(gammaB(ll, nn) * lj(nn)) + j * (sigma(ll, nn) / gammaB(ll, nn)) * sinh(gammaB(ll, nn) * lj(nn));
-                    F12(ll, nn) = j * (k(ll, nn) / gammaB(ll, nn)) * sinh(gammaB(ll, nn) * lj(nn));
-                    F21(ll, nn) = conj(F12(ll, nn)); % conj to jest sprzężenie
-                    F22(ll, nn) = conj(F11(ll, nn));
-                end;
-            end;
+
+            double[,,,] D = new double[2, 2, ilosc_lambda, ilosc_sekcji];
+            for (int c = 0; c < ilosc_lambda; c++)
+            {
+                for (int d = 0; d < ilosc_lambda; d++)
+                {
+                    D[0, 0, c, d] = F11[c, d];
+                    D[0, 1, c, d] = F12[c, d];
+                    D[1, 0, c, d] = F21[c, d];
+                    D[1, 1, c, d] = F22[c, d];
+                }
+            }
+            
+
 
         }
         //private double F11(double c, double d)
