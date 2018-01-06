@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using WindowsFormsApplication1.FBGManagement;
 
 namespace WindowsFormsApplication1
 {
@@ -57,6 +58,14 @@ namespace WindowsFormsApplication1
                 Random rnd = new Random();
                 double r = (rnd.Next(1, 10))/10;
                 p.SetValueY(x - r);
+            }
+
+            int countOfProbe = 500;
+            Symulation symulation = new Symulation(countOfProbe);
+            List<double> Ry = symulation.Symulate();
+            for (int i = 0; i < countOfProbe; i++)
+            {
+                chartTransmission.Series["Transmission"].Points.AddXY(i, Ry.ElementAt(i));
             }
         }
 

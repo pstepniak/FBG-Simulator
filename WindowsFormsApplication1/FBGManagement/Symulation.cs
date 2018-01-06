@@ -8,29 +8,37 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Symulation
     {
-        public Symulation()
-        {
+        double[] x = { 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
 
-        }
-        public void Symulate()
+        /*Dane symulacji*/
+        int ilosc_lambda; //ilość długości fali
+        double s; //na razie nie wiem co to jest ;p
+        double s2;
+        int ilosc_sekcji;
+        double t;
+
+        double j = 0.5; //to chyba jakiś współczynnik tłumienia
+
+
+        public Symulation(int countOfProbe)
         {
-            double[] x = { 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
+            //ilosc_lambda = 1000;
+            ilosc_lambda = countOfProbe;
+            s = 1530.75 + (3 / ilosc_lambda);
+            s2 = 1533.75;
+            ilosc_sekcji = x.Length;
+            t = 1 / (double)ilosc_sekcji;
+        }
+        public List<double> Symulate()
+        {
+            
 
             /*Dane siatki*/
             double neff = 1.44688; //efektywny współczynnik załamania
-            double L = 10000 * (10 ^ (-6)); //długość siatki
-            double lambdaB = 1531.2 * (10 ^ (-9));
+            double L = 10000 * Math.Pow(10,-6); //długość siatki
+            double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
             double okres = lambdaB / (2 * Math.PI * neff);
             double delta_n = 0.00040; //delta n
-
-            /*Dane symulacji*/
-            int ilosc_lambda = 1000; //ilość długości fali
-            double s = 1530.75 + (3 / ilosc_lambda); //na razie nie wiem co to jest ;p
-            double s2 = 1533.75;
-            int ilosc_sekcji = x.Length;
-            double t = 1 / ilosc_sekcji;
-
-            double j = 0.5; //to chyba jakiś współczynnik tłumienia
 
             /*lj = (t:t: 1)*L;*/
             List<double> lj = new List<double>();
@@ -43,21 +51,22 @@ namespace WindowsFormsApplication1.FBGManagement
             List<double> lambdaBy = new List<double>(); //długość - ilość sekcji
             List<double> apodyzacja = new List<double>(); //długość - ilość sekcji
             /*for nn = 1:1:ilosc_sekcji;*/
-            for (int i = 1; i <= ilosc_sekcji; i++)
+            for (int i = 0; i < ilosc_sekcji; i++)
             {
                 double okres_i = Math.Pow(10, -9) * x[i];
                 okresy.Add(okres_i);
-                double lambdaBy_i = 2 * Math.PI * neff * x[i];
+                double lambdaBy_i = 2 * Math.PI * neff * okresy[i];
                 lambdaBy.Add(lambdaBy_i);
 
                 //współczynnik funkcji apodyzacji
                 double a = 80;
-                double apodyzacja_i = Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
+                double apodyzacja_i = 0.0001;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
+                //apodyzacja(nn) = exp(-a * ((lj(nn) - L / 2) / L) ^ 2);
                 apodyzacja.Add(apodyzacja_i);
             }
 
             List<double> lambda = new List<double>();
-            for (double i = s;i<=s2;i=i+(3/ilosc_lambda))
+            for (double i = s;i<=s2;i=i+(3/(double)ilosc_lambda)) //chyba drut, bo to 3 to jest różnica między s2 a s1
             {
                 lambda.Add(i * Math.Pow(10, -9));
             }
@@ -70,20 +79,20 @@ namespace WindowsFormsApplication1.FBGManagement
             double[,] gammaB = new double[ilosc_lambda, ilosc_sekcji];
             for (int ll = 0; ll < ilosc_lambda; ll++)
             {
-                for (int nn = 0; nn < ilosc_lambda; nn++) //w pętli lecimy po lambda oraz dla danego z
+                for (int nn = 0; nn < ilosc_sekcji; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
                     k[ll, nn] = (Math.PI / lambda.ElementAt(ll)) * delta_n * apodyzacja.ElementAt(nn);
                     delta[ll, nn] = 2 * Math.PI * neff * ((1 / lambda.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
                     sigma[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = Math.Pow(k[ll, nn], 2);
                     sigma2[ll, nn] = Math.Pow(sigma[ll, nn], 2);
-                    if (k2[ll, nn] > sigma[ll, nn])
+                    if (k2[ll, nn] > sigma2[ll, nn])
                     {
-                        gammaB[ll, nn] = Math.Pow(k2[ll, nn] - sigma2[ll, nn], 0.5);
+                        gammaB[ll, nn] = Math.Pow(k2[ll, nn] - sigma2[ll, nn], 0.5); //wzór 3-14
                     }
-                    else if (k2[ll, nn] < sigma[ll, nn])
+                    else if (k2[ll, nn] < sigma2[ll, nn])
                     {
-                        gammaB[ll, nn] = Math.Pow(sigma2[ll, nn] - k2[ll, nn], 0.5) *j;
+                        gammaB[ll, nn] = Math.Pow(sigma2[ll, nn] - k2[ll, nn], 0.5) *j; //wzór 3-15
                     }
                     else
                     {
@@ -107,7 +116,7 @@ namespace WindowsFormsApplication1.FBGManagement
 
             for (int ll = 0; ll < ilosc_lambda; ll++)
             {
-                for (int nn = 0; nn < ilosc_lambda; nn++) //w pętli lecimy po lambda oraz dla danego z
+                for (int nn = 0; nn < ilosc_sekcji; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
                     F11[ll,nn] = Math.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + j * (sigma[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
                     F12[ll,nn] = j * (k[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
@@ -120,7 +129,7 @@ namespace WindowsFormsApplication1.FBGManagement
             double[,,,] D = new double[2, 2, ilosc_lambda, ilosc_sekcji];
             for (int c = 0; c < ilosc_lambda; c++)
             {
-                for (int d = 0; d < ilosc_lambda; d++)
+                for (int d = 0; d < ilosc_sekcji; d++)
                 {
                     D[0, 0, c, d] = F11[c, d];
                     D[0, 1, c, d] = F12[c, d];
@@ -128,26 +137,46 @@ namespace WindowsFormsApplication1.FBGManagement
                     D[1, 1, c, d] = F22[c, d];
                 }
             }
-            
+            double [,,] T = new double[2, 2, ilosc_lambda];
 
+            //UWAGA, TA PĘTLA NIE JEST PEWNA, MOŻE CHODZIŁO O COŚ INNEGO, ORYGINALNY KOD: T(:,:,f)=D(:,:,f,(ilosc_sekcji));
+            for (int f = 0; f < ilosc_lambda; f++)
+            {
+                T[0, 0, f] = D[0, 0, f, ilosc_sekcji-1];
+                T[0, 1, f] = D[0, 1, f, ilosc_sekcji-1];
+                T[1, 0, f] = D[1, 0, f, ilosc_sekcji-1];
+                T[1, 1, f] = D[1, 1, f, ilosc_sekcji-1];
+            }
 
+            List<double> Ry = new List<double>();
+
+            int fi = 0; //licznik
+            while (fi <ilosc_lambda)
+            {
+                for (int e = ilosc_sekcji-1;e>=0;--e)
+                {
+                    T[0, 0, fi] = T[0, 0, fi] * D[0, 0, fi, e];
+                    T[0, 1, fi] = T[0, 1, fi] * D[0, 1, fi, e];
+                    T[1, 0, fi] = T[1, 0, fi] * D[1, 0, fi, e];
+                    T[1, 1, fi] = T[1, 1, fi] * D[1, 1, fi, e];
+                }
+                double value = 1 / T[1, 1, fi];
+                value = Math.Abs(value);
+                Ry.Add(1 / T[0, 0, fi]);
+
+                fi = fi + 1;
+            }
+
+            //normalizacja Ry:
+            List<double> NormRy = new List<double>();
+            double norm = Ry.Max();
+            foreach (double item in Ry)
+            {
+                NormRy.Add(item / norm);
+            }
+
+            return NormRy;
         }
-        //private double F11(double c, double d)
-        //{
-
-        //}
-        //private double F12(double c, double d)
-        //{
-
-        //}
-        //private double F21(double c, double d)
-        //{
-
-        //}
-        //private double F22(double c, double d)
-        //{
-
-        //}
 
     }
 }
