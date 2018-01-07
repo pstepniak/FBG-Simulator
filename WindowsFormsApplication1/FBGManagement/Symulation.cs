@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
+
 
 namespace WindowsFormsApplication1.FBGManagement
 {
@@ -17,15 +19,17 @@ namespace WindowsFormsApplication1.FBGManagement
         int ilosc_sekcji;
         double t;
 
-        double j = 0.5; //to chyba jakiś współczynnik tłumienia
+        //double j = 0.5; //to chyba jakiś współczynnik tłumienia
 
 
-        public Symulation(int countOfProbe)
+        public Symulation(int countOfProbe, double minimalPeriod, double maximalPeriod)
         {
             //ilosc_lambda = 1000;
             ilosc_lambda = countOfProbe;
-            s = 1530.75 + (3 / ilosc_lambda);
-            s2 = 1533.75;
+            //s = 1530.75 + (3 / ilosc_lambda);
+            s = minimalPeriod + ((maximalPeriod - minimalPeriod) / ilosc_lambda);
+            //s2 = 1533.75;
+            s2 = maximalPeriod;
             ilosc_sekcji = x.Length;
             t = 1 / (double)ilosc_sekcji;
         }
@@ -60,13 +64,13 @@ namespace WindowsFormsApplication1.FBGManagement
 
                 //współczynnik funkcji apodyzacji
                 double a = 80;
-                double apodyzacja_i = 0.0001;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
+                double apodyzacja_i = 1;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
                 //apodyzacja(nn) = exp(-a * ((lj(nn) - L / 2) / L) ^ 2);
                 apodyzacja.Add(apodyzacja_i);
             }
 
             List<double> lambda = new List<double>();
-            for (double i = s;i<=s2;i=i+(3/(double)ilosc_lambda)) //chyba drut, bo to 3 to jest różnica między s2 a s1
+            for (double i = s;i<=s2;i=i+((s2-s)/(double)ilosc_lambda)) //chyba drut, bo to 3 to jest różnica między s2 a s1
             {
                 lambda.Add(i * Math.Pow(10, -9));
             }
@@ -76,7 +80,10 @@ namespace WindowsFormsApplication1.FBGManagement
             double[,] k2 = new double[ilosc_lambda, ilosc_sekcji];
             double[,] sigma = new double[ilosc_lambda, ilosc_sekcji];
             double[,] sigma2 = new double[ilosc_lambda, ilosc_sekcji];
-            double[,] gammaB = new double[ilosc_lambda, ilosc_sekcji];
+            Complex[,] gammaB = new Complex[ilosc_lambda, ilosc_sekcji];
+
+            //Complex temp = new Complex(1, 2);
+            
             for (int ll = 0; ll < ilosc_lambda; ll++)
             {
                 for (int nn = 0; nn < ilosc_sekcji; nn++) //w pętli lecimy po lambda oraz dla danego z
@@ -88,11 +95,12 @@ namespace WindowsFormsApplication1.FBGManagement
                     sigma2[ll, nn] = Math.Pow(sigma[ll, nn], 2);
                     if (k2[ll, nn] > sigma2[ll, nn])
                     {
+
                         gammaB[ll, nn] = Math.Pow(k2[ll, nn] - sigma2[ll, nn], 0.5); //wzór 3-14
                     }
                     else if (k2[ll, nn] < sigma2[ll, nn])
                     {
-                        gammaB[ll, nn] = Math.Pow(sigma2[ll, nn] - k2[ll, nn], 0.5) *j; //wzór 3-15
+                        gammaB[ll, nn] = Complex.ImaginaryOne*Math.Pow(sigma2[ll, nn] - k2[ll, nn], 0.5); //wzór 3-15
                     }
                     else
                     {
@@ -109,24 +117,24 @@ namespace WindowsFormsApplication1.FBGManagement
             // (j jest od L do 0 !!!!!, a nie odwrotnie !!!!!)
             // wszystkie Fj trzeba zapisywać, żeby potem je wymnożyć
 
-            double[,] F11 = new double[ilosc_lambda, ilosc_sekcji];
-            double[,] F12 = new double[ilosc_lambda, ilosc_sekcji];
-            double[,] F21 = new double[ilosc_lambda, ilosc_sekcji];
-            double[,] F22 = new double[ilosc_lambda, ilosc_sekcji];
+            Complex[,] F11 = new Complex[ilosc_lambda, ilosc_sekcji];
+            Complex[,] F12 = new Complex[ilosc_lambda, ilosc_sekcji];
+            Complex[,] F21 = new Complex[ilosc_lambda, ilosc_sekcji];
+            Complex[,] F22 = new Complex[ilosc_lambda, ilosc_sekcji];
 
             for (int ll = 0; ll < ilosc_lambda; ll++)
             {
                 for (int nn = 0; nn < ilosc_sekcji; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    F11[ll,nn] = Math.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + j * (sigma[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
-                    F12[ll,nn] = j * (k[ll, nn] / gammaB[ll, nn]) * Math.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                    F11[ll,nn] = Complex.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + Complex.ImaginaryOne*(sigma[ll, nn] / gammaB[ll, nn]) * Complex.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                    F12[ll,nn] = Complex.ImaginaryOne*(k[ll, nn] / gammaB[ll, nn]) * Complex.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
                     F21[ll, nn] = F12[ll, nn];
                     F22[ll, nn] = F11[ll, nn];
                 }
             }
 
 
-            double[,,,] D = new double[2, 2, ilosc_lambda, ilosc_sekcji];
+            Complex[,,,] D = new Complex[2, 2, ilosc_lambda, ilosc_sekcji];
             for (int c = 0; c < ilosc_lambda; c++)
             {
                 for (int d = 0; d < ilosc_sekcji; d++)
@@ -137,7 +145,7 @@ namespace WindowsFormsApplication1.FBGManagement
                     D[1, 1, c, d] = F22[c, d];
                 }
             }
-            double [,,] T = new double[2, 2, ilosc_lambda];
+            Complex [,,] T = new Complex[2, 2, ilosc_lambda];
 
             //UWAGA, TA PĘTLA NIE JEST PEWNA, MOŻE CHODZIŁO O COŚ INNEGO, ORYGINALNY KOD: T(:,:,f)=D(:,:,f,(ilosc_sekcji));
             for (int f = 0; f < ilosc_lambda; f++)
@@ -160,9 +168,9 @@ namespace WindowsFormsApplication1.FBGManagement
                     T[1, 0, fi] = T[1, 0, fi] * D[1, 0, fi, e];
                     T[1, 1, fi] = T[1, 1, fi] * D[1, 1, fi, e];
                 }
-                double value = 1 / T[1, 1, fi];
-                value = Math.Abs(value);
-                Ry.Add(1 / T[0, 0, fi]);
+                Complex value = 1 / T[0, 0, fi];
+                double doubleValue = Complex.Abs(value);
+                Ry.Add(doubleValue);
 
                 fi = fi + 1;
             }
@@ -175,7 +183,8 @@ namespace WindowsFormsApplication1.FBGManagement
                 NormRy.Add(item / norm);
             }
 
-            return NormRy;
+            //return NormRy;
+            return Ry;
         }
 
     }

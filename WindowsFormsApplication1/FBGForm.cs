@@ -61,7 +61,11 @@ namespace WindowsFormsApplication1
             }
 
             int countOfProbe = 500;
-            Symulation symulation = new Symulation(countOfProbe);
+            //double minimalPeriod = 1530.75;
+            //double maximalPeriod = 1533.75;
+            double minimalPeriod = 1525;
+            double maximalPeriod = 1535;
+            Symulation symulation = new Symulation(countOfProbe, minimalPeriod, maximalPeriod);
             List<double> Ry = symulation.Symulate();
             for (int i = 0; i < countOfProbe; i++)
             {
