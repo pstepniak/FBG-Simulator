@@ -61,19 +61,32 @@ namespace WindowsFormsApplication1
             //}
 
             int countOfProbe = 500;
-            //double minimalPeriod = 1530.75;
-            //double maximalPeriod = 1533.75;
-            double minimalPeriod = 1525;
-            double maximalPeriod = 1535;
-            Symulation symulation = new Symulation(countOfProbe, minimalPeriod, maximalPeriod);
-            List<double> Ry = symulation.Symulate();
+            //double minimalWavelength = 1530.75;
+            //double maximalWavelength = 1533.75;
+            double minimalWavelength = 1525;
+            double maximalWavelength = 1535;
+            Symulation symulation = new Symulation(countOfProbe, minimalWavelength, maximalWavelength);
+            double neff = 1.44688; //efektywny współczynnik załamania
+            double L = 10000 * Math.Pow(10, -6); //długość siatki
+            double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
+            double okres = lambdaB / (2 * Math.PI * neff);
+            double delta_n = 0.00010; //delta n
+            Grating grating = new Grating(okres, L, delta_n, neff);
+
+
+            List<double> Ry = symulation.Symulate(grating);
             for (int i = 0; i < countOfProbe; i++)
             {
-                chartReflection.Series["Reflection"].Points.AddXY(minimalPeriod+(i+1)*((maximalPeriod-minimalPeriod)/countOfProbe), Ry.ElementAt(i));
+                chartReflection.Series["Reflection"].Points.AddXY(minimalWavelength+(i+1)*((maximalWavelength-minimalWavelength)/countOfProbe), Ry.ElementAt(i));
             }
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

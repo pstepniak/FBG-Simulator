@@ -10,45 +10,50 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Symulation
     {
-        double[] x = { 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
+        double[] x = { 108.43, 108.43, 108.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
 
         /*Dane symulacji*/
         int ilosc_lambda; //ilość długości fali
-        double s; //na razie nie wiem co to jest ;p
-        double s2;
+        double s; //pierwsza długość fali dla której symulujemy
+        double s2; //ostatnia długość fali dla której symulujemy
         int ilosc_sekcji;
         double t;
 
         //double j = 0.5; //to chyba jakiś współczynnik tłumienia
 
 
-        public Symulation(int countOfProbe, double minimalPeriod, double maximalPeriod)
+        public Symulation(int countOfProbe, double minimalWavelength, double maximalWavelength)
         {
             //ilosc_lambda = 1000;
             ilosc_lambda = countOfProbe;
             //s = 1530.75 + (3 / ilosc_lambda);
-            s = minimalPeriod + ((maximalPeriod - minimalPeriod) / ilosc_lambda);
+            s = minimalWavelength + ((maximalWavelength - minimalWavelength) / ilosc_lambda);
             //s2 = 1533.75;
-            s2 = maximalPeriod;
+            s2 = maximalWavelength;
             ilosc_sekcji = x.Length;
             t = 1 / (double)ilosc_sekcji;
         }
-        public List<double> Symulate()
+        public List<double> Symulate(Grating grating)
         {
-            
+
 
             /*Dane siatki*/
-            double neff = 1.44688; //efektywny współczynnik załamania
-            double L = 10000 * Math.Pow(10,-6); //długość siatki
-            double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
-            double okres = lambdaB / (2 * Math.PI * neff);
-            double delta_n = 0.00040; //delta n
+            //double neff = 1.44688; //efektywny współczynnik załamania
+            //double L = 10000 * Math.Pow(10, -6); //długość siatki
+            //double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
+            //double okres = lambdaB / (2 * Math.PI * neff);
+            //double delta_n = 0.00010; //delta n
+            //double neff = 1.44688; //efektywny współczynnik załamania
+            //double L = 10000 * Math.Pow(10, -6); //długość siatki
+            //double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
+            //double okres = lambdaB / (2 * Math.PI * neff);
+            //double delta_n = 0.00010; //delta n
 
             /*lj = (t:t: 1)*L;*/
             List<double> lj = new List<double>();
             for (double i = t; i <= 1; i = i + t)
             {
-                lj.Add(i * L);
+                lj.Add(i * grating.length);
             }
 
             List<double> okresy = new List<double>(); //długość - ilość sekcji
@@ -59,7 +64,7 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 double okres_i = Math.Pow(10, -9) * x[i];
                 okresy.Add(okres_i);
-                double lambdaBy_i = 2 * Math.PI * neff * okresy[i];
+                double lambdaBy_i = 2 * Math.PI * grating.neff * okresy[i];
                 lambdaBy.Add(lambdaBy_i);
 
                 //współczynnik funkcji apodyzacji
@@ -88,8 +93,8 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 for (int nn = 0; nn < ilosc_sekcji; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    k[ll, nn] = (Math.PI / lambda.ElementAt(ll)) * delta_n * apodyzacja.ElementAt(nn);
-                    delta[ll, nn] = 2 * Math.PI * neff * ((1 / lambda.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
+                    k[ll, nn] = (Math.PI / lambda.ElementAt(ll)) * grating.refractiveIndexModulation * apodyzacja.ElementAt(nn);
+                    delta[ll, nn] = 2 * Math.PI * grating.neff * ((1 / lambda.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
                     sigma[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = Math.Pow(k[ll, nn], 2);
                     sigma2[ll, nn] = Math.Pow(sigma[ll, nn], 2);
