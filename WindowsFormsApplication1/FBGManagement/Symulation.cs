@@ -10,7 +10,7 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Symulation
     {
-        double[] x = { 108.43, 108.43, 108.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
+        double[] x = { 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
 
         /*Dane symulacji*/
         int ilosc_lambda; //ilość długości fali
@@ -35,7 +35,10 @@ namespace WindowsFormsApplication1.FBGManagement
         }
         public List<double> Symulate(Grating grating)
         {
-
+            for (int i = 0; i < x.Length; i++)
+            {
+                x[i] = grating.period / Math.Pow(10, -9);
+            }
 
             /*Dane siatki*/
             //double neff = 1.44688; //efektywny współczynnik załamania
