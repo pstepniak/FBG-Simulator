@@ -55,6 +55,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tb_GratingParts = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -67,7 +69,7 @@
             this.chartReflection.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartReflection.Legends.Add(legend1);
-            this.chartReflection.Location = new System.Drawing.Point(47, 152);
+            this.chartReflection.Location = new System.Drawing.Point(49, 187);
             this.chartReflection.Name = "chartReflection";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -87,7 +89,7 @@
             this.chartTransmission.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartTransmission.Legends.Add(legend2);
-            this.chartTransmission.Location = new System.Drawing.Point(501, 152);
+            this.chartTransmission.Location = new System.Drawing.Point(509, 187);
             this.chartTransmission.Name = "chartTransmission";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -121,7 +123,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(139, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(235, 134);
+            this.groupBox1.Size = new System.Drawing.Size(235, 169);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Simulation data";
@@ -177,6 +179,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tb_GratingParts);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.tb_Grating_NEff);
             this.groupBox2.Controls.Add(this.tb_GratingRIM);
             this.groupBox2.Controls.Add(this.tbGratingPeriod);
@@ -187,7 +191,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(380, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 134);
+            this.groupBox2.Size = new System.Drawing.Size(200, 169);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grating data";
@@ -257,6 +261,22 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "length [um]";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 125);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "parts";
+            // 
+            // tb_GratingParts
+            // 
+            this.tb_GratingParts.Location = new System.Drawing.Point(75, 125);
+            this.tb_GratingParts.Name = "tb_GratingParts";
+            this.tb_GratingParts.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingParts.TabIndex = 9;
+            // 
             // FBGForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,6 +321,8 @@
         private System.Windows.Forms.TextBox tb_GratingRIM;
         private System.Windows.Forms.TextBox tbGratingPeriod;
         private System.Windows.Forms.TextBox tb_GratingLength;
+        private System.Windows.Forms.TextBox tb_GratingParts;
+        private System.Windows.Forms.Label label8;
     }
 }
 

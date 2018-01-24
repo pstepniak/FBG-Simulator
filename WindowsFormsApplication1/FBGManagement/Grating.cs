@@ -15,14 +15,20 @@ namespace WindowsFormsApplication1.FBGManagement
         //public const double lambdaB = 0.0000015312;
         public double lambdaB {get;}
         //okres=lambdaB/(2*pi*neff);% delta n
+        public int parts { get; }
 
-        public Grating(double period, double length, double refractiveIndexModulation, double neff)
+        public Grating(double period, double length, double refractiveIndexModulation, double neff, int parts)
         {
             this.neff = neff;
             this.length = length;
             this.period = period;
             this.refractiveIndexModulation = refractiveIndexModulation;
+            this.parts = parts;
             lambdaB = period / (2 * Math.PI * neff);
+        }
+        public Grating(double period, double length, double refractiveIndexModulation, double neff) :  this(period, length,refractiveIndexModulation,neff, 10)
+        {
+
         }
         public Grating(double period, double length, double refractiveIndexModulation) : this(period, length, refractiveIndexModulation, 1.44688)
         {

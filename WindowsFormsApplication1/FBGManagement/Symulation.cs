@@ -10,7 +10,7 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Symulation
     {
-        double[] x = { 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43, 168.43 };
+        List<double> x = new List<double>();
 
         /*Dane symulacji*/
         int ilosc_lambda; //ilość długości fali
@@ -30,14 +30,16 @@ namespace WindowsFormsApplication1.FBGManagement
             s = minimalWavelength + ((maximalWavelength - minimalWavelength) / ilosc_lambda);
             //s2 = 1533.75;
             s2 = maximalWavelength;
-            ilosc_sekcji = x.Length;
-            t = 1 / (double)ilosc_sekcji;
         }
         public List<double> Symulate(Grating grating)
         {
-            for (int i = 0; i < x.Length; i++)
+            //okresy siatki
+            ilosc_sekcji = grating.parts;
+            t = 1 / (double)ilosc_sekcji;
+
+            for (int i = 0; i < ilosc_sekcji; i++)
             {
-                x[i] = grating.period / Math.Pow(10, -9);
+                x.Add(grating.period / Math.Pow(10, -9));
             }
 
             /*Dane siatki*/
@@ -54,9 +56,10 @@ namespace WindowsFormsApplication1.FBGManagement
 
             /*lj = (t:t: 1)*L;*/
             List<double> lj = new List<double>();
-            for (double i = t; i <= 1; i = i + t)
+            for (double i = t; i <= 1 || lj.Count < ilosc_sekcji; i = i + t)
             {
-                lj.Add(i * grating.length);
+                if (i > 1) i = 1;
+                lj.Add(i* grating.length);
             }
 
             List<double> okresy = new List<double>(); //długość - ilość sekcji
@@ -116,9 +119,6 @@ namespace WindowsFormsApplication1.FBGManagement
                     }
                 }
             }
-
-
-
 
 
             // macierz Fj, gdzie j mówi o pozycji rozpatrywania siatki

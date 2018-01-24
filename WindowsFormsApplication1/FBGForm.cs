@@ -67,7 +67,7 @@ namespace WindowsFormsApplication1
             tb_GratingRIM.Text = "0,0001";
             tbGratingPeriod.Text = "168";
             tb_GratingLength.Text = "10000";
-
+            tb_GratingParts.Text = "10";
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -99,6 +99,7 @@ namespace WindowsFormsApplication1
             double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
             double okres = lambdaB / (2 * Math.PI * neff);
             double delta_n = 0.00010; //delta n
+            int parts = 10;
             if (!String.IsNullOrEmpty(tb_Grating_NEff.Text))
                 neff = Double.Parse(tb_Grating_NEff.Text);
             if (!String.IsNullOrEmpty(tb_GratingRIM.Text))
@@ -107,9 +108,12 @@ namespace WindowsFormsApplication1
                 okres = Double.Parse(tbGratingPeriod.Text) * Math.Pow(10, -9); //168
             if (!String.IsNullOrEmpty(tb_GratingLength.Text))
                 L = Double.Parse(tb_GratingLength.Text)* Math.Pow(10, -6);
+            if (!String.IsNullOrEmpty(tb_GratingParts.Text))
+                parts = Int32.Parse(tb_GratingParts.Text);
             /*wczytanie z interfejsu właściwości siatki*/
 
-            Grating grating = new Grating(okres, L, delta_n, neff);
+            //Grating grating = new Grating(okres, L, delta_n, neff);
+            Grating grating = new Grating(okres, L, delta_n, neff, parts);
 
 
             List<double> Ry = symulation.Symulate(grating);
