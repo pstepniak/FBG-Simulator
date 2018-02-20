@@ -47,6 +47,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_GratingParts = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tb_Grating_NEff = new System.Windows.Forms.TextBox();
             this.tb_GratingRIM = new System.Windows.Forms.TextBox();
             this.tbGratingPeriod = new System.Windows.Forms.TextBox();
@@ -55,8 +57,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tb_GratingParts = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -105,7 +105,7 @@
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(682, 449);
+            this.btnCalculate.Location = new System.Drawing.Point(632, 132);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(75, 23);
             this.btnCalculate.TabIndex = 2;
@@ -196,6 +196,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grating data";
             // 
+            // tb_GratingParts
+            // 
+            this.tb_GratingParts.Location = new System.Drawing.Point(75, 125);
+            this.tb_GratingParts.Name = "tb_GratingParts";
+            this.tb_GratingParts.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingParts.TabIndex = 9;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 125);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "parts";
+            // 
             // tb_Grating_NEff
             // 
             this.tb_Grating_NEff.Location = new System.Drawing.Point(75, 97);
@@ -260,22 +276,6 @@
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "length [um]";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 125);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(30, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "parts";
-            // 
-            // tb_GratingParts
-            // 
-            this.tb_GratingParts.Location = new System.Drawing.Point(75, 125);
-            this.tb_GratingParts.Name = "tb_GratingParts";
-            this.tb_GratingParts.Size = new System.Drawing.Size(100, 20);
-            this.tb_GratingParts.TabIndex = 9;
             // 
             // FBGForm
             // 

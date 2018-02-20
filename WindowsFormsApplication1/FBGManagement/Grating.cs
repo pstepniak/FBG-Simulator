@@ -10,11 +10,10 @@ namespace WindowsFormsApplication1.FBGManagement
     {
         public double length { get; }
         public double period { get; }
-        public double refractiveIndexModulation { get; } //delta_n
+        public double refractiveIndexModulation { get; }
         public double neff { get; }
-        //public const double lambdaB = 0.0000015312;
         public double lambdaB {get;}
-        //okres=lambdaB/(2*pi*neff);% delta n
+        //period=lambdaB/(2*pi*neff);
         public int parts { get; }
 
         public Grating(double period, double length, double refractiveIndexModulation, double neff, int parts)

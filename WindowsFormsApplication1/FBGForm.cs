@@ -59,15 +59,19 @@ namespace WindowsFormsApplication1
             //    double r = (rnd.Next(1, 10))/10;
             //    p.SetValueY(x - r);
             //}
-            tb_CountOfProbe.Text = "500";
-            tb_MinimalWavelength.Text = "1525";
-            tb_maximalWavelength.Text = "1535";
+            tb_CountOfProbe.Text = "1000";
+            //tb_MinimalWavelength.Text = "1525";
+            //tb_maximalWavelength.Text = "1535";
+
+            tb_MinimalWavelength.Text = "1530,75";
+            tb_maximalWavelength.Text = "1533,75";
 
             tb_Grating_NEff.Text = "1,44688";
             tb_GratingRIM.Text = "0,0001";
-            tbGratingPeriod.Text = "168";
+            tbGratingPeriod.Text = "168,43";
             tb_GratingLength.Text = "10000";
-            tb_GratingParts.Text = "10";
+            //tb_GratingParts.Text = "10";
+            tb_GratingParts.Text = "1";
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -92,9 +96,10 @@ namespace WindowsFormsApplication1
                 minimalWavelength = Double.Parse(tb_MinimalWavelength.Text);
             if (!String.IsNullOrEmpty(tb_maximalWavelength.Text))
                 maximalWavelength = Double.Parse(tb_maximalWavelength.Text);
-            Symulation symulation = new Symulation(countOfProbe, minimalWavelength, maximalWavelength);
+            Simulation symulation = new Simulation(countOfProbe, minimalWavelength, maximalWavelength);
             /*domyślne dane siatki*/
-            double neff = 1.44688; //efektywny współczynnik załamania
+            //double neff = 1.44688; //efektywny współczynnik załamania
+            double neff = 1.4469; //efektywny współczynnik załamania
             double L = 10000 * Math.Pow(10, -6); //długość siatki
             double lambdaB = 1531.2 * Math.Pow(10, -9); //długość fali Bragga
             double okres = lambdaB / (2 * Math.PI * neff);
@@ -116,7 +121,7 @@ namespace WindowsFormsApplication1
             Grating grating = new Grating(okres, L, delta_n, neff, parts);
 
 
-            List<double> Ry = symulation.Symulate(grating);
+            List<double> Ry = symulation.Simulate(grating);
             for (int i = 0; i < countOfProbe; i++)
             {
                 chartTransmission.Series["Transmission"].Points.AddXY(minimalWavelength + (i + 1) * ((maximalWavelength - minimalWavelength) / countOfProbe), Ry.ElementAt(i));
