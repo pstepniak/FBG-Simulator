@@ -127,6 +127,8 @@ namespace WindowsFormsApplication1
                 chartTransmission.Series["Transmission"].Points.AddXY(minimalWavelength + (i + 1) * ((maximalWavelength - minimalWavelength) / countOfProbe), Ry.ElementAt(i));
                 chartReflection.Series["Reflection"].Points.AddXY(minimalWavelength + (i + 1) * ((maximalWavelength - minimalWavelength) / countOfProbe), 1-Ry.ElementAt(i));
             }
+            //zapis wyniku do pliku
+            Utils.SaveArrayAsCSV(Ry.ToArray(), "C:\\FBG\\x.csv");
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
