@@ -22,42 +22,26 @@ namespace WindowsFormsApplication1
         private void FBGForm_Load(object sender, EventArgs e)
         {
             //inicjowanie formularza
-            tb_CountOfProbe.Text = "1000";
 
+            //dane symulacji
+            tb_CountOfProbe.Text = "1000";
             tb_MinimalWavelength.Text = "1530,75";
             tb_maximalWavelength.Text = "1533,75";
-
+            //dane siatki
             tb_Grating_NEff.Text = "1,4469";
             tb_GratingRIM.Text = "0,0001";
             tbGratingPeriod.Text = "168,43";
             tb_GratingLength.Text = "10000";
-            //tb_GratingParts.Text = "10";
             tb_GratingParts.Text = "1";
+            //dane apodyzacji
+            cb_gratingApodProfile.Items.Add(Grating.Apodization.Gaussian);
+            cb_gratingApodProfile.Items.Add(Grating.Apodization.Sin);
+            cb_gratingApodProfile.Items.Add(Grating.Apodization.Sinc);
+            cb_gratingApodProfile.Items.Add(Grating.Apodization.None);
+            cb_gratingApodProfile.SelectedItem = Grating.Apodization.None;
         }
-
-        private void btnCalculate_Click(object sender, EventArgs e)
+        private Grating PrepareGrating()
         {
-            /*czyszczenie wykresów*/
-            foreach (var series in chartReflection.Series)
-            {
-                series.Points.Clear();
-            }
-            foreach (var series in chartTransmission.Series)
-            {
-                series.Points.Clear();
-            }
-            /*domyślne wartości symulacji*/
-            int countOfProbe = 500;
-            decimal minimalWavelength = 1525;
-            decimal maximalWavelength = 1535;
-            /*wczytanie z interfejsu parametrów symulacji*/
-            if (!String.IsNullOrEmpty(tb_CountOfProbe.Text))
-                countOfProbe = Int32.Parse(tb_CountOfProbe.Text);
-            if (!String.IsNullOrEmpty(tb_MinimalWavelength.Text))
-                minimalWavelength = Decimal.Parse(tb_MinimalWavelength.Text);
-            if (!String.IsNullOrEmpty(tb_maximalWavelength.Text))
-                maximalWavelength = Decimal.Parse(tb_maximalWavelength.Text);
-            Simulation symulation = new Simulation(countOfProbe, minimalWavelength, maximalWavelength);
             /*domyślne dane siatki*/
             //double neff = 1.44688; //efektywny współczynnik załamania
             decimal neff = 1.4469m; //efektywny współczynnik załamania
@@ -73,28 +57,96 @@ namespace WindowsFormsApplication1
             if (!String.IsNullOrEmpty(tbGratingPeriod.Text))
                 okres = Decimal.Parse(tbGratingPeriod.Text) * (decimal)Math.Pow(10, -9); //168
             if (!String.IsNullOrEmpty(tb_GratingLength.Text))
-                L = Decimal.Parse(tb_GratingLength.Text)* (decimal)Math.Pow(10, -6);
+                L = Decimal.Parse(tb_GratingLength.Text) * (decimal)Math.Pow(10, -6);
             if (!String.IsNullOrEmpty(tb_GratingParts.Text))
                 parts = Int32.Parse(tb_GratingParts.Text);
             /*wczytanie z interfejsu właściwości siatki*/
 
             //Grating grating = new Grating(okres, L, delta_n, neff);
-            Grating grating = new Grating(okres, L, delta_n, neff, parts);
-
-
-            List<decimal> Ry = symulation.Simulate(grating);
-            for (int i = 0; i < countOfProbe; i++)
+            return new Grating(okres, L, delta_n, neff, parts);
+        }
+        private Simulation PrepareSimulation()
+        {
+            /*domyślne wartości symulacji*/
+            int countOfProbe = 500;
+            decimal minimalWavelength = 1525;
+            decimal maximalWavelength = 1535;
+            /*wczytanie z interfejsu parametrów symulacji*/
+            if (!String.IsNullOrEmpty(tb_CountOfProbe.Text))
+                countOfProbe = Int32.Parse(tb_CountOfProbe.Text);
+            if (!String.IsNullOrEmpty(tb_MinimalWavelength.Text))
+                minimalWavelength = Decimal.Parse(tb_MinimalWavelength.Text);
+            if (!String.IsNullOrEmpty(tb_maximalWavelength.Text))
+                maximalWavelength = Decimal.Parse(tb_maximalWavelength.Text);
+            return new Simulation(countOfProbe, minimalWavelength, maximalWavelength);
+        }
+        private void PrintGraphs(Simulation simulation, List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            for (int i = 0; i < simulation.countOfProbes; i++)
             {
-                chartTransmission.Series["Transmission"].Points.AddXY(minimalWavelength + (i + 1) * ((maximalWavelength - minimalWavelength) / countOfProbe), Ry.ElementAt(i));
-                chartReflection.Series["Reflection"].Points.AddXY(minimalWavelength + (i + 1) * ((maximalWavelength - minimalWavelength) / countOfProbe), 1-Ry.ElementAt(i));
+                chartTransmission.Series["Transmission"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), simulationResult.ElementAt(i));
+                chartReflection.Series["Reflection"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), 1 - simulationResult.ElementAt(i));
+                //chartTransmission.Series["Transmission"].Points.AddXY(wavelengths.ElementAt(i), Ry.ElementAt(i));
+                //chartReflection.Series["Reflection"].Points.AddXY(wavelengths.ElementAt(i), 1 - Ry.ElementAt(i));
             }
+        }
+        private void ClearGraphs()
+        {
+            foreach (var series in chartReflection.Series)
+            {
+                series.Points.Clear();
+            }
+            foreach (var series in chartTransmission.Series)
+            {
+                series.Points.Clear();
+            }
+        }
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            Simulation simulation = PrepareSimulation();
+            Grating grating = PrepareGrating();
+            List<decimal> wavelengths = null;
+
+            //Wykonanie symulacji
+            List<decimal> simulationResult = simulation.Simulate(grating, out wavelengths);
+            //Wyczyszczenie wykresów
+            ClearGraphs();
+            //Narysowanie wykresów
+            PrintGraphs(simulation, simulationResult, wavelengths);
             //zapis wyniku do pliku
-            Utils.SaveArrayAsCSV(Ry.ToArray(), "C:\\FBG\\x.csv");
+            Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void cb_gratingApodProfile_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBox s = sender as ComboBox;
+            if (s != null)
+            {
+                if (Grating.Apodization.Gaussian.Equals(s.SelectedItem))
+                {
+                    tb_grtingApodParam.Enabled = true;
+                    l_grtingApodParam.Enabled = true;
+                }
+                else
+                {
+                    tb_grtingApodParam.Enabled = false;
+                    l_grtingApodParam.Enabled = false;
+                }
+
+                if (Grating.Apodization.None.Equals(s.SelectedItem))
+                {
+                    cb_gratingApodReverse.Enabled = false;
+                }
+                else
+                {
+                    cb_gratingApodReverse.Enabled = true;
+                }
+            }
         }
     }
 }

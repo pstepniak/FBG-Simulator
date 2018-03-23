@@ -13,11 +13,11 @@ namespace WindowsFormsApplication1.FBGManagement
         List<decimal> x = new List<decimal>();
 
         /*Dane symulacji*/
-        int countOfProbes; //ilość długości fali
-        decimal s; //pierwsza długość fali dla której symulujemy
-        decimal s2; //ostatnia długość fali dla której symulujemy
-        int countOfSections;
-        decimal t;
+        public int countOfProbes { get; } //ilość długości fali
+        public decimal s { get; } //pierwsza długość fali dla której symulujemy
+        public decimal s2 { get; } //ostatnia długość fali dla której symulujemy
+        private int countOfSections;
+        private decimal t;
 
         //double j = 0.5; //to chyba jakiś współczynnik tłumienia
 
@@ -28,7 +28,7 @@ namespace WindowsFormsApplication1.FBGManagement
             s = minimalWavelength + ((maximalWavelength - minimalWavelength) / countOfProbes);
             s2 = maximalWavelength;
         }
-        public List<decimal> Simulate(Grating grating)
+        public List<decimal> Simulate(Grating grating, out List<decimal> wavelengths)
         {
             //okresy siatki
             countOfSections = grating.parts;
@@ -77,7 +77,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 apodisation.Add(apodyzacja_i);
             }
 
-            List<decimal> wavelenghts = new List<decimal>();
+            wavelengths = new List<decimal>();
             decimal incrementStep = ((s2 - s) / (decimal)countOfProbes);
             //double stepRounding = Math.Log10((double)countOfProbes);
             //stepRounding = Math.Ceiling(stepRounding);
@@ -89,7 +89,7 @@ namespace WindowsFormsApplication1.FBGManagement
             //}
             for (int i = 0; i < countOfProbes; i++)
             {
-                wavelenghts.Add((s + (i + 1) * ((s2 - s) / countOfProbes)) * (decimal)Math.Pow(10, -9));
+                wavelengths.Add((s + (i + 1) * ((s2 - s) / countOfProbes)) * (decimal)Math.Pow(10, -9));
             }
 
                 decimal[,] k = new decimal[countOfProbes, countOfSections];
@@ -103,8 +103,8 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    k[ll, nn] = ((decimal)Math.PI / wavelenghts.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn);
-                    delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelenghts.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
+                    k[ll, nn] = ((decimal)Math.PI / wavelengths.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn);
+                    delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelengths.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
                     sgm[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = (decimal)Math.Pow((double)k[ll, nn], 2);
                     sgm2[ll, nn] = (decimal)Math.Pow((double)sgm[ll, nn], 2);
