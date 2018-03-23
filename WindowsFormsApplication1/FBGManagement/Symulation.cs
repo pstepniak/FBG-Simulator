@@ -10,33 +10,33 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Simulation
     {
-        List<double> x = new List<double>();
+        List<decimal> x = new List<decimal>();
 
         /*Dane symulacji*/
         int countOfProbes; //ilość długości fali
-        double s; //pierwsza długość fali dla której symulujemy
-        double s2; //ostatnia długość fali dla której symulujemy
+        decimal s; //pierwsza długość fali dla której symulujemy
+        decimal s2; //ostatnia długość fali dla której symulujemy
         int countOfSections;
-        double t;
+        decimal t;
 
         //double j = 0.5; //to chyba jakiś współczynnik tłumienia
 
 
-        public Simulation(int countOfProbe, double minimalWavelength, double maximalWavelength)
+        public Simulation(int countOfProbe, decimal minimalWavelength, decimal maximalWavelength)
         {
             countOfProbes = countOfProbe;
             s = minimalWavelength + ((maximalWavelength - minimalWavelength) / countOfProbes);
             s2 = maximalWavelength;
         }
-        public List<double> Simulate(Grating grating)
+        public List<decimal> Simulate(Grating grating)
         {
             //okresy siatki
             countOfSections = grating.parts;
-            t = 1 / (double)countOfSections;
+            t = 1 / (decimal)countOfSections;
 
             for (int i = 0; i < countOfSections; i++)
             {
-                x.Add(grating.period / Math.Pow(10, -9));
+                x.Add(grating.period / (decimal)Math.Pow(10, -9));
             }
 
             /*Dane siatki*/
@@ -52,60 +52,69 @@ namespace WindowsFormsApplication1.FBGManagement
             //double delta_n = 0.00010; //delta n
 
             /*lj = (t:t: 1)*L;*/
-            List<double> lj = new List<double>();
-            for (double i = t; i <= 1 || lj.Count < countOfSections; i = i + t)
+            List<decimal> lj = new List<decimal>();
+            for (decimal i = t; i <= 1 || lj.Count < countOfSections; i = i + t)
             {
-                if (i > 1) i = 1;
+                if (i > 1) i = 1;//ZABEZPIECZENIE PRZED ZŁYM ZAOKRĄGLENIEM
                 lj.Add(i* grating.length);
             }
 
-            List<double> okresy = new List<double>(); //długość - ilość sekcji
-            List<double> lambdaBy = new List<double>(); //długość - ilość sekcji
-            List<double> apodisation = new List<double>(); //długość - ilość sekcji
+            List<decimal> okresy = new List<decimal>(); //długość - ilość sekcji
+            List<decimal> lambdaBy = new List<decimal>(); //długość - ilość sekcji
+            List<decimal> apodisation = new List<decimal>(); //długość - ilość sekcji
             /*for nn = 1:1:ilosc_sekcji;*/
             for (int i = 0; i < countOfSections; i++)
             {
-                double okres_i = Math.Pow(10, -9) * x[i];
+                decimal okres_i = (decimal)Math.Pow(10, -9) * x[i];
                 okresy.Add(okres_i);
-                double lambdaBy_i = 2 * Math.PI * grating.neff * okresy[i];
+                decimal lambdaBy_i = 2m * (decimal)Math.PI * grating.neff * okresy[i];
                 lambdaBy.Add(lambdaBy_i);
 
                 //współczynnik funkcji apodyzacji
-                double a = 80;
-                double apodyzacja_i = 1;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
+                decimal a = 80;
+                decimal apodyzacja_i = 1;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
                 //apodyzacja(nn) = exp(-a * ((lj(nn) - L / 2) / L) ^ 2);
                 apodisation.Add(apodyzacja_i);
             }
 
-            List<double> wavelenghts = new List<double>();
-            for (double i = s;i<=s2;i=i+((s2-s)/(double)countOfProbes))
+            List<decimal> wavelenghts = new List<decimal>();
+            decimal incrementStep = ((s2 - s) / (decimal)countOfProbes);
+            //double stepRounding = Math.Log10((double)countOfProbes);
+            //stepRounding = Math.Ceiling(stepRounding);
+            //incrementStep = Math.Round(incrementStep, (Int32)stepRounding);
+            //incrementStep = Math.Round(incrementStep, 8); //8 wstawiamy na sztywno - powinno wystarczyć
+            //for (decimal i = s;i<=s2;i=i+ incrementStep)
+            //{
+            //    wavelenghts.Add(i * (decimal)Math.Pow(10, -9));
+            //}
+            for (int i = 0; i < countOfProbes; i++)
             {
-                wavelenghts.Add(i * Math.Pow(10, -9));
+                wavelenghts.Add((s + (i + 1) * ((s2 - s) / countOfProbes)) * (decimal)Math.Pow(10, -9));
             }
 
-            double[,] k = new double[countOfProbes, countOfSections];
-            double[,] delta = new double[countOfProbes, countOfSections];
-            double[,] k2 = new double[countOfProbes, countOfSections];
-            double[,] sgm = new double[countOfProbes, countOfSections];
-            double[,] sgm2 = new double[countOfProbes, countOfSections];
+                decimal[,] k = new decimal[countOfProbes, countOfSections];
+            decimal[,] delta = new decimal[countOfProbes, countOfSections];
+            decimal[,] k2 = new decimal[countOfProbes, countOfSections];
+            decimal[,] sgm = new decimal[countOfProbes, countOfSections];
+            decimal[,] sgm2 = new decimal[countOfProbes, countOfSections];
             Complex[,] gammaB = new Complex[countOfProbes, countOfSections];
 
             for (int ll = 0; ll < countOfProbes; ll++)
             {
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    k[ll, nn] = (Math.PI / wavelenghts.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn);
-                    delta[ll, nn] = 2 * Math.PI * grating.neff * ((1 / wavelenghts.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
+                    k[ll, nn] = ((decimal)Math.PI / wavelenghts.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn);
+                    delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelenghts.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
                     sgm[ll, nn] = delta[ll, nn]; //chirp
-                    k2[ll, nn] = Math.Pow(k[ll, nn], 2);
-                    sgm2[ll, nn] = Math.Pow(sgm[ll, nn], 2);
+                    k2[ll, nn] = (decimal)Math.Pow((double)k[ll, nn], 2);
+                    sgm2[ll, nn] = (decimal)Math.Pow((double)sgm[ll, nn], 2);
                     if (k2[ll, nn] > sgm2[ll, nn])
                     {
-                        gammaB[ll, nn] = Math.Pow(k2[ll, nn] - sgm2[ll, nn], 0.5); //wzór 3-14
+                        gammaB[ll, nn] = Math.Pow((double)(k2[ll, nn] - sgm2[ll, nn]), 0.5); //wzór 3-14
                     }
                     else if (k2[ll, nn] < sgm2[ll, nn])
                     {
-                        gammaB[ll, nn] = Complex.ImaginaryOne * Math.Pow(sgm2[ll, nn] - k2[ll, nn], 0.5); //wzór 3-15
+                        gammaB[ll, nn] = Complex.ImaginaryOne * Math.Pow((double)(sgm2[ll, nn] - k2[ll, nn]), 0.5); //wzór 3-15
                     }
                     else
                     {
@@ -128,9 +137,9 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    F11[ll,nn] = Complex.Cosh(gammaB[ll, nn] * lj.ElementAt(nn)) + Complex.ImaginaryOne*(sgm[ll, nn] / gammaB[ll, nn]) * 
-                        Complex.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
-                    F12[ll,nn] = Complex.ImaginaryOne*(k[ll, nn] / gammaB[ll, nn]) * Complex.Sinh(gammaB[ll, nn] * lj.ElementAt(nn));
+                    F11[ll,nn] = Complex.Cosh(gammaB[ll, nn] * (double)lj.ElementAt(nn)) + Complex.ImaginaryOne*((double)(sgm[ll, nn]) / gammaB[ll, nn]) * 
+                        Complex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
+                    F12[ll,nn] = Complex.ImaginaryOne*((double)k[ll, nn] / gammaB[ll, nn]) * Complex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
                     F21[ll, nn] = F12[ll, nn];
                     F22[ll, nn] = F11[ll, nn];
                 }
@@ -159,7 +168,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 T[1, 1, f] = D[1, 1, f, countOfSections-1];
             }
 
-            List<double> Ry = new List<double>();
+            List<decimal> Ry = new List<decimal>();
 
             int fi = 0; //counter
             while (fi <countOfProbes)
@@ -172,16 +181,16 @@ namespace WindowsFormsApplication1.FBGManagement
                     T[1, 1, fi] = T[1, 1, fi] * D[1, 1, fi, e];
                 }
                 Complex value = 1 / T[0, 0, fi];
-                double doubleValue = Complex.Abs(value);
+                decimal doubleValue = (decimal)Complex.Abs(value);
                 Ry.Add(doubleValue);
 
                 fi = fi + 1;
             }
 
             //normalizacja Ry:
-            List<double> NormRy = new List<double>();
-            double norm = Ry.Max();
-            foreach (double item in Ry)
+            List<decimal> NormRy = new List<decimal>();
+            decimal norm = Ry.Max();
+            foreach (decimal item in Ry)
             {
                 NormRy.Add(item / norm);
             }
