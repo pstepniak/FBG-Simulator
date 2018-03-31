@@ -59,19 +59,23 @@ namespace WindowsFormsApplication1.FBGManagement
 
         public enum Apodisation {Gaussian, Sinc, Sin, None}
 
-        public decimal profile(decimal z)
+        public decimal ProfileForSection(int sectionNumber, int countOfSections)
+        {
+            return this.Profile(this.length * sectionNumber / countOfSections);
+        }
+        private decimal Profile(decimal z)
         {
             decimal profValue;
             switch (this.apodisationType)
             {
                 case Apodisation.Gaussian:
-                    profValue = gaussianProfile(z, this.apodisationParam);
+                    profValue = GaussianProfile(z, this.apodisationParam);
                     break;
                 case Apodisation.Sinc:
-                    profValue = sincProfile(z);
+                    profValue = SincProfile(z);
                     break;
                 case Apodisation.Sin:
-                    profValue = sinProfile(z);
+                    profValue = SinProfile(z);
                     break;
                 case Apodisation.None:
                     profValue = 1;
@@ -80,18 +84,17 @@ namespace WindowsFormsApplication1.FBGManagement
                     profValue = 1;
                     break;
             }
-            if(this.apodisationReverse)
+            if (this.apodisationReverse)
             {
                 profValue = 1 - profValue;
-            }
-            profValue = profValue * refractiveIndexModulation + neff;
+            };
             return profValue;
         }
-        private decimal gaussianProfile(decimal z, decimal sigma)
+        private decimal GaussianProfile(decimal z, decimal sigma)
         {
             return (decimal)Math.Exp((double)(-sigma * (decimal)Math.Pow((double)((z - length / 2) / length), 2)));
         }
-        private decimal sincProfile(decimal z)
+        private decimal SincProfile(decimal z)
         {
             if ((2 * (decimal)Math.PI * (z - length / 2) / length) != 0)
             {
@@ -101,7 +104,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 return 1;
             }
         }
-        private decimal  sinProfile(decimal z)
+        private decimal  SinProfile(decimal z)
         {
             return (decimal)Math.Sin((double)((decimal)Math.PI * z / length));
         }

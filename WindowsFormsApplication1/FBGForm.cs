@@ -121,8 +121,8 @@ namespace WindowsFormsApplication1
 
             for (int i = 0; i < probes; i++)
             {
-                //przemnażamy wartość neff przez wartość profilu apodyzacji w danym punkcie
-                chartApod.Series["Apodisation"].Points.AddXY(i, grating.profile(grating.length * i / probes));
+                //wyznaczamy wartość neff uwzględniająz profil apodyzacji
+                chartApod.Series["Apodisation"].Points.AddXY(i, grating.ProfileForSection(i, probes) * grating.refractiveIndexModulation + grating.neff);
             }
             chartApod.ChartAreas[0].AxisY.Minimum = (double)grating.neff;
             if (grating.refractiveIndexModulation != 0)

@@ -70,10 +70,8 @@ namespace WindowsFormsApplication1.FBGManagement
                 decimal lambdaBy_i = 2m * (decimal)Math.PI * grating.neff * okresy[i];
                 lambdaBy.Add(lambdaBy_i);
 
-                //współczynnik funkcji apodyzacji
-                decimal a = 80;
-                decimal apodyzacja_i = 1;//Math.Exp(-a * Math.Pow(((lj.ElementAt(i) - L / 2) / L), 2));
-                //apodyzacja(nn) = exp(-a * ((lj(nn) - L / 2) / L) ^ 2);
+                //apodyzacja dla sekcji w oparciu o dane zapisane na siatce
+                decimal apodyzacja_i = grating.ProfileForSection(i, countOfSections);
                 apodisation.Add(apodyzacja_i);
             }
 
