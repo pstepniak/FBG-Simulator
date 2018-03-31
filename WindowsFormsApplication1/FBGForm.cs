@@ -34,11 +34,12 @@ namespace WindowsFormsApplication1
             tb_GratingLength.Text = "10000";
             tb_GratingParts.Text = "1";
             //dane apodyzacji
-            cb_gratingApodProfile.Items.Add(Grating.Apodization.Gaussian);
-            cb_gratingApodProfile.Items.Add(Grating.Apodization.Sin);
-            cb_gratingApodProfile.Items.Add(Grating.Apodization.Sinc);
-            cb_gratingApodProfile.Items.Add(Grating.Apodization.None);
-            cb_gratingApodProfile.SelectedItem = Grating.Apodization.None;
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Gaussian);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sin);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sinc);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.None);
+            cb_gratingApodProfile.SelectedItem = Grating.Apodisation.None;
+            tb_gratingApodParam.Text = "5";
         }
         private Grating PrepareGrating()
         {
@@ -49,6 +50,9 @@ namespace WindowsFormsApplication1
             decimal lambdaB = 1531.2m * (decimal)Math.Pow(10, -9); //długość fali Bragga
             decimal okres = lambdaB / (2 * (decimal)Math.PI * neff);
             decimal delta_n = 0.00010m; //delta n
+            Grating.Apodisation apodisationProfile = Grating.Apodisation.None;
+            decimal apodisationParam = 1;
+            bool apodisationReverse = false;
             int parts = 10;
             if (!String.IsNullOrEmpty(tb_Grating_NEff.Text))
                 neff = Decimal.Parse(tb_Grating_NEff.Text);
@@ -62,8 +66,14 @@ namespace WindowsFormsApplication1
                 parts = Int32.Parse(tb_GratingParts.Text);
             /*wczytanie z interfejsu właściwości siatki*/
 
+            if (cb_gratingApodProfile.SelectedItem != null && !String.IsNullOrEmpty(cb_gratingApodProfile.SelectedItem.ToString()))
+                apodisationProfile = (Grating.Apodisation)cb_gratingApodProfile.SelectedItem;
+            if (!String.IsNullOrEmpty(tb_gratingApodParam.Text))
+                apodisationParam = Decimal.Parse(tb_gratingApodParam.Text);
+            apodisationReverse = cb_gratingApodReverse.Checked;
             //Grating grating = new Grating(okres, L, delta_n, neff);
-            return new Grating(okres, L, delta_n, neff, parts);
+            //Grating grating = new Grating(okres, L, delta_n, neff, parts);
+            return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse);
         }
         private Simulation PrepareSimulation()
         {
@@ -89,6 +99,36 @@ namespace WindowsFormsApplication1
                 //chartTransmission.Series["Transmission"].Points.AddXY(wavelengths.ElementAt(i), Ry.ElementAt(i));
                 //chartReflection.Series["Reflection"].Points.AddXY(wavelengths.ElementAt(i), 1 - Ry.ElementAt(i));
             }
+        }
+        private void RefreshApodisationGraph()
+        {
+            try
+            {
+                Grating grating = PrepareGrating();
+                PrintApodisationGraph(grating);
+            } catch (Exception e)
+            {
+
+            }
+        }
+        private void PrintApodisationGraph(Grating grating)
+        {
+            foreach (var series in chartApod.Series)
+            {
+                series.Points.Clear();
+            }
+            int probes = 100;
+
+            for (int i = 0; i < probes; i++)
+            {
+                //przemnażamy wartość neff przez wartość profilu apodyzacji w danym punkcie
+                chartApod.Series["Apodisation"].Points.AddXY(i, grating.profile(grating.length * i / probes));
+            }
+            chartApod.ChartAreas[0].AxisY.Minimum = (double)grating.neff;
+            if (grating.refractiveIndexModulation != 0)
+                chartApod.ChartAreas[0].AxisY.Maximum = (double)(grating.neff + grating.refractiveIndexModulation);
+            else
+                chartApod.ChartAreas[0].AxisY.Maximum = (double)(grating.neff + 0.0001m);
         }
         private void ClearGraphs()
         {
@@ -127,26 +167,58 @@ namespace WindowsFormsApplication1
             ComboBox s = sender as ComboBox;
             if (s != null)
             {
-                if (Grating.Apodization.Gaussian.Equals(s.SelectedItem))
+                if (Grating.Apodisation.Gaussian.Equals(s.SelectedItem))
                 {
-                    tb_grtingApodParam.Enabled = true;
+                    tb_gratingApodParam.Enabled = true;
                     l_grtingApodParam.Enabled = true;
                 }
                 else
                 {
-                    tb_grtingApodParam.Enabled = false;
+                    tb_gratingApodParam.Enabled = false;
                     l_grtingApodParam.Enabled = false;
                 }
 
-                if (Grating.Apodization.None.Equals(s.SelectedItem))
+                if (Grating.Apodisation.None.Equals(s.SelectedItem))
                 {
                     cb_gratingApodReverse.Enabled = false;
+                    cb_gratingApodReverse.Checked = false;
                 }
                 else
                 {
                     cb_gratingApodReverse.Enabled = true;
                 }
             }
+            RefreshApodisationGraph();
+        }
+
+        private void tb_gratingApodParam_TextChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
+        }
+
+        private void tb_GratingLength_TextChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
+        }
+
+        private void tb_GratingRIM_TextChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
+        }
+
+        private void tb_Grating_NEff_TextChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
+        }
+
+        private void tb_GratingParts_TextChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
+        }
+
+        private void cb_gratingApodReverse_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshApodisationGraph();
         }
     }
 }

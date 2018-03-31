@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title19 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title20 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title21 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chartReflection = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTransmission = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -48,66 +48,66 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tb_GratingParts = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.tb_GratingParts = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tb_GratingLength = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbGratingPeriod = new System.Windows.Forms.TextBox();
             this.tb_Grating_NEff = new System.Windows.Forms.TextBox();
             this.tb_GratingRIM = new System.Windows.Forms.TextBox();
-            this.tbGratingPeriod = new System.Windows.Forms.TextBox();
-            this.tb_GratingLength = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cb_gratingApodReverse = new System.Windows.Forms.CheckBox();
+            this.l_grtingApodParam = new System.Windows.Forms.Label();
+            this.tb_gratingApodParam = new System.Windows.Forms.TextBox();
             this.cb_gratingApodProfile = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.chartApod = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tb_grtingApodParam = new System.Windows.Forms.TextBox();
-            this.l_grtingApodParam = new System.Windows.Forms.Label();
-            this.cb_gratingApodReverse = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartApod)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartApod)).BeginInit();
             this.SuspendLayout();
             // 
             // chartReflection
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartReflection.ChartAreas.Add(chartArea1);
+            chartArea19.Name = "ChartArea1";
+            this.chartReflection.ChartAreas.Add(chartArea19);
             this.chartReflection.Location = new System.Drawing.Point(52, 316);
             this.chartReflection.Name = "chartReflection";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Reflection";
-            this.chartReflection.Series.Add(series1);
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series19.Name = "Reflection";
+            this.chartReflection.Series.Add(series19);
             this.chartReflection.Size = new System.Drawing.Size(444, 300);
             this.chartReflection.TabIndex = 0;
             this.chartReflection.Text = "Transmission";
-            title1.Name = "Reflection";
-            title1.Text = "Reflection";
-            this.chartReflection.Titles.Add(title1);
+            title19.Name = "Reflection";
+            title19.Text = "Reflection";
+            this.chartReflection.Titles.Add(title19);
             // 
             // chartTransmission
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartTransmission.ChartAreas.Add(chartArea2);
+            chartArea20.Name = "ChartArea1";
+            this.chartTransmission.ChartAreas.Add(chartArea20);
             this.chartTransmission.Location = new System.Drawing.Point(506, 316);
             this.chartTransmission.Name = "chartTransmission";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Transmission";
-            this.chartTransmission.Series.Add(series2);
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series20.Name = "Transmission";
+            this.chartTransmission.Series.Add(series20);
             this.chartTransmission.Size = new System.Drawing.Size(454, 300);
             this.chartTransmission.TabIndex = 1;
             this.chartTransmission.Text = "Transmission";
-            title2.Name = "Transmission";
-            title2.Text = "Transmission";
-            this.chartTransmission.Titles.Add(title2);
+            title20.Name = "Transmission";
+            title20.Text = "Transmission";
+            this.chartTransmission.Titles.Add(title20);
             // 
             // btnCalculate
             // 
@@ -194,12 +194,42 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grating data";
             // 
-            // tb_GratingParts
+            // groupBox4
             // 
-            this.tb_GratingParts.Location = new System.Drawing.Point(71, 126);
-            this.tb_GratingParts.Name = "tb_GratingParts";
-            this.tb_GratingParts.Size = new System.Drawing.Size(100, 20);
-            this.tb_GratingParts.TabIndex = 9;
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.tb_GratingParts);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.tb_GratingLength);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.tbGratingPeriod);
+            this.groupBox4.Controls.Add(this.tb_Grating_NEff);
+            this.groupBox4.Controls.Add(this.tb_GratingRIM);
+            this.groupBox4.Location = new System.Drawing.Point(14, 23);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(199, 269);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Grating properties";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "length [um]";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "period [nm]";
             // 
             // label8
             // 
@@ -210,33 +240,13 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "parts";
             // 
-            // tb_Grating_NEff
+            // tb_GratingParts
             // 
-            this.tb_Grating_NEff.Location = new System.Drawing.Point(71, 100);
-            this.tb_Grating_NEff.Name = "tb_Grating_NEff";
-            this.tb_Grating_NEff.Size = new System.Drawing.Size(100, 20);
-            this.tb_Grating_NEff.TabIndex = 7;
-            // 
-            // tb_GratingRIM
-            // 
-            this.tb_GratingRIM.Location = new System.Drawing.Point(71, 74);
-            this.tb_GratingRIM.Name = "tb_GratingRIM";
-            this.tb_GratingRIM.Size = new System.Drawing.Size(100, 20);
-            this.tb_GratingRIM.TabIndex = 6;
-            // 
-            // tbGratingPeriod
-            // 
-            this.tbGratingPeriod.Location = new System.Drawing.Point(71, 48);
-            this.tbGratingPeriod.Name = "tbGratingPeriod";
-            this.tbGratingPeriod.Size = new System.Drawing.Size(100, 20);
-            this.tbGratingPeriod.TabIndex = 5;
-            // 
-            // tb_GratingLength
-            // 
-            this.tb_GratingLength.Location = new System.Drawing.Point(71, 22);
-            this.tb_GratingLength.Name = "tb_GratingLength";
-            this.tb_GratingLength.Size = new System.Drawing.Size(100, 20);
-            this.tb_GratingLength.TabIndex = 4;
+            this.tb_GratingParts.Location = new System.Drawing.Point(71, 126);
+            this.tb_GratingParts.Name = "tb_GratingParts";
+            this.tb_GratingParts.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingParts.TabIndex = 9;
+            this.tb_GratingParts.TextChanged += new System.EventHandler(this.tb_GratingParts_TextChanged);
             // 
             // label7
             // 
@@ -246,6 +256,14 @@
             this.label7.Size = new System.Drawing.Size(25, 13);
             this.label7.TabIndex = 3;
             this.label7.Text = "neff";
+            // 
+            // tb_GratingLength
+            // 
+            this.tb_GratingLength.Location = new System.Drawing.Point(71, 22);
+            this.tb_GratingLength.Name = "tb_GratingLength";
+            this.tb_GratingLength.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingLength.TabIndex = 4;
+            this.tb_GratingLength.TextChanged += new System.EventHandler(this.tb_GratingLength_TextChanged);
             // 
             // label6
             // 
@@ -257,23 +275,72 @@
             this.label6.Tag = "refractive index modulation";
             this.label6.Text = "rim";
             // 
-            // label5
+            // tbGratingPeriod
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "period [nm]";
+            this.tbGratingPeriod.Location = new System.Drawing.Point(71, 48);
+            this.tbGratingPeriod.Name = "tbGratingPeriod";
+            this.tbGratingPeriod.Size = new System.Drawing.Size(100, 20);
+            this.tbGratingPeriod.TabIndex = 5;
             // 
-            // label4
+            // tb_Grating_NEff
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "length [um]";
+            this.tb_Grating_NEff.Location = new System.Drawing.Point(71, 100);
+            this.tb_Grating_NEff.Name = "tb_Grating_NEff";
+            this.tb_Grating_NEff.Size = new System.Drawing.Size(100, 20);
+            this.tb_Grating_NEff.TabIndex = 7;
+            this.tb_Grating_NEff.TextChanged += new System.EventHandler(this.tb_Grating_NEff_TextChanged);
+            // 
+            // tb_GratingRIM
+            // 
+            this.tb_GratingRIM.Location = new System.Drawing.Point(71, 74);
+            this.tb_GratingRIM.Name = "tb_GratingRIM";
+            this.tb_GratingRIM.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingRIM.TabIndex = 6;
+            this.tb_GratingRIM.TextChanged += new System.EventHandler(this.tb_GratingRIM_TextChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.cb_gratingApodReverse);
+            this.groupBox3.Controls.Add(this.l_grtingApodParam);
+            this.groupBox3.Controls.Add(this.tb_gratingApodParam);
+            this.groupBox3.Controls.Add(this.cb_gratingApodProfile);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.chartApod);
+            this.groupBox3.Location = new System.Drawing.Point(232, 23);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(348, 269);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Apodisation";
+            // 
+            // cb_gratingApodReverse
+            // 
+            this.cb_gratingApodReverse.AutoSize = true;
+            this.cb_gratingApodReverse.Location = new System.Drawing.Point(17, 74);
+            this.cb_gratingApodReverse.Name = "cb_gratingApodReverse";
+            this.cb_gratingApodReverse.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cb_gratingApodReverse.Size = new System.Drawing.Size(142, 17);
+            this.cb_gratingApodReverse.TabIndex = 14;
+            this.cb_gratingApodReverse.Text = "        reverse apodisation";
+            this.cb_gratingApodReverse.UseVisualStyleBackColor = true;
+            this.cb_gratingApodReverse.CheckedChanged += new System.EventHandler(this.cb_gratingApodReverse_CheckedChanged);
+            // 
+            // l_grtingApodParam
+            // 
+            this.l_grtingApodParam.AutoSize = true;
+            this.l_grtingApodParam.Location = new System.Drawing.Point(19, 49);
+            this.l_grtingApodParam.Name = "l_grtingApodParam";
+            this.l_grtingApodParam.Size = new System.Drawing.Size(36, 13);
+            this.l_grtingApodParam.TabIndex = 13;
+            this.l_grtingApodParam.Text = "param";
+            // 
+            // tb_grtingApodParam
+            // 
+            this.tb_gratingApodParam.Location = new System.Drawing.Point(60, 48);
+            this.tb_gratingApodParam.Name = "tb_grtingApodParam";
+            this.tb_gratingApodParam.Size = new System.Drawing.Size(99, 20);
+            this.tb_gratingApodParam.TabIndex = 10;
+            this.tb_gratingApodParam.TextChanged += new System.EventHandler(this.tb_gratingApodParam_TextChanged);
             // 
             // cb_gratingApodProfile
             // 
@@ -295,83 +362,21 @@
             // 
             // chartApod
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartApod.ChartAreas.Add(chartArea3);
+            chartArea21.Name = "ChartArea1";
+            this.chartApod.ChartAreas.Add(chartArea21);
             this.chartApod.Location = new System.Drawing.Point(6, 100);
             this.chartApod.Name = "chartApod";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend2";
-            series3.Name = "Transmission";
-            this.chartApod.Series.Add(series3);
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Name = "Apodisation";
+            this.chartApod.Series.Add(series21);
             this.chartApod.Size = new System.Drawing.Size(336, 169);
             this.chartApod.TabIndex = 12;
             this.chartApod.Text = "Apodisation Profile";
-            title3.IsDockedInsideChartArea = false;
-            title3.Name = "Apodisation Profile";
-            title3.Text = "Apodisation Profile";
-            this.chartApod.Titles.Add(title3);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cb_gratingApodReverse);
-            this.groupBox3.Controls.Add(this.l_grtingApodParam);
-            this.groupBox3.Controls.Add(this.tb_grtingApodParam);
-            this.groupBox3.Controls.Add(this.cb_gratingApodProfile);
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.chartApod);
-            this.groupBox3.Location = new System.Drawing.Point(232, 23);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(348, 269);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Apodisation";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.tb_GratingParts);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.tb_GratingLength);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.tbGratingPeriod);
-            this.groupBox4.Controls.Add(this.tb_Grating_NEff);
-            this.groupBox4.Controls.Add(this.tb_GratingRIM);
-            this.groupBox4.Location = new System.Drawing.Point(14, 23);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(199, 269);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Grating properties";
-            // 
-            // tb_grtingApodParam
-            // 
-            this.tb_grtingApodParam.Location = new System.Drawing.Point(60, 48);
-            this.tb_grtingApodParam.Name = "tb_grtingApodParam";
-            this.tb_grtingApodParam.Size = new System.Drawing.Size(99, 20);
-            this.tb_grtingApodParam.TabIndex = 10;
-            // 
-            // l_grtingApodParam
-            // 
-            this.l_grtingApodParam.AutoSize = true;
-            this.l_grtingApodParam.Location = new System.Drawing.Point(19, 49);
-            this.l_grtingApodParam.Name = "l_grtingApodParam";
-            this.l_grtingApodParam.Size = new System.Drawing.Size(36, 13);
-            this.l_grtingApodParam.TabIndex = 13;
-            this.l_grtingApodParam.Text = "param";
-            // 
-            // cb_gratingApodReverse
-            // 
-            this.cb_gratingApodReverse.AutoSize = true;
-            this.cb_gratingApodReverse.Location = new System.Drawing.Point(17, 74);
-            this.cb_gratingApodReverse.Name = "cb_gratingApodReverse";
-            this.cb_gratingApodReverse.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cb_gratingApodReverse.Size = new System.Drawing.Size(142, 17);
-            this.cb_gratingApodReverse.TabIndex = 14;
-            this.cb_gratingApodReverse.Text = "        reverse apodisation";
-            this.cb_gratingApodReverse.UseVisualStyleBackColor = true;
+            title21.IsDockedInsideChartArea = false;
+            title21.Name = "Apodisation Profile";
+            title21.Text = "Apodisation Profile";
+            this.chartApod.Titles.Add(title21);
             // 
             // FBGForm
             // 
@@ -391,11 +396,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartApod)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartApod)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -430,7 +435,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cb_gratingApodReverse;
         private System.Windows.Forms.Label l_grtingApodParam;
-        private System.Windows.Forms.TextBox tb_grtingApodParam;
+        private System.Windows.Forms.TextBox tb_gratingApodParam;
     }
 }
 

@@ -16,7 +16,17 @@ namespace WindowsFormsApplication1.FBGManagement
         //period=lambdaB/(2*pi*neff);
         public int parts { get; }
 
-        public Apodization apodization { get; }
+        public decimal apodisationParam { get; }
+        bool apodisationReverse { get; }
+        public Apodisation apodisationType { get; }
+
+        public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts, Apodisation ApodisationType, decimal apodisationParam, bool apodisationReverse)
+            : this(period, length, refractiveIndexModulation, neff, parts)
+        {
+            this.apodisationType = ApodisationType;
+            this.apodisationParam = apodisationParam;
+            this.apodisationReverse = apodisationReverse;
+        }
 
         public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts)
         {
@@ -47,40 +57,59 @@ namespace WindowsFormsApplication1.FBGManagement
             refractiveIndexModulation = 0.0004m;
         }
 
-        public enum Apodization {Gaussian, Sinc, Sin, None}
+        public enum Apodisation {Gaussian, Sinc, Sin, None}
 
-        public decimal profile(decimal z, decimal param)
+        public decimal profile(decimal z)
         {
-            switch (this.apodization)
+            decimal profValue;
+            switch (this.apodisationType)
             {
-                case Apodization.Gaussian:
-                    return gaussianProfile(z, param);
-                case Apodization.Sinc:
-                    return sincProfile(z);
-                case Apodization.Sin:
-                    return sinProfile(z);
-                case Apodization.None:
+                case Apodisation.Gaussian:
+                    profValue = gaussianProfile(z, this.apodisationParam);
+                    break;
+                case Apodisation.Sinc:
+                    profValue = sincProfile(z);
+                    break;
+                case Apodisation.Sin:
+                    profValue = sinProfile(z);
+                    break;
+                case Apodisation.None:
+                    profValue = 1;
+                    break;
                 default:
-                    return 1;
+                    profValue = 1;
+                    break;
             }
+            if(this.apodisationReverse)
+            {
+                profValue = 1 - profValue;
+            }
+            profValue = profValue * refractiveIndexModulation + neff;
+            return profValue;
         }
-        public decimal gaussianProfile(decimal z, decimal sigma)
+        private decimal gaussianProfile(decimal z, decimal sigma)
         {
             return (decimal)Math.Exp((double)(-sigma * (decimal)Math.Pow((double)((z - length / 2) / length), 2)));
         }
-        public decimal sincProfile(decimal z)
+        private decimal sincProfile(decimal z)
         {
-            return (decimal)Math.Sin((double)(2*(decimal)Math.PI*(z-length/2)/length))/(2*(decimal)Math.PI*(z-length/2)/length);
+            if ((2 * (decimal)Math.PI * (z - length / 2) / length) != 0)
+            {
+                return (decimal)Math.Sin((double)(2 * (decimal)Math.PI * (z - length / 2) / length)) / (2 * (decimal)Math.PI * (z - length / 2) / length);
+            } else
+            {
+                return 1;
+            }
         }
-        public decimal  sinProfile(decimal z)
+        private decimal  sinProfile(decimal z)
         {
             return (decimal)Math.Sin((double)((decimal)Math.PI * z / length));
         }
-        public static double gaussianApod(double x, double mu, double sigma)
+        private static double gaussianApod(double x, double mu, double sigma)
         {
             return Math.Exp(-Math.Pow(x - mu,2) / (2 * Math.Pow(sigma, 2))) / Math.Sqrt(2 * Math.PI * Math.Pow(sigma, 2));
         }
-        public static double linearApod(double x)
+        private static double linearApod(double x)
         {
             return 1;
         }
