@@ -100,6 +100,14 @@ namespace WindowsFormsApplication1
                 //chartReflection.Series["Reflection"].Points.AddXY(wavelengths.ElementAt(i), 1 - Ry.ElementAt(i));
             }
         }
+        private void PrintGraphs2(Simulation simulation, List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            for (int i = 0; i < simulation.countOfProbes; i++)
+            {
+                chartTransmission.Series["Transmission2"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), simulationResult.ElementAt(i));
+                chartReflection.Series["Reflection2"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), 1 - simulationResult.ElementAt(i));
+            }
+        }
         private void RefreshApodisationGraph()
         {
             try
@@ -145,18 +153,33 @@ namespace WindowsFormsApplication1
         {
             Simulation simulation = PrepareSimulation();
             Grating grating = PrepareGrating();
-            List<decimal> wavelengths = null;
 
-            //Wykonanie symulacji
-            List<decimal> simulationResult = simulation.Simulate(grating, out wavelengths);
             //Wyczyszczenie wykresów
             ClearGraphs();
-            //Narysowanie wykresów
-            PrintGraphs(simulation, simulationResult, wavelengths);
-            //zapis wyniku do pliku
-            Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
+            //Wykonanie symulacji
+            SimulateWithProperMethod(simulation, grating);
         }
 
+        private void SimulateWithProperMethod(Simulation simulation, Grating grating)
+        {
+            List<decimal> wavelengths = null;
+            if (rb_partsInTM.Checked || rb_both.Checked)
+            {
+                List<decimal> simulationResult = simulation.Simulate(grating, out wavelengths);
+                //Narysowanie wykresów
+                PrintGraphs(simulation, simulationResult, wavelengths);
+                //zapis wyniku do pliku
+                Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
+            }
+            if (rb_TMForEach.Checked || rb_both.Checked)
+            {
+                List<decimal> simulationResult = simulation.SimulateWithDividedGrating(grating, out wavelengths);
+                //Narysowanie wykresów
+                PrintGraphs2(simulation, simulationResult, wavelengths);
+                //zapis wyniku do pliku
+                Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
+            }
+        }
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 

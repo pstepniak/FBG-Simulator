@@ -36,6 +36,9 @@ namespace WindowsFormsApplication1.FBGManagement
             this.refractiveIndexModulation = refractiveIndexModulation;
             this.parts = parts;
             lambdaB = period / (2 * (decimal)Math.PI * neff);
+
+            this.apodisationType = Apodisation.None;
+            this.apodisationReverse = false;
         }
         public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff) :  this(period, length,refractiveIndexModulation,neff, 10)
         {
@@ -59,9 +62,15 @@ namespace WindowsFormsApplication1.FBGManagement
 
         public enum Apodisation {Gaussian, Sinc, Sin, None}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sectionNumber">Sekcje numerujemy od 0</param>
+        /// <param name="countOfSections"></param>
+        /// <returns></returns>
         public decimal ProfileForSection(int sectionNumber, int countOfSections)
         {
-            return this.Profile(this.length * sectionNumber / countOfSections);
+            return this.Profile(this.length * (sectionNumber+0.5m) / countOfSections);
         }
         private decimal Profile(decimal z)
         {
@@ -115,6 +124,10 @@ namespace WindowsFormsApplication1.FBGManagement
         private static double linearApod(double x)
         {
             return 1;
+        }
+        public Grating Copy()
+        {
+            return new Grating(this.period, this.length, this.refractiveIndexModulation, this.neff, this.parts, this.apodisationType, this.apodisationParam, this.apodisationReverse);
         }
     }
 }

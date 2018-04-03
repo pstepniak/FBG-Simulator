@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title19 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title20 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title21 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chartReflection = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTransmission = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -66,6 +68,10 @@
             this.cb_gratingApodProfile = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.chartApod = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rb_partsInTM = new System.Windows.Forms.RadioButton();
+            this.rb_TMForEach = new System.Windows.Forms.RadioButton();
+            this.rb_both = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -73,41 +79,50 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartApod)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartReflection
             // 
-            chartArea19.Name = "ChartArea1";
-            this.chartReflection.ChartAreas.Add(chartArea19);
+            chartArea1.Name = "ChartArea1";
+            this.chartReflection.ChartAreas.Add(chartArea1);
             this.chartReflection.Location = new System.Drawing.Point(52, 316);
             this.chartReflection.Name = "chartReflection";
-            series19.ChartArea = "ChartArea1";
-            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series19.Name = "Reflection";
-            this.chartReflection.Series.Add(series19);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Reflection";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Reflection2";
+            this.chartReflection.Series.Add(series1);
+            this.chartReflection.Series.Add(series2);
             this.chartReflection.Size = new System.Drawing.Size(444, 300);
             this.chartReflection.TabIndex = 0;
             this.chartReflection.Text = "Transmission";
-            title19.Name = "Reflection";
-            title19.Text = "Reflection";
-            this.chartReflection.Titles.Add(title19);
+            title1.Name = "Reflection";
+            title1.Text = "Reflection";
+            this.chartReflection.Titles.Add(title1);
             // 
             // chartTransmission
             // 
-            chartArea20.Name = "ChartArea1";
-            this.chartTransmission.ChartAreas.Add(chartArea20);
+            chartArea2.Name = "ChartArea1";
+            this.chartTransmission.ChartAreas.Add(chartArea2);
             this.chartTransmission.Location = new System.Drawing.Point(506, 316);
             this.chartTransmission.Name = "chartTransmission";
-            series20.ChartArea = "ChartArea1";
-            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series20.Name = "Transmission";
-            this.chartTransmission.Series.Add(series20);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Name = "Transmission";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Name = "Transmission2";
+            this.chartTransmission.Series.Add(series3);
+            this.chartTransmission.Series.Add(series4);
             this.chartTransmission.Size = new System.Drawing.Size(454, 300);
             this.chartTransmission.TabIndex = 1;
             this.chartTransmission.Text = "Transmission";
-            title20.Name = "Transmission";
-            title20.Text = "Transmission";
-            this.chartTransmission.Titles.Add(title20);
+            title2.Name = "Transmission";
+            title2.Text = "Transmission";
+            this.chartTransmission.Titles.Add(title2);
             // 
             // btnCalculate
             // 
@@ -121,6 +136,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.tb_maximalWavelength);
             this.groupBox1.Controls.Add(this.tb_MinimalWavelength);
             this.groupBox1.Controls.Add(this.tb_CountOfProbe);
@@ -334,10 +350,10 @@
             this.l_grtingApodParam.TabIndex = 13;
             this.l_grtingApodParam.Text = "param";
             // 
-            // tb_grtingApodParam
+            // tb_gratingApodParam
             // 
             this.tb_gratingApodParam.Location = new System.Drawing.Point(60, 48);
-            this.tb_gratingApodParam.Name = "tb_grtingApodParam";
+            this.tb_gratingApodParam.Name = "tb_gratingApodParam";
             this.tb_gratingApodParam.Size = new System.Drawing.Size(99, 20);
             this.tb_gratingApodParam.TabIndex = 10;
             this.tb_gratingApodParam.TextChanged += new System.EventHandler(this.tb_gratingApodParam_TextChanged);
@@ -362,21 +378,65 @@
             // 
             // chartApod
             // 
-            chartArea21.Name = "ChartArea1";
-            this.chartApod.ChartAreas.Add(chartArea21);
+            chartArea3.Name = "ChartArea1";
+            this.chartApod.ChartAreas.Add(chartArea3);
             this.chartApod.Location = new System.Drawing.Point(6, 100);
             this.chartApod.Name = "chartApod";
-            series21.ChartArea = "ChartArea1";
-            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series21.Name = "Apodisation";
-            this.chartApod.Series.Add(series21);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Name = "Apodisation";
+            this.chartApod.Series.Add(series5);
             this.chartApod.Size = new System.Drawing.Size(336, 169);
             this.chartApod.TabIndex = 12;
             this.chartApod.Text = "Apodisation Profile";
-            title21.IsDockedInsideChartArea = false;
-            title21.Name = "Apodisation Profile";
-            title21.Text = "Apodisation Profile";
-            this.chartApod.Titles.Add(title21);
+            title3.IsDockedInsideChartArea = false;
+            title3.Name = "Apodisation Profile";
+            title3.Text = "Apodisation Profile";
+            this.chartApod.Titles.Add(title3);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rb_both);
+            this.groupBox5.Controls.Add(this.rb_TMForEach);
+            this.groupBox5.Controls.Add(this.rb_partsInTM);
+            this.groupBox5.Location = new System.Drawing.Point(9, 179);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(207, 100);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Used method";
+            // 
+            // rb_partsInTM
+            // 
+            this.rb_partsInTM.AutoSize = true;
+            this.rb_partsInTM.Checked = true;
+            this.rb_partsInTM.Location = new System.Drawing.Point(7, 20);
+            this.rb_partsInTM.Name = "rb_partsInTM";
+            this.rb_partsInTM.Size = new System.Drawing.Size(160, 17);
+            this.rb_partsInTM.TabIndex = 0;
+            this.rb_partsInTM.TabStop = true;
+            this.rb_partsInTM.Text = "Parts included in TM method";
+            this.rb_partsInTM.UseVisualStyleBackColor = true;
+            // 
+            // rb_TMForEach
+            // 
+            this.rb_TMForEach.AutoSize = true;
+            this.rb_TMForEach.Location = new System.Drawing.Point(7, 43);
+            this.rb_TMForEach.Name = "rb_TMForEach";
+            this.rb_TMForEach.Size = new System.Drawing.Size(195, 17);
+            this.rb_TMForEach.TabIndex = 1;
+            this.rb_TMForEach.Text = "TM method for each part and merge";
+            this.rb_TMForEach.UseVisualStyleBackColor = true;
+            // 
+            // rb_both
+            // 
+            this.rb_both.AutoSize = true;
+            this.rb_both.Location = new System.Drawing.Point(7, 66);
+            this.rb_both.Name = "rb_both";
+            this.rb_both.Size = new System.Drawing.Size(47, 17);
+            this.rb_both.TabIndex = 2;
+            this.rb_both.Text = "Both";
+            this.rb_both.UseVisualStyleBackColor = true;
             // 
             // FBGForm
             // 
@@ -401,6 +461,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartApod)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -436,6 +498,10 @@
         private System.Windows.Forms.CheckBox cb_gratingApodReverse;
         private System.Windows.Forms.Label l_grtingApodParam;
         private System.Windows.Forms.TextBox tb_gratingApodParam;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton rb_both;
+        private System.Windows.Forms.RadioButton rb_TMForEach;
+        private System.Windows.Forms.RadioButton rb_partsInTM;
     }
 }
 

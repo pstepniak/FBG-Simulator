@@ -28,6 +28,40 @@ namespace WindowsFormsApplication1.FBGManagement
             s = minimalWavelength + ((maximalWavelength - minimalWavelength) / countOfProbes);
             s2 = maximalWavelength;
         }
+        public List<decimal> SimulateWithDividedGrating(Grating grating, out List<decimal> wavelengths)
+        {
+            decimal gratingPeriod = grating.period; //kiedyś tu będzie uwzględniony chirp
+            decimal gratingNeff = grating.neff;
+            decimal virtualGratingLength;
+            decimal virtualGratingRim;
+            Grating virtualGrating = null;
+            List<List<decimal>> partsResults = new List<List<decimal>>();
+            List<decimal> outWavelengths = new List<decimal>();
+            List<decimal> results = new List<decimal>();
+            for (int i = 0; i < grating.parts; i++)
+            {
+                virtualGratingLength = grating.length / grating.parts;
+                virtualGratingRim = grating.refractiveIndexModulation * grating.ProfileForSection(i, grating.parts);
+                virtualGrating = new Grating(gratingPeriod, virtualGratingLength, virtualGratingRim, gratingNeff, 1);
+                partsResults.Add(this.Simulate(virtualGrating, out outWavelengths));
+            }
+            wavelengths = outWavelengths;
+            for (int i = 0; i < this.countOfProbes; i++)
+            {
+                results.Add(1);
+            }
+            foreach (List<decimal> partResults in partsResults)
+            {
+                for (int i = 0; i < this.countOfProbes; i++)
+                {
+                    decimal partResult = results.ElementAt(i) * partResults.ElementAt(i);
+                    results[i] = partResult;
+                }
+            }
+            //virtualGrating.apodisationType = Grating.Apodisation.None;
+            return results;
+
+        }
         public List<decimal> Simulate(Grating grating, out List<decimal> wavelengths)
         {
             //okresy siatki
@@ -101,7 +135,7 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    k[ll, nn] = ((decimal)Math.PI / wavelengths.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn);
+                    k[ll, nn] = ((decimal)Math.PI / wavelengths.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn); //wzór 3 -7
                     delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelengths.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
                     sgm[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = (decimal)Math.Pow((double)k[ll, nn], 2);
