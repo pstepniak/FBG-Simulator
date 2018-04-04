@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1.FBGManagement
         public Simulation(int countOfProbe, decimal minimalWavelength, decimal maximalWavelength)
         {
             countOfProbes = countOfProbe;
-            s = minimalWavelength + ((maximalWavelength - minimalWavelength) / countOfProbes);
+            s = minimalWavelength;// + ((maximalWavelength - minimalWavelength) / countOfProbes);
             s2 = maximalWavelength;
         }
         public List<decimal> SimulateWithDividedGrating(Grating grating, out List<decimal> wavelengths)
