@@ -72,7 +72,7 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 x.Add(grating.period / (decimal)Math.Pow(10, -9));
             }
-
+            Utils.SaveArrayAsCSV(x.ToArray(), "C:\\FBG\\_x.csv");
             /*Dane siatki*/
             //double neff = 1.44688; //efektywny współczynnik załamania
             //double L = 10000 * Math.Pow(10, -6); //długość siatki
@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 if (i > 1) i = 1;//ZABEZPIECZENIE PRZED ZŁYM ZAOKRĄGLENIEM
                 lj.Add(i* grating.length);
             }
-
+            Utils.SaveArrayAsCSV(lj.ToArray(), "C:\\FBG\\_lj.csv");
             List<decimal> okresy = new List<decimal>(); //długość - ilość sekcji
             List<decimal> lambdaBy = new List<decimal>(); //długość - ilość sekcji
             List<decimal> apodisation = new List<decimal>(); //długość - ilość sekcji
@@ -108,7 +108,8 @@ namespace WindowsFormsApplication1.FBGManagement
                 decimal apodyzacja_i = grating.ProfileForSection(i, countOfSections);
                 apodisation.Add(apodyzacja_i);
             }
-
+            Utils.SaveArrayAsCSV(okresy.ToArray(), "C:\\FBG\\_okresy.csv");
+            Utils.SaveArrayAsCSV(lambdaBy.ToArray(), "C:\\FBG\\_lambdaBy.csv");
             wavelengths = new List<decimal>();
             decimal incrementStep = ((s2 - s) / (decimal)countOfProbes);
             //double stepRounding = Math.Log10((double)countOfProbes);
@@ -123,8 +124,8 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 wavelengths.Add((s + (i + 1) * ((s2 - s) / countOfProbes)) * (decimal)Math.Pow(10, -9));
             }
-
-                decimal[,] k = new decimal[countOfProbes, countOfSections];
+            Utils.SaveArrayAsCSV(wavelengths.ToArray(), "C:\\FBG\\_wavelengths.csv");
+            decimal[,] k = new decimal[countOfProbes, countOfSections];
             decimal[,] delta = new decimal[countOfProbes, countOfSections];
             decimal[,] k2 = new decimal[countOfProbes, countOfSections];
             decimal[,] sgm = new decimal[countOfProbes, countOfSections];
@@ -153,8 +154,13 @@ namespace WindowsFormsApplication1.FBGManagement
                         gammaB[ll, nn] = 0;
                     }
                 }
-            }
 
+            }
+            //Utils.SaveArrayAsCSV(k.ToArray(), "C:\\FBG\\_k.csv");
+            //Utils.SaveArrayAsCSV(delta.ToArray(), "C:\\FBG\\_delta.csv");
+            //Utils.SaveArrayAsCSV(k2.ToArray(), "C:\\FBG\\_k2.csv");
+            //Utils.SaveArrayAsCSV(sgm.ToArray(), "C:\\FBG\\_sgm.csv");
+            //Utils.SaveArrayAsCSV(sgm2.ToArray(), "C:\\FBG\\_sgm2.csv");
 
             // macierz Fj, gdzie j mówi o pozycji rozpatrywania siatki
             // (j jest od L do 0 !!!!!, a nie odwrotnie !!!!!)

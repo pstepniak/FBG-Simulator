@@ -108,6 +108,13 @@ namespace WindowsFormsApplication1
                 chartReflection.Series["Reflection2"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), 1 - simulationResult.ElementAt(i));
             }
         }
+        private void PrintResults(List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            tb_result_dynamic.Text = (Utils.CalculateDynamics(simulationResult)).ToString();
+            tb_result_fwhm.Text = (Utils.CalculateFWHM(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
+            tb_result_wavelength.Text = (Utils.CalculateCentralWavelenght(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
+            //tb_result_adjacent_dynamic.Text = Utils.CalculateAdjacentWavelength(simulationResult, wavelengths).ToString(); ///TODO: Do poprawy - źle działa
+        }
         private void RefreshApodisationGraph()
         {
             try
@@ -170,6 +177,7 @@ namespace WindowsFormsApplication1
                 PrintGraphs(simulation, simulationResult, wavelengths);
                 //zapis wyniku do pliku
                 Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
+                PrintResults(simulationResult, wavelengths);
             }
             if (rb_TMForEach.Checked || rb_both.Checked)
             {
