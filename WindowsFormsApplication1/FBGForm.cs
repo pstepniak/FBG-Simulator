@@ -33,6 +33,7 @@ namespace WindowsFormsApplication1
             tbGratingPeriod.Text = "168,43";
             tb_GratingLength.Text = "10000";
             tb_GratingParts.Text = "1";
+            tb_gratingTilt.Text = "0";
             //dane apodyzacji
             cb_gratingApodProfile.Items.Add(Grating.Apodisation.Gaussian);
             cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sin);
@@ -250,6 +251,24 @@ namespace WindowsFormsApplication1
         private void cb_gratingApodReverse_CheckedChanged(object sender, EventArgs e)
         {
             RefreshApodisationGraph();
+        }
+
+        private void tb_GratingPeriod_TextChanged(object sender, EventArgs e)
+        {
+            //decimal angle = Decimal.Parse(String.IsNullOrEmpty(tb_gratingTilt.Text) ? "0" : tb_gratingTilt.Text);
+            //decimal period = Decimal.Parse(String.IsNullOrEmpty(tbGratingPeriod.Text) ? "0" : tbGratingPeriod.Text);
+
+            //decimal realPeriod = ((decimal)Math.Cos((Math.PI / 180) * (double)angle)) / period;
+            //tb_gratingRealPeriod.Text = realPeriod.ToString();
+        }
+
+        private void tb_GratingTilt_TextChanged(object sender, EventArgs e)
+        {
+            //decimal angle = Decimal.Parse(String.IsNullOrEmpty(tb_gratingTilt.Text) ? "0" : tb_gratingTilt.Text);
+            //decimal period = Decimal.Parse(String.IsNullOrEmpty(tbGratingPeriod.Text) ? "0" : tbGratingPeriod.Text);
+
+            //decimal realPeriod = ((decimal)Math.Cos((Math.PI / 180) * (double)angle)) / period;
+            //tb_gratingRealPeriod.Text = realPeriod.ToString();
         }
     }
 }

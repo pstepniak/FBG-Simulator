@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title9 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chartReflection = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTransmission = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -55,6 +55,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tb_gratingRealPeriod = new System.Windows.Forms.TextBox();
+            this.tb_gratingTilt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -73,14 +77,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.chartApod = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.tb_result_adjacent_dynamic = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tb_result_fwhm = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tb_result_dynamic = new System.Windows.Forms.TextBox();
             this.tb_result_wavelength = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tb_result_adjacent_dynamic = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -94,45 +98,45 @@
             // 
             // chartReflection
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chartReflection.ChartAreas.Add(chartArea7);
+            chartArea4.Name = "ChartArea1";
+            this.chartReflection.ChartAreas.Add(chartArea4);
             this.chartReflection.Location = new System.Drawing.Point(52, 316);
             this.chartReflection.Name = "chartReflection";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series11.Name = "Reflection";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series12.Name = "Reflection2";
-            this.chartReflection.Series.Add(series11);
-            this.chartReflection.Series.Add(series12);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Name = "Reflection";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Name = "Reflection2";
+            this.chartReflection.Series.Add(series6);
+            this.chartReflection.Series.Add(series7);
             this.chartReflection.Size = new System.Drawing.Size(444, 300);
             this.chartReflection.TabIndex = 0;
             this.chartReflection.Text = "Transmission";
-            title7.Name = "Reflection";
-            title7.Text = "Reflection";
-            this.chartReflection.Titles.Add(title7);
+            title4.Name = "Reflection";
+            title4.Text = "Reflection";
+            this.chartReflection.Titles.Add(title4);
             // 
             // chartTransmission
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chartTransmission.ChartAreas.Add(chartArea8);
+            chartArea5.Name = "ChartArea1";
+            this.chartTransmission.ChartAreas.Add(chartArea5);
             this.chartTransmission.Location = new System.Drawing.Point(506, 316);
             this.chartTransmission.Name = "chartTransmission";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series13.Name = "Transmission";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series14.Name = "Transmission2";
-            this.chartTransmission.Series.Add(series13);
-            this.chartTransmission.Series.Add(series14);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Name = "Transmission";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Name = "Transmission2";
+            this.chartTransmission.Series.Add(series8);
+            this.chartTransmission.Series.Add(series9);
             this.chartTransmission.Size = new System.Drawing.Size(454, 300);
             this.chartTransmission.TabIndex = 1;
             this.chartTransmission.Text = "Transmission";
-            title8.Name = "Transmission";
-            title8.Text = "Transmission";
-            this.chartTransmission.Titles.Add(title8);
+            title5.Name = "Transmission";
+            title5.Text = "Transmission";
+            this.chartTransmission.Titles.Add(title5);
             // 
             // btnCalculate
             // 
@@ -266,6 +270,10 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Controls.Add(this.tb_gratingRealPeriod);
+            this.groupBox4.Controls.Add(this.tb_gratingTilt);
+            this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label8);
@@ -282,6 +290,40 @@
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Grating properties";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 180);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(56, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "real period";
+            // 
+            // tb_gratingRealPeriod
+            // 
+            this.tb_gratingRealPeriod.Location = new System.Drawing.Point(71, 178);
+            this.tb_gratingRealPeriod.Name = "tb_gratingRealPeriod";
+            this.tb_gratingRealPeriod.ReadOnly = true;
+            this.tb_gratingRealPeriod.Size = new System.Drawing.Size(100, 20);
+            this.tb_gratingRealPeriod.TabIndex = 12;
+            // 
+            // tb_gratingTilt
+            // 
+            this.tb_gratingTilt.Location = new System.Drawing.Point(71, 152);
+            this.tb_gratingTilt.Name = "tb_gratingTilt";
+            this.tb_gratingTilt.Size = new System.Drawing.Size(100, 20);
+            this.tb_gratingTilt.TabIndex = 11;
+            this.tb_gratingTilt.TextChanged += new System.EventHandler(this.tb_GratingTilt_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 152);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "tilt (angles)";
             // 
             // label4
             // 
@@ -351,6 +393,7 @@
             this.tbGratingPeriod.Name = "tbGratingPeriod";
             this.tbGratingPeriod.Size = new System.Drawing.Size(100, 20);
             this.tbGratingPeriod.TabIndex = 5;
+            this.tbGratingPeriod.TextChanged += new System.EventHandler(this.tb_GratingPeriod_TextChanged);
             // 
             // tb_Grating_NEff
             // 
@@ -432,21 +475,21 @@
             // 
             // chartApod
             // 
-            chartArea9.Name = "ChartArea1";
-            this.chartApod.ChartAreas.Add(chartArea9);
+            chartArea6.Name = "ChartArea1";
+            this.chartApod.ChartAreas.Add(chartArea6);
             this.chartApod.Location = new System.Drawing.Point(6, 100);
             this.chartApod.Name = "chartApod";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series15.Name = "Apodisation";
-            this.chartApod.Series.Add(series15);
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Name = "Apodisation";
+            this.chartApod.Series.Add(series10);
             this.chartApod.Size = new System.Drawing.Size(336, 169);
             this.chartApod.TabIndex = 12;
             this.chartApod.Text = "Apodisation Profile";
-            title9.IsDockedInsideChartArea = false;
-            title9.Name = "Apodisation Profile";
-            title9.Text = "Apodisation Profile";
-            this.chartApod.Titles.Add(title9);
+            title6.IsDockedInsideChartArea = false;
+            title6.Name = "Apodisation Profile";
+            title6.Text = "Apodisation Profile";
+            this.chartApod.Titles.Add(title6);
             // 
             // groupBox6
             // 
@@ -464,6 +507,23 @@
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Results";
+            // 
+            // tb_result_adjacent_dynamic
+            // 
+            this.tb_result_adjacent_dynamic.Location = new System.Drawing.Point(112, 192);
+            this.tb_result_adjacent_dynamic.Name = "tb_result_adjacent_dynamic";
+            this.tb_result_adjacent_dynamic.ReadOnly = true;
+            this.tb_result_adjacent_dynamic.Size = new System.Drawing.Size(186, 20);
+            this.tb_result_adjacent_dynamic.TabIndex = 17;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 192);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(95, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "adjacent dynamics";
             // 
             // label10
             // 
@@ -516,23 +576,6 @@
             this.tb_result_wavelength.ReadOnly = true;
             this.tb_result_wavelength.Size = new System.Drawing.Size(186, 20);
             this.tb_result_wavelength.TabIndex = 12;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 192);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(95, 13);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "adjacent dynamics";
-            // 
-            // tb_result_adjacent_dynamic
-            // 
-            this.tb_result_adjacent_dynamic.Location = new System.Drawing.Point(112, 192);
-            this.tb_result_adjacent_dynamic.Name = "tb_result_adjacent_dynamic";
-            this.tb_result_adjacent_dynamic.ReadOnly = true;
-            this.tb_result_adjacent_dynamic.Size = new System.Drawing.Size(186, 20);
-            this.tb_result_adjacent_dynamic.TabIndex = 17;
             // 
             // FBGForm
             // 
@@ -610,6 +653,10 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tb_result_dynamic;
         private System.Windows.Forms.TextBox tb_result_wavelength;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tb_gratingRealPeriod;
+        private System.Windows.Forms.TextBox tb_gratingTilt;
+        private System.Windows.Forms.Label label14;
     }
 }
 
