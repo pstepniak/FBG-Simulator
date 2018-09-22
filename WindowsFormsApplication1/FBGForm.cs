@@ -41,6 +41,14 @@ namespace WindowsFormsApplication1
             cb_gratingApodProfile.Items.Add(Grating.Apodisation.None);
             cb_gratingApodProfile.SelectedItem = Grating.Apodisation.None;
             tb_gratingApodParam.Text = "5";
+            //dane chirpu
+            cb_gratingChirpProfile.Items.Add(Grating.Chirp.Linear);
+            cb_gratingChirpProfile.Items.Add(Grating.Chirp.Gaussian);
+            cb_gratingChirpProfile.Items.Add(Grating.Chirp.Sin);
+            cb_gratingChirpProfile.Items.Add(Grating.Chirp.Sinc);
+            cb_gratingChirpProfile.Items.Add(Grating.Chirp.None);
+            cb_gratingChirpProfile.SelectedItem = Grating.Chirp.None;
+            tb_gratingChirpParam.Text = "5";
         }
         private Grating PrepareGrating()
         {
@@ -52,8 +60,12 @@ namespace WindowsFormsApplication1
             decimal okres = lambdaB / (2 * (decimal)Math.PI * neff);
             decimal delta_n = 0.00010m; //delta n
             Grating.Apodisation apodisationProfile = Grating.Apodisation.None;
+            Grating.Chirp chirpProfile = Grating.Chirp.None;
             decimal apodisationParam = 1;
+            decimal chirpParam = 1;
+            decimal chirpMinPeriodFactor = 0.9m;
             bool apodisationReverse = false;
+            bool chirpReverse = false;
             int parts = 10;
             if (!String.IsNullOrEmpty(tb_Grating_NEff.Text))
                 neff = Decimal.Parse(tb_Grating_NEff.Text);
@@ -71,10 +83,27 @@ namespace WindowsFormsApplication1
                 apodisationProfile = (Grating.Apodisation)cb_gratingApodProfile.SelectedItem;
             if (!String.IsNullOrEmpty(tb_gratingApodParam.Text))
                 apodisationParam = Decimal.Parse(tb_gratingApodParam.Text);
+            if (cb_gratingChirpProfile.SelectedItem != null && !String.IsNullOrEmpty(cb_gratingChirpProfile.SelectedItem.ToString()))
+                chirpProfile = (Grating.Chirp)cb_gratingChirpProfile.SelectedItem;
+            if (!String.IsNullOrEmpty(tb_gratingChirpParam.Text))
+                chirpParam = Decimal.Parse(tb_gratingChirpParam.Text);
+            if (!String.IsNullOrEmpty(tb_GratingChirpMinFactor.Text))
+                chirpMinPeriodFactor = Decimal.Parse(tb_GratingChirpMinFactor.Text);
             apodisationReverse = cb_gratingApodReverse.Checked;
+            chirpReverse = cb_gratingChirpReverse.Checked;
             //Grating grating = new Grating(okres, L, delta_n, neff);
             //Grating grating = new Grating(okres, L, delta_n, neff, parts);
-            return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse);
+            if (chirpMinPeriodFactor > 1)
+            {
+                chirpMinPeriodFactor = 1;
+            }
+            if (chirpMinPeriodFactor <0 )
+            {
+                chirpMinPeriodFactor = 0;
+            }
+
+
+            return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse, chirpProfile, chirpParam, chirpReverse, okres*chirpMinPeriodFactor);
         }
         private Simulation PrepareSimulation()
         {
@@ -111,10 +140,14 @@ namespace WindowsFormsApplication1
         }
         private void PrintResults(List<decimal> simulationResult, List<decimal> wavelengths)
         {
+            //debug:
+            //simulationResult = new List<decimal> {8,8,6,7,4,1,4,7,6,8 };
+            //wavelengths = new List<decimal> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
             tb_result_dynamic.Text = (Utils.CalculateDynamics(simulationResult)).ToString();
             tb_result_fwhm.Text = (Utils.CalculateFWHM(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
             tb_result_wavelength.Text = (Utils.CalculateCentralWavelenght(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
-            //tb_result_adjacent_dynamic.Text = Utils.CalculateAdjacentWavelength(simulationResult, wavelengths).ToString(); ///TODO: Do poprawy - źle działa
+            tb_result_adjacent_dynamic.Text = Utils.CalculateAdjacentDynamic(simulationResult, wavelengths).ToString();
         }
         private void RefreshApodisationGraph()
         {
@@ -122,7 +155,20 @@ namespace WindowsFormsApplication1
             {
                 Grating grating = PrepareGrating();
                 PrintApodisationGraph(grating);
-            } catch (Exception e)
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        private void RefreshChirpGraph()
+        {
+            try
+            {
+                Grating grating = PrepareGrating();
+                PrintChirpGraph(grating);
+            }
+            catch (Exception e)
             {
 
             }
@@ -137,14 +183,30 @@ namespace WindowsFormsApplication1
 
             for (int i = 0; i < probes; i++)
             {
-                //wyznaczamy wartość neff uwzględniająz profil apodyzacji
-                chartApod.Series["Apodisation"].Points.AddXY(i, grating.ProfileForSection(i, probes) * grating.refractiveIndexModulation + grating.neff);
+                //wyznaczamy wartość neff uwzględniając profil apodyzacji
+                chartApod.Series["Apodisation"].Points.AddXY(i, grating.ApodisationProfileForSection(i, probes) * grating.refractiveIndexModulation + grating.neff);
             }
             chartApod.ChartAreas[0].AxisY.Minimum = (double)grating.neff;
             if (grating.refractiveIndexModulation != 0)
                 chartApod.ChartAreas[0].AxisY.Maximum = (double)(grating.neff + grating.refractiveIndexModulation);
             else
                 chartApod.ChartAreas[0].AxisY.Maximum = (double)(grating.neff + 0.0001m);
+        }
+        private void PrintChirpGraph(Grating grating)
+        {
+            foreach (var series in chartChirp.Series)
+            {
+                series.Points.Clear();
+            }
+            int probes = 100;
+
+            for (int i = 0; i < probes; i++)
+            {
+                //wyznaczamy okres uwzględniając profil chirpu
+                chartChirp.Series["Chirp"].Points.AddXY(i, grating.ChirpProfileForSection(i, probes));
+            }
+            chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.chirpMinPeriod;
+            chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period;
         }
         private void ClearGraphs()
         {
@@ -231,6 +293,7 @@ namespace WindowsFormsApplication1
         private void tb_GratingLength_TextChanged(object sender, EventArgs e)
         {
             RefreshApodisationGraph();
+            RefreshChirpGraph();
         }
 
         private void tb_GratingRIM_TextChanged(object sender, EventArgs e)
@@ -246,6 +309,7 @@ namespace WindowsFormsApplication1
         private void tb_GratingParts_TextChanged(object sender, EventArgs e)
         {
             RefreshApodisationGraph();
+            RefreshChirpGraph();
         }
 
         private void cb_gratingApodReverse_CheckedChanged(object sender, EventArgs e)
@@ -260,6 +324,7 @@ namespace WindowsFormsApplication1
 
             //decimal realPeriod = ((decimal)Math.Cos((Math.PI / 180) * (double)angle)) / period;
             //tb_gratingRealPeriod.Text = realPeriod.ToString();
+            RefreshChirpGraph();
         }
 
         private void tb_GratingTilt_TextChanged(object sender, EventArgs e)
@@ -269,6 +334,50 @@ namespace WindowsFormsApplication1
 
             //decimal realPeriod = ((decimal)Math.Cos((Math.PI / 180) * (double)angle)) / period;
             //tb_gratingRealPeriod.Text = realPeriod.ToString();
+        }
+
+        private void tb_gratingChirpParam_TextChanged(object sender, EventArgs e)
+        {
+            RefreshChirpGraph();
+        }
+
+        private void tb_GratingChirpMinFactor_TextChanged(object sender, EventArgs e)
+        {
+            RefreshChirpGraph();
+        }
+
+        private void cb_gratingChirpProfile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox s = sender as ComboBox;
+            if (s != null)
+            {
+                if (Grating.Chirp.Gaussian.Equals(s.SelectedItem))
+                {
+                    tb_gratingChirpParam.Enabled = true;
+                    l_grtingChirpParam.Enabled = true;
+                }
+                else
+                {
+                    tb_gratingChirpParam.Enabled = false;
+                    l_grtingChirpParam.Enabled = false;
+                }
+
+                if (Grating.Chirp.None.Equals(s.SelectedItem))
+                {
+                    cb_gratingChirpReverse.Enabled = false;
+                    cb_gratingChirpReverse.Checked = false;
+                }
+                else
+                {
+                    cb_gratingChirpReverse.Enabled = true;
+                }
+            }
+            RefreshChirpGraph();
+        }
+
+        private void cb_gratingChirpReverse_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshChirpGraph();
         }
     }
 }

@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title13 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title14 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title15 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title16 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chartReflection = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTransmission = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -54,6 +57,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tb_GratingChirpMinFactor = new System.Windows.Forms.TextBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.rb_ChirpInputByValues = new System.Windows.Forms.RadioButton();
+            this.rb_ChirpInputByProfile = new System.Windows.Forms.RadioButton();
+            this.l_grtingChirpParam = new System.Windows.Forms.Label();
+            this.tb_gratingChirpParam = new System.Windows.Forms.TextBox();
+            this.cb_gratingChirpProfile = new System.Windows.Forms.ComboBox();
+            this.l_grtingChirpProfile = new System.Windows.Forms.Label();
+            this.cb_gratingChirpReverse = new System.Windows.Forms.CheckBox();
+            this.chartChirp = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tb_gratingRealPeriod = new System.Windows.Forms.TextBox();
@@ -90,6 +105,9 @@
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartChirp)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartApod)).BeginInit();
@@ -98,51 +116,51 @@
             // 
             // chartReflection
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartReflection.ChartAreas.Add(chartArea4);
-            this.chartReflection.Location = new System.Drawing.Point(52, 316);
+            chartArea13.Name = "ChartArea1";
+            this.chartReflection.ChartAreas.Add(chartArea13);
+            this.chartReflection.Location = new System.Drawing.Point(12, 316);
             this.chartReflection.Name = "chartReflection";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Name = "Reflection";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Name = "Reflection2";
-            this.chartReflection.Series.Add(series6);
-            this.chartReflection.Series.Add(series7);
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series19.Name = "Reflection";
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series20.Name = "Reflection2";
+            this.chartReflection.Series.Add(series19);
+            this.chartReflection.Series.Add(series20);
             this.chartReflection.Size = new System.Drawing.Size(444, 300);
             this.chartReflection.TabIndex = 0;
             this.chartReflection.Text = "Transmission";
-            title4.Name = "Reflection";
-            title4.Text = "Reflection";
-            this.chartReflection.Titles.Add(title4);
+            title13.Name = "Reflection";
+            title13.Text = "Reflection";
+            this.chartReflection.Titles.Add(title13);
             // 
             // chartTransmission
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartTransmission.ChartAreas.Add(chartArea5);
-            this.chartTransmission.Location = new System.Drawing.Point(506, 316);
+            chartArea14.Name = "ChartArea1";
+            this.chartTransmission.ChartAreas.Add(chartArea14);
+            this.chartTransmission.Location = new System.Drawing.Point(462, 316);
             this.chartTransmission.Name = "chartTransmission";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Name = "Transmission";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Name = "Transmission2";
-            this.chartTransmission.Series.Add(series8);
-            this.chartTransmission.Series.Add(series9);
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Name = "Transmission";
+            series22.ChartArea = "ChartArea1";
+            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series22.Name = "Transmission2";
+            this.chartTransmission.Series.Add(series21);
+            this.chartTransmission.Series.Add(series22);
             this.chartTransmission.Size = new System.Drawing.Size(454, 300);
             this.chartTransmission.TabIndex = 1;
             this.chartTransmission.Text = "Transmission";
-            title5.Name = "Transmission";
-            title5.Text = "Transmission";
-            this.chartTransmission.Titles.Add(title5);
+            title14.Name = "Transmission";
+            title14.Text = "Transmission";
+            this.chartTransmission.Titles.Add(title14);
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(885, 287);
+            this.btnCalculate.Location = new System.Drawing.Point(966, 316);
             this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(75, 23);
+            this.btnCalculate.Size = new System.Drawing.Size(298, 39);
             this.btnCalculate.TabIndex = 2;
             this.btnCalculate.Text = "Calculate";
             this.btnCalculate.UseVisualStyleBackColor = true;
@@ -157,7 +175,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(52, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(235, 298);
             this.groupBox1.TabIndex = 3;
@@ -259,14 +277,147 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.groupBox7);
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Location = new System.Drawing.Point(293, 12);
+            this.groupBox2.Location = new System.Drawing.Point(253, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(586, 298);
+            this.groupBox2.Size = new System.Drawing.Size(1011, 298);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grating data";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Controls.Add(this.tb_GratingChirpMinFactor);
+            this.groupBox7.Controls.Add(this.groupBox8);
+            this.groupBox7.Controls.Add(this.l_grtingChirpParam);
+            this.groupBox7.Controls.Add(this.tb_gratingChirpParam);
+            this.groupBox7.Controls.Add(this.cb_gratingChirpProfile);
+            this.groupBox7.Controls.Add(this.l_grtingChirpProfile);
+            this.groupBox7.Controls.Add(this.cb_gratingChirpReverse);
+            this.groupBox7.Controls.Add(this.chartChirp);
+            this.groupBox7.Location = new System.Drawing.Point(586, 23);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(419, 269);
+            this.groupBox7.TabIndex = 14;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Chirp";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(220, 60);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(87, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Min Period factor";
+            // 
+            // tb_GratingChirpMinFactor
+            // 
+            this.tb_GratingChirpMinFactor.Location = new System.Drawing.Point(314, 57);
+            this.tb_GratingChirpMinFactor.Name = "tb_GratingChirpMinFactor";
+            this.tb_GratingChirpMinFactor.Size = new System.Drawing.Size(99, 20);
+            this.tb_GratingChirpMinFactor.TabIndex = 21;
+            this.tb_GratingChirpMinFactor.TextChanged += new System.EventHandler(this.tb_GratingChirpMinFactor_TextChanged);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.rb_ChirpInputByValues);
+            this.groupBox8.Controls.Add(this.rb_ChirpInputByProfile);
+            this.groupBox8.Location = new System.Drawing.Point(21, 16);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(126, 75);
+            this.groupBox8.TabIndex = 20;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Input Variant";
+            // 
+            // rb_ChirpInputByValues
+            // 
+            this.rb_ChirpInputByValues.AutoSize = true;
+            this.rb_ChirpInputByValues.Location = new System.Drawing.Point(7, 44);
+            this.rb_ChirpInputByValues.Name = "rb_ChirpInputByValues";
+            this.rb_ChirpInputByValues.Size = new System.Drawing.Size(79, 17);
+            this.rb_ChirpInputByValues.TabIndex = 1;
+            this.rb_ChirpInputByValues.TabStop = true;
+            this.rb_ChirpInputByValues.Text = "give values";
+            this.rb_ChirpInputByValues.UseVisualStyleBackColor = true;
+            // 
+            // rb_ChirpInputByProfile
+            // 
+            this.rb_ChirpInputByProfile.AutoSize = true;
+            this.rb_ChirpInputByProfile.Location = new System.Drawing.Point(7, 20);
+            this.rb_ChirpInputByProfile.Name = "rb_ChirpInputByProfile";
+            this.rb_ChirpInputByProfile.Size = new System.Drawing.Size(84, 17);
+            this.rb_ChirpInputByProfile.TabIndex = 0;
+            this.rb_ChirpInputByProfile.TabStop = true;
+            this.rb_ChirpInputByProfile.Text = "select profile";
+            this.rb_ChirpInputByProfile.UseVisualStyleBackColor = true;
+            // 
+            // l_grtingChirpParam
+            // 
+            this.l_grtingChirpParam.AutoSize = true;
+            this.l_grtingChirpParam.Location = new System.Drawing.Point(272, 36);
+            this.l_grtingChirpParam.Name = "l_grtingChirpParam";
+            this.l_grtingChirpParam.Size = new System.Drawing.Size(36, 13);
+            this.l_grtingChirpParam.TabIndex = 19;
+            this.l_grtingChirpParam.Text = "param";
+            // 
+            // tb_gratingChirpParam
+            // 
+            this.tb_gratingChirpParam.Location = new System.Drawing.Point(314, 35);
+            this.tb_gratingChirpParam.Name = "tb_gratingChirpParam";
+            this.tb_gratingChirpParam.Size = new System.Drawing.Size(99, 20);
+            this.tb_gratingChirpParam.TabIndex = 16;
+            this.tb_gratingChirpParam.TextChanged += new System.EventHandler(this.tb_gratingChirpParam_TextChanged);
+            // 
+            // cb_gratingChirpProfile
+            // 
+            this.cb_gratingChirpProfile.FormattingEnabled = true;
+            this.cb_gratingChirpProfile.Location = new System.Drawing.Point(314, 13);
+            this.cb_gratingChirpProfile.Name = "cb_gratingChirpProfile";
+            this.cb_gratingChirpProfile.Size = new System.Drawing.Size(99, 21);
+            this.cb_gratingChirpProfile.TabIndex = 17;
+            this.cb_gratingChirpProfile.SelectedIndexChanged += new System.EventHandler(this.cb_gratingChirpProfile_SelectedIndexChanged);
+            // 
+            // l_grtingChirpProfile
+            // 
+            this.l_grtingChirpProfile.AutoSize = true;
+            this.l_grtingChirpProfile.Location = new System.Drawing.Point(272, 13);
+            this.l_grtingChirpProfile.Name = "l_grtingChirpProfile";
+            this.l_grtingChirpProfile.Size = new System.Drawing.Size(35, 13);
+            this.l_grtingChirpProfile.TabIndex = 18;
+            this.l_grtingChirpProfile.Text = "profile";
+            // 
+            // cb_gratingChirpReverse
+            // 
+            this.cb_gratingChirpReverse.AutoSize = true;
+            this.cb_gratingChirpReverse.Location = new System.Drawing.Point(302, 77);
+            this.cb_gratingChirpReverse.Name = "cb_gratingChirpReverse";
+            this.cb_gratingChirpReverse.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cb_gratingChirpReverse.Size = new System.Drawing.Size(111, 17);
+            this.cb_gratingChirpReverse.TabIndex = 15;
+            this.cb_gratingChirpReverse.Text = "        reverse chirp";
+            this.cb_gratingChirpReverse.UseVisualStyleBackColor = true;
+            this.cb_gratingChirpReverse.CheckedChanged += new System.EventHandler(this.cb_gratingChirpReverse_CheckedChanged);
+            // 
+            // chartChirp
+            // 
+            chartArea15.Name = "ChartArea1";
+            this.chartChirp.ChartAreas.Add(chartArea15);
+            this.chartChirp.Location = new System.Drawing.Point(21, 100);
+            this.chartChirp.Name = "chartChirp";
+            series23.ChartArea = "ChartArea1";
+            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series23.Name = "Chirp";
+            this.chartChirp.Series.Add(series23);
+            this.chartChirp.Size = new System.Drawing.Size(336, 169);
+            this.chartChirp.TabIndex = 13;
+            this.chartChirp.Text = "PeriodProfile";
+            title15.Name = "Period Profile";
+            title15.Text = "Period Profile";
+            this.chartChirp.Titles.Add(title15);
             // 
             // groupBox4
             // 
@@ -475,21 +626,21 @@
             // 
             // chartApod
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chartApod.ChartAreas.Add(chartArea6);
+            chartArea16.Name = "ChartArea1";
+            this.chartApod.ChartAreas.Add(chartArea16);
             this.chartApod.Location = new System.Drawing.Point(6, 100);
             this.chartApod.Name = "chartApod";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Name = "Apodisation";
-            this.chartApod.Series.Add(series10);
+            series24.ChartArea = "ChartArea1";
+            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series24.Name = "Apodisation";
+            this.chartApod.Series.Add(series24);
             this.chartApod.Size = new System.Drawing.Size(336, 169);
             this.chartApod.TabIndex = 12;
             this.chartApod.Text = "Apodisation Profile";
-            title6.IsDockedInsideChartArea = false;
-            title6.Name = "Apodisation Profile";
-            title6.Text = "Apodisation Profile";
-            this.chartApod.Titles.Add(title6);
+            title16.IsDockedInsideChartArea = false;
+            title16.Name = "Apodisation Profile";
+            title16.Text = "Apodisation Profile";
+            this.chartApod.Titles.Add(title16);
             // 
             // groupBox6
             // 
@@ -501,9 +652,9 @@
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.tb_result_dynamic);
             this.groupBox6.Controls.Add(this.tb_result_wavelength);
-            this.groupBox6.Location = new System.Drawing.Point(966, 316);
+            this.groupBox6.Location = new System.Drawing.Point(966, 361);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(304, 300);
+            this.groupBox6.Size = new System.Drawing.Size(304, 255);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Results";
@@ -598,6 +749,11 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartChirp)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -657,6 +813,18 @@
         private System.Windows.Forms.TextBox tb_gratingRealPeriod;
         private System.Windows.Forms.TextBox tb_gratingTilt;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartChirp;
+        private System.Windows.Forms.CheckBox cb_gratingChirpReverse;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton rb_ChirpInputByValues;
+        private System.Windows.Forms.RadioButton rb_ChirpInputByProfile;
+        private System.Windows.Forms.Label l_grtingChirpParam;
+        private System.Windows.Forms.TextBox tb_gratingChirpParam;
+        private System.Windows.Forms.ComboBox cb_gratingChirpProfile;
+        private System.Windows.Forms.Label l_grtingChirpProfile;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox tb_GratingChirpMinFactor;
     }
 }
 

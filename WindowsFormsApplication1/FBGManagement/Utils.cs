@@ -183,11 +183,6 @@ namespace WindowsFormsApplication1.FBGManagement
                     }
                     break;
                 }
-                //if (Math.Abs(centralValue - tempValue) < minValueDistance)
-                //{
-                //    minValueDistance = Math.Abs((leftMaxValue - MinValue) / 2 - simulationResult.ElementAt(i));
-                //    tempLeftWavelength = wavelengths.ElementAt(i);
-                //}
             }
             //minValueDistance = 10;
             tempValue = MinValue;
@@ -217,28 +212,94 @@ namespace WindowsFormsApplication1.FBGManagement
                     }
                     break;
                 }
-                //if (Math.Abs((rightMaxValue - MinValue) / 2 - simulationResult.ElementAt(i)) < minValueDistance)
-                //{
-                //    minValueDistance = Math.Abs((rightMaxValue - MinValue) / 2 - simulationResult.ElementAt(i));
-                //    tempRightWavelength = wavelengths.ElementAt(i);
-                //}
             }
 
             return tempRightWavelength - tempLeftWavelength;
         }
-        private static decimal CalculateLeftWavelength(List<decimal> simulationResult, List<decimal> wavelengths)
+        /// <summary>
+        /// Zwraca indeks, pod którym w tablicach wynikowych znajdują się wartości pierwszego piku na lewo od głównego piku.
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <param name="wavelengths"></param>
+        /// <returns></returns>
+        private static int CalculateLeftPeakIndex(List<decimal> simulationResult)
         {
             int leftMaxIndex = CalculateLeftMaxIndex(simulationResult);
-            return wavelengths.ElementAt(Utils.CalculateMaxCentralIndex(simulationResult, 0, leftMaxIndex));
+            decimal maxValue = simulationResult.ElementAt(leftMaxIndex);
+            decimal tempValue = simulationResult.ElementAt(leftMaxIndex);
+
+            for (int i = leftMaxIndex; i>=0;--i)
+            {
+                if (simulationResult.ElementAt(i) > tempValue)
+                {
+                    return i + 1;
+                }
+                tempValue = simulationResult.ElementAt(i);
+            }
+            return 0;
         }
-        private static decimal CalculateRightWavelength(List<decimal> simulationResult, List<decimal> wavelengths)
+        /// <summary>
+        /// Zwraca indeks, pod którym w tablicach wynikowych znajdują się wartości pierwszego piku na prawo od głównego piku.
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <returns></returns>
+        private static int CalculateRightPeakIndex(List<decimal> simulationResult)
         {
             int rightMaxIndex = CalculateRightMaxIndex(simulationResult);
-            return wavelengths.ElementAt(Utils.CalculateMaxCentralIndex(simulationResult, rightMaxIndex, simulationResult.Count-1));
+            decimal maxValue = simulationResult.ElementAt(rightMaxIndex);
+            decimal tempValue = simulationResult.ElementAt(rightMaxIndex);
+
+            for (int i = rightMaxIndex;i<simulationResult.Count;++i)
+            {
+                if (simulationResult.ElementAt(i) > tempValue)
+                {
+                    return i - 1;
+                }
+                tempValue = simulationResult.ElementAt(i);
+            }
+            return simulationResult.Count - 1;
         }
-        public static decimal CalculateAdjacentWavelength(List<decimal> simulationResult, List<decimal> wavelengths)
+        /// <summary>
+        /// Zwraca dynamikę piku na lewo od piku głównego
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <returns></returns>
+        private static decimal CalculateLeftPeakDynamics(List<decimal> simulationResult)
         {
-            return Math.Max(CalculateLeftWavelength(simulationResult, wavelengths), CalculateRightWavelength(simulationResult, wavelengths));
+            return simulationResult.ElementAt(Utils.CalculateLeftPeakIndex(simulationResult));
+        }
+        /// <summary>
+        /// Zwraca dynamikę piku na prawo od piku głównego
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <returns></returns>
+        private static decimal CalculateRightPeakDynamics(List<decimal> simulationResult)
+        {
+            return simulationResult.ElementAt(Utils.CalculateRightPeakIndex(simulationResult));
+        }
+        /// <summary>
+        /// Zwraca długość fali piku na lewo od piku głównego
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <param name="wavelengths"></param>
+        /// <returns></returns>
+        private static decimal CalculateLeftPeakWavelenght(List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            return wavelengths.ElementAt(Utils.CalculateLeftPeakIndex(simulationResult));
+        }
+        /// <summary>
+        /// Zwraca długość fali piku na prawo od piku głównego
+        /// </summary>
+        /// <param name="simulationResult"></param>
+        /// <param name="wavelengths"></param>
+        /// <returns></returns>
+        private static decimal CalculateRightPeakWavelength(List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            return wavelengths.ElementAt(Utils.CalculateRightPeakIndex(simulationResult));
+        }
+        public static decimal CalculateAdjacentDynamic(List<decimal> simulationResult, List<decimal> wavelengths)
+        {
+            return Math.Min(CalculateLeftPeakDynamics(simulationResult), CalculateRightPeakDynamics(simulationResult));
         }
     }
 }

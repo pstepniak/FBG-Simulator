@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1.FBGManagement
         }
         public List<decimal> SimulateWithDividedGrating(Grating grating, out List<decimal> wavelengths)
         {
-            decimal gratingPeriod = grating.period; //kiedyś tu będzie uwzględniony chirp
+            decimal gratingPeriod = grating.period;
             decimal gratingNeff = grating.neff;
             decimal virtualGratingLength;
             decimal virtualGratingRim;
@@ -41,8 +41,8 @@ namespace WindowsFormsApplication1.FBGManagement
             for (int i = 0; i < grating.parts; i++)
             {
                 virtualGratingLength = grating.length / grating.parts;
-                virtualGratingRim = grating.refractiveIndexModulation * grating.ProfileForSection(i, grating.parts);
-                virtualGrating = new Grating(gratingPeriod, virtualGratingLength, virtualGratingRim, gratingNeff, 1);
+                virtualGratingRim = grating.refractiveIndexModulation * grating.ApodisationProfileForSection(i, grating.parts); //uwzględnienie apodyzacji
+                virtualGrating = new Grating(grating.ChirpProfileForSection(i, grating.parts), virtualGratingLength, virtualGratingRim, gratingNeff, 1); //uwzględnienie chirpu
                 partsResults.Add(this.Simulate(virtualGrating, out outWavelengths));
             }
             wavelengths = outWavelengths;
@@ -70,7 +70,10 @@ namespace WindowsFormsApplication1.FBGManagement
 
             for (int i = 0; i < countOfSections; i++)
             {
-                x.Add(grating.period / (decimal)Math.Pow(10, -9));
+                decimal period_i = grating.ChirpProfileForSection(i, countOfSections);
+                period_i = period_i / (decimal)Math.Pow(10, -9);
+                x.Add(period_i);
+                //x.Add(grating.period / (decimal)Math.Pow(10, -9)); //tu należy uwzględnić chirp
             }
             Utils.SaveArrayAsCSV(x.ToArray(), "C:\\FBG\\_x.csv");
             /*Dane siatki*/
@@ -105,7 +108,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 lambdaBy.Add(lambdaBy_i);
 
                 //apodyzacja dla sekcji w oparciu o dane zapisane na siatce
-                decimal apodyzacja_i = grating.ProfileForSection(i, countOfSections);
+                decimal apodyzacja_i = grating.ApodisationProfileForSection(i, countOfSections);
                 apodisation.Add(apodyzacja_i);
             }
             Utils.SaveArrayAsCSV(okresy.ToArray(), "C:\\FBG\\_okresy.csv");

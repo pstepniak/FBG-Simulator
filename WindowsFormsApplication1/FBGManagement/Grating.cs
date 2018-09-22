@@ -19,6 +19,27 @@ namespace WindowsFormsApplication1.FBGManagement
         public decimal apodisationParam { get; }
         bool apodisationReverse { get; }
         public Apodisation apodisationType { get; }
+        public decimal chirpParam { get; }
+        bool chirpReverse { get; }
+        public Chirp chirpType { get; }
+        public decimal chirpMinPeriod { get; }
+
+        public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts,
+                        Apodisation ApodisationType, decimal apodisationParam, bool apodisationReverse,
+                        Chirp ChirpType, decimal chirpParam, bool chirpReverse, decimal chirpMinPeriod)
+            : this(period, length, refractiveIndexModulation, neff, parts, ApodisationType, apodisationParam, apodisationReverse, ChirpType, chirpParam, chirpReverse)
+        {
+            this.chirpMinPeriod = chirpMinPeriod;
+        }
+        public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts,
+                        Apodisation ApodisationType, decimal apodisationParam, bool apodisationReverse,
+                        Chirp ChirpType, decimal chirpParam, bool chirpReverse)
+            : this(period, length, refractiveIndexModulation, neff, parts, ApodisationType, apodisationParam, apodisationReverse)
+        {
+            this.chirpType = ChirpType;
+            this.chirpParam = chirpParam;
+            this.chirpReverse = chirpReverse;
+        }
 
         public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts, Apodisation ApodisationType, decimal apodisationParam, bool apodisationReverse)
             : this(period, length, refractiveIndexModulation, neff, parts)
@@ -60,7 +81,8 @@ namespace WindowsFormsApplication1.FBGManagement
             refractiveIndexModulation = 0.0004m;
         }
 
-        public enum Apodisation {Gaussian, Sinc, Sin, None}
+        public enum Apodisation { Gaussian, Sinc, Sin, None }
+        public enum Chirp { Linear, Gaussian, Sinc, Sin, None }
 
         /// <summary>
         /// 
@@ -68,11 +90,11 @@ namespace WindowsFormsApplication1.FBGManagement
         /// <param name="sectionNumber">Sekcje numerujemy od 0</param>
         /// <param name="countOfSections"></param>
         /// <returns></returns>
-        public decimal ProfileForSection(int sectionNumber, int countOfSections)
+        public decimal ApodisationProfileForSection(int sectionNumber, int countOfSections)
         {
-            return this.Profile(this.length * (sectionNumber+0.5m) / countOfSections);
+            return this.ApodisationProfile(this.length * (sectionNumber+0.5m) / countOfSections);
         }
-        private decimal Profile(decimal z)
+        private decimal ApodisationProfile(decimal z)
         {
             decimal profValue;
             switch (this.apodisationType)
@@ -98,6 +120,52 @@ namespace WindowsFormsApplication1.FBGManagement
                 profValue = 1 - profValue;
             };
             return profValue;
+        }
+        /// <summary>
+        /// Zwraca okres uwzględniając chirp i zakres okresu na podstawie parametru minimalnego okresu.
+        /// </summary>
+        public decimal ChirpProfileForSection(int sectionNumber, int countOfSections)
+        {
+            decimal profile = this.ChirpProfile(this.length * (sectionNumber + 0.5m) / countOfSections);
+            profile = profile * /*period * */ (period - chirpMinPeriod) + chirpMinPeriod;
+            return profile;
+        }
+        /// <summary>
+        /// Zwraca profil z przedziału 0-1
+        /// </summary>
+        private decimal ChirpProfile(decimal z)
+        {
+            decimal profValue;
+            switch (this.chirpType)
+            {
+                case Chirp.Linear:
+                    profValue = LinearProfile(z, this.chirpParam);
+                    break;
+                case Chirp.Gaussian:
+                    profValue = GaussianProfile(z, this.chirpParam);
+                    break;
+                case Chirp.Sinc:
+                    profValue = SincProfile(z);
+                    break;
+                case Chirp.Sin:
+                    profValue = SinProfile(z);
+                    break;
+                case Chirp.None:
+                    profValue = 1;
+                    break;
+                default:
+                    profValue = 1;
+                    break;
+            }
+            if (this.chirpReverse)
+            {
+                profValue = 1 - profValue;
+            };
+            return profValue;
+        }
+        private decimal LinearProfile(decimal z, decimal directionalFactor)
+        {
+            return (decimal)z/length; //profil rosnący, dla malejącego trzeba zrobić reverse. Pełny wzór: v0+z*(period-v0)/length; gdzie v0 to minimalny okres.
         }
         private decimal GaussianProfile(decimal z, decimal sigma)
         {
