@@ -93,17 +93,26 @@ namespace WindowsFormsApplication1
             chirpReverse = cb_gratingChirpReverse.Checked;
             //Grating grating = new Grating(okres, L, delta_n, neff);
             //Grating grating = new Grating(okres, L, delta_n, neff, parts);
+            decimal chirpMinPeriod;
+
             if (chirpMinPeriodFactor > 1)
             {
-                chirpMinPeriodFactor = 1;
+                chirpMinPeriod = chirpMinPeriodFactor*(decimal)Math.Pow(10,-9);
+                if (chirpMinPeriod > okres)
+                {
+                    chirpMinPeriod = okres;
+                }
             }
-            if (chirpMinPeriodFactor <0 )
+            else if (chirpMinPeriodFactor <0 )
             {
-                chirpMinPeriodFactor = 0;
+                chirpMinPeriod = 0;
+            } else
+            {
+                chirpMinPeriod = okres * chirpMinPeriodFactor;
             }
 
 
-            return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse, chirpProfile, chirpParam, chirpReverse, okres*chirpMinPeriodFactor);
+            return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse, chirpProfile, chirpParam, chirpReverse, chirpMinPeriod);
         }
         private Simulation PrepareSimulation()
         {
@@ -166,7 +175,14 @@ namespace WindowsFormsApplication1
             try
             {
                 Grating grating = PrepareGrating();
-                PrintChirpGraph(grating);
+                if (rb_ChirpInputByProfile.Checked)
+                {
+                  PrintChirpGraph(grating);
+                }
+                else if (rb_ChirpInputByValues.Checked)
+                {
+                    PrintChirpGraph(grating, chirpProfile);
+                }
             }
             catch (Exception e)
             {
@@ -203,9 +219,32 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < probes; i++)
             {
                 //wyznaczamy okres uwzględniając profil chirpu
-                chartChirp.Series["Chirp"].Points.AddXY(i, grating.ChirpProfileForSection(i, probes));
+                chartChirp.Series["Chirp"].Points.AddXY(i, grating.ChirpProfileForSection(i, probes)*(decimal)(Math.Pow(10,9)));
             }
-            chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.chirpMinPeriod;
+            if (grating.chirpMinPeriod != grating.period)
+            {
+                chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.chirpMinPeriod * Math.Pow(10, 9);
+                chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period * Math.Pow(10, 9);
+            } else
+            {
+                chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.period * Math.Pow(10, 9) * 0.99;
+                chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period * Math.Pow(10, 9);
+            }
+        }
+        private void PrintChirpGraph(Grating grating, List<decimal> chirpProfile)
+        {
+            foreach (var series in chartChirp.Series)
+            {
+                series.Points.Clear();
+            }
+            int probes = 100;
+
+            for (int i = 0; i < probes; i++)
+            {
+                //wyznaczamy okres uwzględniając profil chirpu
+                chartChirp.Series["Chirp"].Points.AddXY(i, chirpProfile.ElementAt((int)Math.Floor(chirpProfile.Count*(decimal)i/probes)));
+            }
+            chartChirp.ChartAreas[0].AxisY.Minimum = (double)chirpProfile.Min();
             chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period;
         }
         private void ClearGraphs()
@@ -374,10 +413,39 @@ namespace WindowsFormsApplication1
             }
             RefreshChirpGraph();
         }
-
+        #region manual chirp profile
+        List<decimal> chirpProfile = new List<decimal>();
         private void cb_gratingChirpReverse_CheckedChanged(object sender, EventArgs e)
         {
             RefreshChirpGraph();
         }
+
+        private void btn_gratingChirpClear_Click(object sender, EventArgs e)
+        {
+            chirpProfile.Clear();
+            RefreshChirpGraph();
+        }
+
+        private void btn_gratingChirpAdd_Click(object sender, EventArgs e)
+        {
+            decimal valueToAdd;
+            if (!String.IsNullOrEmpty(tb_gratingChirpValue.Text))
+            {
+                valueToAdd = Decimal.Parse(tb_gratingChirpValue.Text);
+
+                chirpProfile.Add(valueToAdd);
+            }
+            RefreshChirpGraph();
+        }
+
+        private void btn_gratingChirpDelete_Click(object sender, EventArgs e)
+        {
+            if (chirpProfile.Count > 0)
+            {
+                chirpProfile.RemoveAt(chirpProfile.Count - 1); //usunięcie ostatniego elementu
+            }
+            RefreshChirpGraph();
+        }
+        #endregion
     }
 }

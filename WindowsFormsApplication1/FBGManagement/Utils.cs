@@ -132,7 +132,7 @@ namespace WindowsFormsApplication1.FBGManagement
         private static int CalculateRightMaxIndex(List<decimal> simulationResult)
         {
             decimal currentValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult));
-            decimal previousValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult)-1);
+            decimal previousValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult)==0?1:Utils.CalculateMinCentralIndex(simulationResult)- 1);
             for (int i = Utils.CalculateMinCentralIndex(simulationResult)+1; i < simulationResult.Count; i++)
             {
                 currentValue = simulationResult.ElementAt(i);
