@@ -70,6 +70,7 @@
     <Compile Include="FBGForm.Designer.cs">
       <DependentUpon>FBGForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FBGManagement\DecComplex.cs" />
     <Compile Include="FBGManagement\Range.cs" />
     <Compile Include="FBGManagement\Grating.cs" />
     <Compile Include="FBGManagement\LightSource.cs" />

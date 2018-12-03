@@ -133,7 +133,7 @@ namespace WindowsFormsApplication1.FBGManagement
             decimal[,] k2 = new decimal[countOfProbes, countOfSections];
             decimal[,] sgm = new decimal[countOfProbes, countOfSections];
             decimal[,] sgm2 = new decimal[countOfProbes, countOfSections];
-            Complex[,] gammaB = new Complex[countOfProbes, countOfSections];
+            DecComplex[,] gammaB = new DecComplex[countOfProbes, countOfSections];
 
             for (int ll = 0; ll < countOfProbes; ll++)
             {
@@ -146,15 +146,15 @@ namespace WindowsFormsApplication1.FBGManagement
                     sgm2[ll, nn] = (decimal)Math.Pow((double)sgm[ll, nn], 2);
                     if (k2[ll, nn] > sgm2[ll, nn])
                     {
-                        gammaB[ll, nn] = Math.Pow((double)(k2[ll, nn] - sgm2[ll, nn]), 0.5); //wzór 3-14
+                        gammaB[ll, nn] = new DecComplex(Math.Pow((double)(k2[ll, nn] - sgm2[ll, nn]), 0.5),0); //wzór 3-14
                     }
                     else if (k2[ll, nn] < sgm2[ll, nn])
                     {
-                        gammaB[ll, nn] = Complex.ImaginaryOne * Math.Pow((double)(sgm2[ll, nn] - k2[ll, nn]), 0.5); //wzór 3-15
+                        gammaB[ll, nn] = DecComplex.ImaginaryOne * new DecComplex(Math.Pow((double)(sgm2[ll, nn] - k2[ll, nn]), 0.5),0); //wzór 3-15
                     }
                     else
                     {
-                        gammaB[ll, nn] = 0;
+                        gammaB[ll, nn] = new DecComplex(0m,0m);
                     }
                 }
 
@@ -169,25 +169,25 @@ namespace WindowsFormsApplication1.FBGManagement
             // (j jest od L do 0 !!!!!, a nie odwrotnie !!!!!)
             // wszystkie Fj trzeba zapisywać, żeby potem je wymnożyć
 
-            Complex[,] F11 = new Complex[countOfProbes, countOfSections];
-            Complex[,] F12 = new Complex[countOfProbes, countOfSections];
-            Complex[,] F21 = new Complex[countOfProbes, countOfSections];
-            Complex[,] F22 = new Complex[countOfProbes, countOfSections];
+            DecComplex[,] F11 = new DecComplex[countOfProbes, countOfSections];
+            DecComplex[,] F12 = new DecComplex[countOfProbes, countOfSections];
+            DecComplex[,] F21 = new DecComplex[countOfProbes, countOfSections];
+            DecComplex[,] F22 = new DecComplex[countOfProbes, countOfSections];
 
             for (int ll = 0; ll < countOfProbes; ll++)
             {
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
-                    F11[ll,nn] = Complex.Cosh(gammaB[ll, nn] * (double)lj.ElementAt(nn)) + Complex.ImaginaryOne*((double)(sgm[ll, nn]) / gammaB[ll, nn]) * 
-                        Complex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
-                    F12[ll,nn] = Complex.ImaginaryOne*((double)k[ll, nn] / gammaB[ll, nn]) * Complex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
+                    F11[ll,nn] = DecComplex.Cosh(gammaB[ll, nn] * (double)lj.ElementAt(nn)) + DecComplex.ImaginaryOne*((double)(sgm[ll, nn]) / gammaB[ll, nn]) *
+                        DecComplex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
+                    F12[ll,nn] = DecComplex.ImaginaryOne*((double)k[ll, nn] / gammaB[ll, nn]) * DecComplex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
                     F21[ll, nn] = F12[ll, nn];
                     F22[ll, nn] = F11[ll, nn];
                 }
             }
 
 
-            Complex[,,,] D = new Complex[2, 2, countOfProbes, countOfSections];
+            DecComplex[,,,] D = new DecComplex[2, 2, countOfProbes, countOfSections];
             for (int c = 0; c < countOfProbes; c++)
             {
                 for (int d = 0; d < countOfSections; d++)
@@ -200,7 +200,7 @@ namespace WindowsFormsApplication1.FBGManagement
             }
             //UWAGA, TA PĘTLA NIE JEST PEWNA, MOŻE CHODZIŁO O COŚ INNEGO, ORYGINALNY KOD: T(:,:,f)=D(:,:,f,(ilosc_sekcji));
 
-            Complex [,,] T = new Complex[2, 2, countOfProbes];
+            DecComplex[,,] T = new DecComplex[2, 2, countOfProbes];
             for (int f = 0; f < countOfProbes; f++)
             {
                 T[0, 0, f] = D[0, 0, f, countOfSections-1];
@@ -214,15 +214,15 @@ namespace WindowsFormsApplication1.FBGManagement
             int fi = 0; //counter
             while (fi <countOfProbes)
             {
-                for (int e = countOfSections-1;e>=0;--e)
+                for (int e = countOfSections-2;e>=0;--e)
                 {
                     T[0, 0, fi] = T[0, 0, fi] * D[0, 0, fi, e];
                     T[0, 1, fi] = T[0, 1, fi] * D[0, 1, fi, e];
                     T[1, 0, fi] = T[1, 0, fi] * D[1, 0, fi, e];
                     T[1, 1, fi] = T[1, 1, fi] * D[1, 1, fi, e];
                 }
-                Complex value = 1 / T[0, 0, fi];
-                decimal doubleValue = (decimal)Complex.Abs(value);
+                DecComplex value = 1d / T[0, 0, fi];
+                decimal doubleValue = (decimal)DecComplex.Abs(value);
                 Ry.Add(doubleValue);
 
                 fi = fi + 1;
@@ -231,10 +231,10 @@ namespace WindowsFormsApplication1.FBGManagement
             //normalizacja Ry:
             List<decimal> NormRy = new List<decimal>();
             decimal norm = Ry.Max();
-            foreach (decimal item in Ry)
-            {
-                NormRy.Add(item / norm);
-            }
+            //foreach (decimal item in Ry)
+            //{
+            //    NormRy.Add(item / norm);
+            //}
 
             //return NormRy;
             return Ry;
