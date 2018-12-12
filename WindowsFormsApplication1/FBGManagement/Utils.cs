@@ -301,5 +301,97 @@ namespace WindowsFormsApplication1.FBGManagement
         {
             return Math.Min(CalculateLeftPeakDynamics(simulationResult), CalculateRightPeakDynamics(simulationResult));
         }
+        public static List<decimal> ConvertToDecimal(List<string> list)
+        {
+            List<decimal> result = new List<decimal>();
+
+            foreach(string s in list)
+            {
+                result.Add(Decimal.Parse(s.Replace('.', ','), System.Globalization.NumberStyles.Float));
+            }
+            return result;
+        }
+        public static List<decimal> TransformDecimalListToNormalizedList(List<decimal> list)
+        {
+            List<decimal> result = new List<decimal>();
+            decimal maxValue = list.First();
+            foreach (decimal item in list)
+            {
+                if (item > maxValue)
+                {
+                    maxValue = item;
+                }
+            }
+            decimal tmpValue;
+            foreach (decimal item in list)
+            {
+                tmpValue = item / maxValue;
+                if (tmpValue > 1)
+                {
+                    tmpValue = 1;
+                }
+                result.Add(tmpValue);
+            }
+            return result;
+        }
+        public static List<decimal> TransformDecimalListToSkippedInputDifferencesList(List<decimal> list)
+        {
+            //list jest listą wartości transmisji na pojedynczych długościach fali.
+            //a jest rozbieżnością między najniższą a najwyższą wartością transmitowanej energii dla 100% mocy transmisyjnej (w zasadzie między ostatnią, a pierwszą).
+            //b jest zakresem okna, ale w poniższym algorytmie przyjęto, że jest to długość listy (założenie prawdziwe, jeśli próbki są co równą długość fali).
+            //c jest szukaną wartością odniesienia 100% energii transmisyjnej w transformowanym punkcie.
+            //d jest odległością od końca okna (końca listy) do bieżącej pozycji (długości fali - w uproszczeniu indeksu na liście dla transformowanego elementu).
+            //oznaczając na charakterystyce transmisyjnej poszczególne wartości można z twierdzenia Talesa otrzymać: c=d*a/b
+
+            //wartość transmisji dana w transformowanym punkcie (val) jest odniesiona do wartości c. Chcemy odnieść ją (szukana x) do wartości maksymalnej transmisji (max).
+            //zatem z proporcji układamy: x=val*max/(max-c) // max - c , gdyż c jest szukanym dopełnieniem 100% transmisji w szukanym punkcie.
+            //dwa powyższe wzory stanowią podstawę działania tej metody.
+            List<decimal> result = new List<decimal>();
+            decimal a = list.Last() - list.First(); //zakładamy, że na pierwszym i ostatnim elemencie listy mamy 100% mocy transmisyjnej dostępnej na danej długości fali.
+            decimal b = list.Count() - 1;
+            decimal max = list.Max(); //w związku z powyższym założeniem max występuje na początku lub na końcu listy
+            decimal d;
+            decimal val;
+            decimal x;
+            decimal c;
+
+            if (a == 0) return list;
+            if (a < 0) a = -1 * a;
+
+            for (int i = 0; i < list.Count; ++i)
+            {
+                if (list.Last() > list.First()) //profil rosnący
+                {
+                    d = b - i;
+                }
+                else //profil malejący
+                {
+                    d = i;
+                }
+                val = list.ElementAt(i);
+                if (d != 0)
+                {
+                    c = d * a / b;
+                    x = val * max / (max - c);
+                }
+                else
+                {
+                    x = max;
+                }
+                result.Add(x);
+            }
+
+            return result;
+        }
+
+
+        public static void CopyToClipboard(string textToSave, bool removeUnits = false)
+        {
+            if (removeUnits)
+            {
+                textToSave = textToSave.Replace(" um", "");
+            }
+            System.Windows.Forms.Clipboard.SetText(textToSave);
+        }
     }
 }

@@ -97,16 +97,17 @@ namespace WindowsFormsApplication1
 
             if (chirpMinPeriodFactor > 1)
             {
-                chirpMinPeriod = chirpMinPeriodFactor*(decimal)Math.Pow(10,-9);
+                chirpMinPeriod = chirpMinPeriodFactor * (decimal)Math.Pow(10, -9);
                 if (chirpMinPeriod > okres)
                 {
                     chirpMinPeriod = okres;
                 }
             }
-            else if (chirpMinPeriodFactor <0 )
+            else if (chirpMinPeriodFactor < 0)
             {
                 chirpMinPeriod = 0;
-            } else
+            }
+            else
             {
                 chirpMinPeriod = okres * chirpMinPeriodFactor;
             }
@@ -147,16 +148,34 @@ namespace WindowsFormsApplication1
                 chartReflection.Series["Reflection2"].Points.AddXY(simulation.s + (i + 1) * ((simulation.s2 - simulation.s) / simulation.countOfProbes), 1 - simulationResult.ElementAt(i));
             }
         }
-        private void PrintResults(List<decimal> simulationResult, List<decimal> wavelengths)
+        private enum ResultsKind { CALCULATED, LOADED }
+        private void PrintResults(List<decimal> simulationResult, List<decimal> wavelengths, ResultsKind resultsKind)
         {
             //debug:
             //simulationResult = new List<decimal> {8,8,6,7,4,1,4,7,6,8 };
             //wavelengths = new List<decimal> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            tb_result_dynamic.Text = (Utils.CalculateDynamics(simulationResult)).ToString();
-            tb_result_fwhm.Text = (Utils.CalculateFWHM(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
-            tb_result_wavelength.Text = (Utils.CalculateCentralWavelenght(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
-            tb_result_adjacent_dynamic.Text = Utils.CalculateAdjacentDynamic(simulationResult, wavelengths).ToString();
+            string dynamics = (Utils.CalculateDynamics(simulationResult)).ToString();
+            string fwhm = (Utils.CalculateFWHM(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
+            string wavelength = (Utils.CalculateCentralWavelenght(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
+            string adjacentDynamics = Utils.CalculateAdjacentDynamic(simulationResult, wavelengths).ToString();
+
+            switch (resultsKind)
+            {
+                case ResultsKind.CALCULATED:
+                    tb_result_dynamic.Text = dynamics;
+                    tb_result_fwhm.Text = fwhm;
+                    tb_result_wavelength.Text = wavelength;
+                    tb_result_adjacent_dynamic.Text = adjacentDynamics;
+                    break;
+                case ResultsKind.LOADED:
+                    tb_loaded_dynamic.Text = dynamics;
+                    tb_loaded_fwhm.Text = fwhm;
+                    tb_loaded_wavelength.Text = wavelength;
+                    tb_loaded_adjacent_dynamic.Text = adjacentDynamics;
+                    break;
+
+            }
         }
         private void RefreshApodisationGraph()
         {
@@ -177,7 +196,7 @@ namespace WindowsFormsApplication1
                 Grating grating = PrepareGrating();
                 if (rb_ChirpInputByProfile.Checked)
                 {
-                  PrintChirpGraph(grating);
+                    PrintChirpGraph(grating);
                 }
                 else if (rb_ChirpInputByValues.Checked)
                 {
@@ -219,13 +238,14 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < probes; i++)
             {
                 //wyznaczamy okres uwzględniając profil chirpu
-                chartChirp.Series["Chirp"].Points.AddXY(i, grating.ChirpProfileForSection(i, probes)*(decimal)(Math.Pow(10,9)));
+                chartChirp.Series["Chirp"].Points.AddXY(i, grating.ChirpProfileForSection(i, probes) * (decimal)(Math.Pow(10, 9)));
             }
             if (grating.chirpMinPeriod != grating.period)
             {
                 chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.chirpMinPeriod * Math.Pow(10, 9);
                 chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period * Math.Pow(10, 9);
-            } else
+            }
+            else
             {
                 chartChirp.ChartAreas[0].AxisY.Minimum = (double)grating.period * Math.Pow(10, 9) * 0.99;
                 chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period * Math.Pow(10, 9);
@@ -242,7 +262,7 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < probes; i++)
             {
                 //wyznaczamy okres uwzględniając profil chirpu
-                chartChirp.Series["Chirp"].Points.AddXY(i, chirpProfile.ElementAt((int)Math.Floor(chirpProfile.Count*(decimal)i/probes)));
+                chartChirp.Series["Chirp"].Points.AddXY(i, chirpProfile.ElementAt((int)Math.Floor(chirpProfile.Count * (decimal)i / probes)));
             }
             chartChirp.ChartAreas[0].AxisY.Minimum = (double)chirpProfile.Min();
             chartChirp.ChartAreas[0].AxisY.Maximum = (double)grating.period;
@@ -258,13 +278,27 @@ namespace WindowsFormsApplication1
                 series.Points.Clear();
             }
         }
+        private enum Series {A, B}
+        private void ClearGraphs(Series series)
+        {
+            switch (series) {
+                case Series.A:
+                    chartReflection.Series["Reflection"].Points.Clear();
+                    chartTransmission.Series["Transmission"].Points.Clear();
+                    break;
+                case Series.B:
+                    chartReflection.Series["Reflection2"].Points.Clear();
+                    chartTransmission.Series["Transmission2"].Points.Clear();
+                    break;
+            }
+        }
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             Simulation simulation = PrepareSimulation();
             Grating grating = PrepareGrating();
 
             //Wyczyszczenie wykresów
-            ClearGraphs();
+            ClearGraphs(Series.A);
             //Wykonanie symulacji
             SimulateWithProperMethod(simulation, grating);
         }
@@ -279,7 +313,7 @@ namespace WindowsFormsApplication1
                 PrintGraphs(simulation, simulationResult, wavelengths);
                 //zapis wyniku do pliku
                 Utils.SaveArrayAsCSV(simulationResult.ToArray(), "C:\\FBG\\x.csv");
-                PrintResults(simulationResult, wavelengths);
+                PrintResults(simulationResult, wavelengths, ResultsKind.CALCULATED);
             }
             if (rb_TMForEach.Checked || rb_both.Checked)
             {
@@ -447,5 +481,120 @@ namespace WindowsFormsApplication1
             RefreshChirpGraph();
         }
         #endregion
+
+        private void btnLoadCsv_Click(object sender, EventArgs e)
+        {
+            string csvFileName = OpenCSVFileDialogAndChooseFile();
+            if (!String.IsNullOrEmpty(csvFileName))
+            {
+                readCSVFile(csvFileName);
+            }
+        }
+
+        private string OpenCSVFileDialogAndChooseFile()
+        {
+            OpenFileDialog csvFileDialog = new OpenFileDialog();
+            csvFileDialog.Filter = "CSV Files (*.csv)|*.CSV";
+            csvFileDialog.FilterIndex = 1;
+            csvFileDialog.Multiselect = false;
+
+            string sFileName = null;
+
+            if (csvFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                sFileName = csvFileDialog.FileName;
+            }
+            return sFileName;
+        }
+
+        private void readCSVFile(string csvFileName)
+        {
+            List<string> wavelenghts = new List<string>();
+            List<string> powerValues = new List<string>();
+            using (var reader = new System.IO.StreamReader(csvFileName))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    wavelenghts.Add(values[0]);
+                    powerValues.Add(values[1]);
+                }
+            }
+
+            decimal wavelengthRangeMin = (decimal)Math.Floor(Double.Parse(wavelenghts.First().Replace('.', ','), System.Globalization.NumberStyles.Float));
+            decimal wavelengthRangeMax = (decimal)Math.Ceiling(Double.Parse(wavelenghts.Last().Replace('.', ','), System.Globalization.NumberStyles.Float));
+            Simulation simulationData = new Simulation(wavelenghts.Count, wavelengthRangeMin, wavelengthRangeMax);
+
+            List<decimal> normalizedPowerValues = Utils.TransformDecimalListToNormalizedList(Utils.ConvertToDecimal(powerValues));
+            List<decimal> transformedPowerValues = Utils.TransformDecimalListToSkippedInputDifferencesList(normalizedPowerValues);
+            List<decimal> convertedWavelenghts = Utils.ConvertToDecimal(wavelenghts);
+
+            ClearGraphs(Series.B);
+            bool showNotConvertedVector = false; //umożliwia wyświetlenie dwóch wykresów - niewyrównanego i wyrównanego (uwzględniającego charakterystykę źródła), celem porównania.
+
+            if (showNotConvertedVector)
+            {
+                ClearGraphs(Series.A);
+
+                PrintGraphs(simulationData, normalizedPowerValues, convertedWavelenghts);
+            }
+            PrintGraphs2(simulationData, transformedPowerValues, convertedWavelenghts);
+            PrintResults(Utils.TransformDecimalListToNormalizedList(Utils.ConvertToDecimal(powerValues)), Utils.ConvertToDecimal(wavelenghts), ResultsKind.LOADED);
+        }
+
+        private void btn_ClearResults_Click(object sender, EventArgs e)
+        {
+            ClearGraphs();
+            tb_result_dynamic.Text = "";
+            tb_result_fwhm.Text = "";
+            tb_result_wavelength.Text = "";
+            tb_result_adjacent_dynamic.Text = "";
+            tb_loaded_dynamic.Text = "";
+            tb_loaded_fwhm.Text = "";
+            tb_loaded_wavelength.Text = "";
+            tb_loaded_adjacent_dynamic.Text = "";
+        }
+
+        private void btn_result_wavelength_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_result_wavelength.Text, true);
+        }
+
+        private void btn_result_dynamic_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_result_dynamic.Text, true);
+        }
+
+        private void btn_result_fwhm_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_result_fwhm.Text, true);
+        }
+
+        private void btn_result_adjacent_dynamic_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_result_adjacent_dynamic.Text, true);
+        }
+
+        private void btn_loaded_wavelength_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_loaded_wavelength.Text, true);
+        }
+
+        private void btn_loaded_dynamic_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_loaded_dynamic.Text, true);
+        }
+
+        private void btn_loaded_fwhm_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_loaded_fwhm.Text, true);
+        }
+
+        private void btn_loaded_adjacent_dynamic_Click(object sender, EventArgs e)
+        {
+            Utils.CopyToClipboard(tb_loaded_adjacent_dynamic.Text, true);
+        }
     }
 }
