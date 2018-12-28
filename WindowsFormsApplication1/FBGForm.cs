@@ -166,7 +166,7 @@ namespace WindowsFormsApplication1
 
             if (adjustScaleIfNeeded)
             {
-                if (wavelength < 0.1m)
+                if (wavelength < 0.1m) //jeśli <0.1 to zakładamy, że dane są w metrach, należy przekształcić je na mikrometry.
                 {
                     wavelength = wavelength * (decimal)(Math.Pow(10, 9));
                     fwhm = fwhm * (decimal)(Math.Pow(10, 9));

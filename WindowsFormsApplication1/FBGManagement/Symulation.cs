@@ -104,7 +104,7 @@ namespace WindowsFormsApplication1.FBGManagement
             {
                 decimal okres_i = (decimal)Math.Pow(10, -9) * x[i];
                 okresy.Add(okres_i);
-                decimal lambdaBy_i = 2m * (decimal)Math.PI * grating.neff * okresy[i];
+                decimal lambdaBy_i = 2m * grating.neff * okresy[i];
                 lambdaBy.Add(lambdaBy_i);
 
                 //apodyzacja dla sekcji w oparciu o dane zapisane na siatce
@@ -198,7 +198,7 @@ namespace WindowsFormsApplication1.FBGManagement
                     D[1, 1, c, d] = F22[c, d];
                 }
             }
-            //UWAGA, TA PĘTLA NIE JEST PEWNA, MOŻE CHODZIŁO O COŚ INNEGO, ORYGINALNY KOD: T(:,:,f)=D(:,:,f,(ilosc_sekcji));
+            //KOD W MATLABIE: T(:,:,f)=D(:,:,f,(ilosc_sekcji));
 
             DecComplex[,,] T = new DecComplex[2, 2, countOfProbes];
             for (int f = 0; f < countOfProbes; f++)
