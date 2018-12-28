@@ -336,6 +336,8 @@ namespace WindowsFormsApplication1.FBGManagement
         }
         public static List<decimal> TransformDecimalListToSkippedInputDifferencesList(List<decimal> list)
         {
+            //metoda neutralizuje krzywą charakterystykę źródła. Wzory wynikają ze schematu narysowanego na kartce, mogącego być odtworzonym na podstawie poniższego opisu.
+
             //list jest listą wartości transmisji na pojedynczych długościach fali.
             //a jest rozbieżnością między najniższą a najwyższą wartością transmitowanej energii dla 100% mocy transmisyjnej (w zasadzie między ostatnią, a pierwszą).
             //b jest zakresem okna, ale w poniższym algorytmie przyjęto, że jest to długość listy (założenie prawdziwe, jeśli próbki są co równą długość fali).

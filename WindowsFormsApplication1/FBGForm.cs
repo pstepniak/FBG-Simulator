@@ -155,24 +155,42 @@ namespace WindowsFormsApplication1
             //simulationResult = new List<decimal> {8,8,6,7,4,1,4,7,6,8 };
             //wavelengths = new List<decimal> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            string dynamics = (Utils.CalculateDynamics(simulationResult)).ToString();
-            string fwhm = (Utils.CalculateFWHM(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
-            string wavelength = (Utils.CalculateCentralWavelenght(simulationResult, wavelengths) * (decimal)(Math.Pow(10, 9))).ToString() + " um";
-            string adjacentDynamics = Utils.CalculateAdjacentDynamic(simulationResult, wavelengths).ToString();
+            //flags --//TODO: Zrobić obsługę flag z interfejsu
+
+            bool adjustScaleIfNeeded = true;
+            bool addUnits = true;
+
+
+            decimal fwhm = Utils.CalculateFWHM(simulationResult, wavelengths);
+            decimal wavelength = Utils.CalculateCentralWavelenght(simulationResult, wavelengths);
+
+            if (adjustScaleIfNeeded)
+            {
+                if (wavelength < 0.1m)
+                {
+                    wavelength = wavelength * (decimal)(Math.Pow(10, 9));
+                    fwhm = fwhm * (decimal)(Math.Pow(10, 9));
+                }
+            }
+
+            string fwhmStr = fwhm.ToString() + (addUnits ? " um" : "");
+            string wavelengthStr = wavelength.ToString() + (addUnits ? " um" : "");
+            string dynamicsStr = (Utils.CalculateDynamics(simulationResult)).ToString();
+            string adjacentDynamicsStr = Utils.CalculateAdjacentDynamic(simulationResult, wavelengths).ToString();
 
             switch (resultsKind)
             {
                 case ResultsKind.CALCULATED:
-                    tb_result_dynamic.Text = dynamics;
-                    tb_result_fwhm.Text = fwhm;
-                    tb_result_wavelength.Text = wavelength;
-                    tb_result_adjacent_dynamic.Text = adjacentDynamics;
+                    tb_result_dynamic.Text = dynamicsStr;
+                    tb_result_fwhm.Text = fwhmStr;
+                    tb_result_wavelength.Text = wavelengthStr;
+                    tb_result_adjacent_dynamic.Text = adjacentDynamicsStr;
                     break;
                 case ResultsKind.LOADED:
-                    tb_loaded_dynamic.Text = dynamics;
-                    tb_loaded_fwhm.Text = fwhm;
-                    tb_loaded_wavelength.Text = wavelength;
-                    tb_loaded_adjacent_dynamic.Text = adjacentDynamics;
+                    tb_loaded_dynamic.Text = dynamicsStr;
+                    tb_loaded_fwhm.Text = fwhmStr;
+                    tb_loaded_wavelength.Text = wavelengthStr;
+                    tb_loaded_adjacent_dynamic.Text = adjacentDynamicsStr;
                     break;
 
             }
