@@ -154,7 +154,7 @@ namespace WindowsFormsApplication1.FBGManagement
                     }
                     else
                     {
-                        gammaB[ll, nn] = new DecComplex(0m,0m);
+                        gammaB[ll, nn] = new DecComplex(0.0000000000001m,0.0000000000001m); //zabezpieczenie przed błędem dzielenia przez 0 - jak się okazuje, ta wartość wykorzystywana jest później w dzieleniu
                     }
                 }
 
