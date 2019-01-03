@@ -559,7 +559,7 @@ namespace WindowsFormsApplication1
                 PrintGraphs(simulationData, normalizedPowerValues, convertedWavelenghts);
             }
             PrintGraphs2(simulationData, transformedPowerValues, convertedWavelenghts);
-            PrintResults(Utils.TransformDecimalListToNormalizedList(Utils.ConvertToDecimal(powerValues)), Utils.ConvertToDecimal(wavelenghts), ResultsKind.LOADED);
+            PrintResults(transformedPowerValues, convertedWavelenghts, ResultsKind.LOADED);
         }
 
         private void btn_ClearResults_Click(object sender, EventArgs e)
