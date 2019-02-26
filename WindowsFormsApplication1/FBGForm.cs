@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,27 +22,49 @@ namespace WindowsFormsApplication1
 
         private void FBGForm_Load(object sender, EventArgs e)
         {
-            //inicjowanie formularza
+            InitForm();
+        }
 
+        private void InitForm()
+        {
+            InitSimulationData();
+            InitGratingData();
+            InitSimulationSetData();
+        }
+
+        private void InitGratingData()
+        {
+            InitGratingProperties();
+            InitGratingApodization();
+            InitGratingChirp();
+        }
+
+        private void InitSimulationData()
+        {
             //dane symulacji
-            tb_CountOfProbe.Text = "1000";
-            tb_MinimalWavelength.Text = "1530,75";
-            tb_maximalWavelength.Text = "1533,75";
+            tb_CountOfProbe.Text = "501";
+            tb_MinimalWavelength.Text = "1533";
+            tb_maximalWavelength.Text = "1535";
+        }
+
+        private void InitSimulationSetData()
+        {
+            SimulationSet.FillVariablePropertyCombo(cb_SimulationSetVariableProperty);
+        }
+
+        private void InitGratingProperties()
+        {
             //dane siatki
-            tb_Grating_NEff.Text = "1,4469";
+            tb_Grating_NEff.Text = "1,4471";
             tb_GratingRIM.Text = "0,0001";
-            tbGratingPeriod.Text = "168,43";
-            tb_GratingLength.Text = "10000";
+            tb_GratingPeriod.Text = "530";
+            tb_GratingLength.Text = "2000";
             tb_GratingParts.Text = "1";
             tb_gratingTilt.Text = "0";
-            //dane apodyzacji
-            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Gaussian);
-            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sin);
-            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sinc);
-            cb_gratingApodProfile.Items.Add(Grating.Apodisation.None);
-            cb_gratingApodProfile.SelectedItem = Grating.Apodisation.None;
-            tb_gratingApodParam.Text = "5";
-            //dane chirpu
+        }
+
+        private void InitGratingChirp()
+        {
             cb_gratingChirpProfile.Items.Add(Grating.Chirp.Linear);
             cb_gratingChirpProfile.Items.Add(Grating.Chirp.Gaussian);
             cb_gratingChirpProfile.Items.Add(Grating.Chirp.Sin);
@@ -50,6 +73,17 @@ namespace WindowsFormsApplication1
             cb_gratingChirpProfile.SelectedItem = Grating.Chirp.None;
             tb_gratingChirpParam.Text = "5";
         }
+
+        private void InitGratingApodization()
+        {
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Gaussian);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sin);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.Sinc);
+            cb_gratingApodProfile.Items.Add(Grating.Apodisation.None);
+            cb_gratingApodProfile.SelectedItem = Grating.Apodisation.None;
+            tb_gratingApodParam.Text = "5";
+        }
+
         private Grating PrepareGrating()
         {
             /*domyślne dane siatki*/
@@ -71,8 +105,8 @@ namespace WindowsFormsApplication1
                 neff = Decimal.Parse(tb_Grating_NEff.Text);
             if (!String.IsNullOrEmpty(tb_GratingRIM.Text))
                 delta_n = Decimal.Parse(tb_GratingRIM.Text);
-            if (!String.IsNullOrEmpty(tbGratingPeriod.Text))
-                okres = Decimal.Parse(tbGratingPeriod.Text) * (decimal)Math.Pow(10, -9); //168
+            if (!String.IsNullOrEmpty(tb_GratingPeriod.Text))
+                okres = Decimal.Parse(tb_GratingPeriod.Text) * (decimal)Math.Pow(10, -9); //168
             if (!String.IsNullOrEmpty(tb_GratingLength.Text))
                 L = Decimal.Parse(tb_GratingLength.Text) * (decimal)Math.Pow(10, -6);
             if (!String.IsNullOrEmpty(tb_GratingParts.Text))
@@ -95,26 +129,11 @@ namespace WindowsFormsApplication1
             //Grating grating = new Grating(okres, L, delta_n, neff, parts);
             decimal chirpMinPeriod;
 
-            if (chirpMinPeriodFactor > 1)
-            {
-                chirpMinPeriod = chirpMinPeriodFactor * (decimal)Math.Pow(10, -9);
-                if (chirpMinPeriod > okres)
-                {
-                    chirpMinPeriod = okres;
-                }
-            }
-            else if (chirpMinPeriodFactor < 0)
-            {
-                chirpMinPeriod = 0;
-            }
-            else
-            {
-                chirpMinPeriod = okres * chirpMinPeriodFactor;
-            }
-
+            chirpMinPeriod = Grating.CalculateChirpMinPeriod(okres, chirpMinPeriodFactor);
 
             return new Grating(okres, L, delta_n, neff, parts, apodisationProfile, apodisationParam, apodisationReverse, chirpProfile, chirpParam, chirpReverse, chirpMinPeriod);
         }
+
         private Simulation PrepareSimulation()
         {
             /*domyślne wartości symulacji*/
@@ -559,6 +578,46 @@ namespace WindowsFormsApplication1
                 PrintGraphs(simulationData, normalizedPowerValues, convertedWavelenghts);
             }
             PrintGraphs2(simulationData, transformedPowerValues, convertedWavelenghts);
+            //sprawdzanie odchyłów:
+            List<bool> toFix = new List<bool>();
+            int trueCounter = 0;
+            int falseCounter = 0;
+            bool last = false;
+            for (int i = 1; i < transformedPowerValues.Count; ++i)
+            {
+                if (transformedPowerValues[i]<transformedPowerValues[i-1])
+                {
+                    toFix.Add(true);
+                    if (last)
+                        trueCounter++;
+                    else
+                    {
+                        if (falseCounter > 6)
+                        {
+                            falseCounter = 0;
+                            Debug.WriteLine(convertedWavelenghts[i].ToString() + "::::" + i + "::::" + powerValues[i].ToString());
+                        }
+                        trueCounter = 1;
+                    }
+                    last = true;
+                }
+                else
+                {
+                    toFix.Add(false);
+                    if (!last)
+                        falseCounter++;
+                    else
+                    {
+                        if (trueCounter > 6)
+                        {
+                            trueCounter = 0;
+                            Debug.WriteLine(convertedWavelenghts[i].ToString() + "::::" +  i + "::::" + powerValues[i].ToString());
+                        }
+                        falseCounter = 1;
+                    }
+                    last = false;
+                }
+            }
             PrintResults(transformedPowerValues, convertedWavelenghts, ResultsKind.LOADED);
         }
 
@@ -613,6 +672,95 @@ namespace WindowsFormsApplication1
         private void btn_loaded_adjacent_dynamic_Click(object sender, EventArgs e)
         {
             Utils.CopyToClipboard(tb_loaded_adjacent_dynamic.Text, true);
+        }
+
+        private void cb_SimulationSetVariableProperty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox s = sender as ComboBox;
+            if (s != null)
+            {
+                VariableProperty variableProperty = SimulationSet.GetVariablePropertyEnum(s.SelectedItem.ToString());
+                decimal sourceValue = -1;
+                try
+                {
+                    switch (variableProperty)
+                    {
+                        case VariableProperty.ApodisationParam:
+                            sourceValue = Decimal.Parse(tb_gratingApodParam.Text);
+                            break;
+                        case VariableProperty.ChirpMinPeriodFactor:
+                            sourceValue = Decimal.Parse(tb_GratingChirpMinFactor.Text);
+                            break;
+                        case VariableProperty.ChirpParam:
+                            sourceValue = Decimal.Parse(tb_gratingChirpParam.Text);
+                            break;
+                        case VariableProperty.Length:
+                            sourceValue = Decimal.Parse(tb_GratingLength.Text);
+                            break;
+                        case VariableProperty.Period:
+                            sourceValue = Decimal.Parse(tb_GratingPeriod.Text);
+                            break;
+                        case VariableProperty.RefractiveIndexEff:
+                            sourceValue = Decimal.Parse(tb_Grating_NEff.Text);
+                            break;
+                        case VariableProperty.RefractiveIndexModulation:
+                            sourceValue = Decimal.Parse(tb_GratingRIM.Text);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    sourceValue = 0;
+                }
+                tb_SimulationSetRangeFrom.Text = sourceValue - sourceValue / 2 + "";
+                tb_SimulationSetRangeTo.Text = sourceValue + sourceValue / 2 + "";
+                tb_SimulationSetRangeStep.Text = sourceValue / 10 + "";
+
+                btn_SimulateSet.Enabled = true;
+            }
+        }
+
+        private void btn_SimulateSet_Click(object sender, EventArgs e)
+        {
+            Simulation simulation = PrepareSimulation();
+            Grating grating = PrepareGrating();
+            VariableProperties variableProperties = ReadVariableProperties();
+            SimulationSet simulationSet = new SimulationSet(simulation, grating, variableProperties);
+            SimulationSetResult simulationSetResult = simulationSet.Simulate();
+            simulationSet.PrintTransientCharacteristics(chartTransient, simulationSetResult);
+        }
+        private VariableProperties ReadVariableProperties()
+        {
+            decimal valueFrom;
+            decimal valueTo;
+            decimal step;
+            VariableProperty variableProperty = SimulationSet.GetVariablePropertyEnum(cb_SimulationSetVariableProperty.SelectedItem.ToString());
+
+            try
+            {
+                valueFrom = Decimal.Parse(tb_SimulationSetRangeFrom.Text);
+            }
+            catch (Exception ex)
+            {
+                valueFrom = 0;
+            }
+            try
+            {
+                valueTo = Decimal.Parse(tb_SimulationSetRangeTo.Text);
+            }
+            catch (Exception ex)
+            {
+                valueTo = 0;
+            }
+            try
+            {
+                step = Decimal.Parse(tb_SimulationSetRangeStep.Text);
+            }
+            catch (Exception ex)
+            {
+                step = 0;
+            }
+            return new VariableProperties { step = step, valueFrom = valueFrom, valueTo = valueTo, variableProperty = variableProperty };
         }
     }
 }

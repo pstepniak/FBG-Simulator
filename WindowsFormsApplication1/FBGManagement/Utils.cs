@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1.FBGManagement
         private static int CalculateLeftMaxIndex(List<decimal> simulationResult)
         {
             decimal currentValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult)); //najmniejsza wartość (wartość piku)
-            decimal previousValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult) + 1);
+            decimal previousValue = simulationResult.ElementAt(Utils.CalculateMinCentralIndex(simulationResult) + Utils.CalculateMinCentralIndex(simulationResult)== simulationResult.Count-1?0:1);
             for (int i = Utils.CalculateMinCentralIndex(simulationResult)-1; i > 0; i--)
             {
                 currentValue = simulationResult.ElementAt(i);

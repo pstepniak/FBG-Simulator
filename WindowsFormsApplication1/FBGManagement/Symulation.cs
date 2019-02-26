@@ -240,5 +240,10 @@ namespace WindowsFormsApplication1.FBGManagement
             return Ry;
         }
 
+        public void Clear()
+        {
+            x.Clear();
+        }
+
     }
 }

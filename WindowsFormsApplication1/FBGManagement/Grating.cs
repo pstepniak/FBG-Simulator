@@ -8,21 +8,44 @@ namespace WindowsFormsApplication1.FBGManagement
 {
     class Grating
     {
-        public decimal length { get; }
-        public decimal period { get; }
-        public decimal refractiveIndexModulation { get; }
-        public decimal neff { get; }
-        public decimal lambdaB {get;}
+        public static decimal CalculateChirpMinPeriod(decimal period, decimal chirpMinPeriodFactor)
+        {
+            decimal chirpMinPeriod;
+            if (chirpMinPeriodFactor > 1)
+            {
+                chirpMinPeriod = chirpMinPeriodFactor * (decimal)Math.Pow(10, -9);
+                if (chirpMinPeriod > period)
+                {
+                    chirpMinPeriod = period;
+                }
+            }
+            else if (chirpMinPeriodFactor < 0)
+            {
+                chirpMinPeriod = 0;
+            }
+            else
+            {
+                chirpMinPeriod = period * chirpMinPeriodFactor;
+            }
+
+            return chirpMinPeriod;
+        }
+
+        public decimal length { get; private set; }
+        public decimal period { get; private set; }
+        public decimal refractiveIndexModulation { get; private set; }
+        public decimal neff { get; private set; }
+        public decimal lambdaB { get; private set; }
         //period=lambdaB/(2*pi*neff);
         public int parts { get; }
 
-        public decimal apodisationParam { get; }
+        public decimal apodisationParam { get; private set; }
         bool apodisationReverse { get; }
         public Apodisation apodisationType { get; }
-        public decimal chirpParam { get; }
+        public decimal chirpParam { get; private set; }
         bool chirpReverse { get; }
         public Chirp chirpType { get; }
-        public decimal chirpMinPeriod { get; }
+        public decimal chirpMinPeriod { get; private set; }
 
         public Grating(decimal period, decimal length, decimal refractiveIndexModulation, decimal neff, int parts,
                         Apodisation ApodisationType, decimal apodisationParam, bool apodisationReverse,
@@ -195,7 +218,35 @@ namespace WindowsFormsApplication1.FBGManagement
         }
         public Grating Copy()
         {
-            return new Grating(this.period, this.length, this.refractiveIndexModulation, this.neff, this.parts, this.apodisationType, this.apodisationParam, this.apodisationReverse);
+            return new Grating(this.period, this.length, this.refractiveIndexModulation, this.neff, this.parts, this.apodisationType, this.apodisationParam, this.apodisationReverse, this.chirpType, this.chirpParam, this.chirpReverse, this.chirpMinPeriod);
+        }
+        public void SetVariableProperty(VariableProperty property, decimal value)
+        {
+            switch (property)
+            {
+                case VariableProperty.ApodisationParam:
+                    apodisationParam = value;
+                    break;
+                case VariableProperty.ChirpMinPeriodFactor:
+                    chirpMinPeriod = Grating.CalculateChirpMinPeriod(this.period, value);
+                    break;
+                case VariableProperty.ChirpParam:
+                    chirpParam = value;
+                    break;
+                case VariableProperty.Length:
+                    length = value * (decimal)Math.Pow(10, -6);
+                    break;
+                case VariableProperty.Period:
+                    period = value * (decimal)Math.Pow(10, -9);
+                    lambdaB = period / (2 * (decimal)Math.PI * neff);
+                    break;
+                case VariableProperty.RefractiveIndexEff:
+                    neff = value;
+                    break;
+                case VariableProperty.RefractiveIndexModulation:
+                    refractiveIndexModulation = value;
+                    break;
+            }
         }
     }
 }

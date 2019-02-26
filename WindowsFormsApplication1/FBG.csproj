@@ -74,6 +74,7 @@
     <Compile Include="FBGManagement\Range.cs" />
     <Compile Include="FBGManagement\Grating.cs" />
     <Compile Include="FBGManagement\LightSource.cs" />
+    <Compile Include="FBGManagement\SimulationSet.cs" />
     <Compile Include="FBGManagement\Symulation.cs" />
     <Compile Include="FBGManagement\Utils.cs" />
     <Compile Include="Program.cs" />

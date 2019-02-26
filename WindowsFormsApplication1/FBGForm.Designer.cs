@@ -28,20 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea33 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series49 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series50 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title33 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea34 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series51 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series52 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title34 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea35 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series53 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title35 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea36 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series54 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title36 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chartReflection = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTransmission = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -86,7 +93,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tb_GratingLength = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbGratingPeriod = new System.Windows.Forms.TextBox();
+            this.tb_GratingPeriod = new System.Windows.Forms.TextBox();
             this.tb_Grating_NEff = new System.Windows.Forms.TextBox();
             this.tb_GratingRIM = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -101,29 +108,42 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tb_result_fwhm = new System.Windows.Forms.TextBox();
+            this.btn_result_adjacent_dynamic = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
+            this.btn_result_fwhm = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
+            this.btn_result_dynamic = new System.Windows.Forms.Button();
             this.tb_result_dynamic = new System.Windows.Forms.TextBox();
+            this.btn_result_wavelength = new System.Windows.Forms.Button();
             this.tb_result_wavelength = new System.Windows.Forms.TextBox();
             this.btnLoadCsv = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btn_loaded_adjacent_dynamic = new System.Windows.Forms.Button();
             this.tb_loaded_adjacent_dynamic = new System.Windows.Forms.TextBox();
+            this.btn_loaded_fwhm = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
+            this.btn_loaded_dynamic = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
+            this.btn_loaded_wavelength = new System.Windows.Forms.Button();
             this.tb_loaded_fwhm = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.tb_loaded_dynamic = new System.Windows.Forms.TextBox();
             this.tb_loaded_wavelength = new System.Windows.Forms.TextBox();
-            this.btn_result_wavelength = new System.Windows.Forms.Button();
-            this.btn_result_dynamic = new System.Windows.Forms.Button();
-            this.btn_result_fwhm = new System.Windows.Forms.Button();
-            this.btn_result_adjacent_dynamic = new System.Windows.Forms.Button();
-            this.btn_loaded_wavelength = new System.Windows.Forms.Button();
-            this.btn_loaded_dynamic = new System.Windows.Forms.Button();
-            this.btn_loaded_fwhm = new System.Windows.Forms.Button();
-            this.btn_loaded_adjacent_dynamic = new System.Windows.Forms.Button();
             this.btn_ClearResults = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.chartTransient = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btn_SimulateSet = new System.Windows.Forms.Button();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.tb_SimulationSetRangeStep = new System.Windows.Forms.TextBox();
+            this.tb_SimulationSetRangeTo = new System.Windows.Forms.TextBox();
+            this.tb_SimulationSetRangeFrom = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.cb_SimulationSetVariableProperty = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chartReflection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTransmission)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -137,49 +157,53 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartApod)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTransient)).BeginInit();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // chartReflection
             // 
-            chartArea33.Name = "ChartArea1";
-            this.chartReflection.ChartAreas.Add(chartArea33);
+            chartArea1.Name = "ChartArea1";
+            this.chartReflection.ChartAreas.Add(chartArea1);
             this.chartReflection.Location = new System.Drawing.Point(12, 629);
             this.chartReflection.Name = "chartReflection";
-            series49.ChartArea = "ChartArea1";
-            series49.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series49.Name = "Reflection";
-            series50.ChartArea = "ChartArea1";
-            series50.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series50.Name = "Reflection2";
-            this.chartReflection.Series.Add(series49);
-            this.chartReflection.Series.Add(series50);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Reflection";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Reflection2";
+            this.chartReflection.Series.Add(series1);
+            this.chartReflection.Series.Add(series2);
             this.chartReflection.Size = new System.Drawing.Size(454, 300);
             this.chartReflection.TabIndex = 0;
             this.chartReflection.Text = "Transmission";
-            title33.Name = "Reflection";
-            title33.Text = "Reflection";
-            this.chartReflection.Titles.Add(title33);
+            title1.Name = "Reflection";
+            title1.Text = "Reflection";
+            this.chartReflection.Titles.Add(title1);
             // 
             // chartTransmission
             // 
-            chartArea34.Name = "ChartArea1";
-            this.chartTransmission.ChartAreas.Add(chartArea34);
+            chartArea2.Name = "ChartArea1";
+            this.chartTransmission.ChartAreas.Add(chartArea2);
             this.chartTransmission.Location = new System.Drawing.Point(12, 316);
             this.chartTransmission.Name = "chartTransmission";
-            series51.ChartArea = "ChartArea1";
-            series51.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series51.Name = "Transmission";
-            series52.ChartArea = "ChartArea1";
-            series52.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series52.Name = "Transmission2";
-            this.chartTransmission.Series.Add(series51);
-            this.chartTransmission.Series.Add(series52);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Name = "Transmission";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Name = "Transmission2";
+            this.chartTransmission.Series.Add(series3);
+            this.chartTransmission.Series.Add(series4);
             this.chartTransmission.Size = new System.Drawing.Size(454, 300);
             this.chartTransmission.TabIndex = 1;
             this.chartTransmission.Text = "Transmission";
-            title34.Name = "Transmission";
-            title34.Text = "Transmission";
-            this.chartTransmission.Titles.Add(title34);
+            title2.Name = "Transmission";
+            title2.Text = "Transmission";
+            this.chartTransmission.Titles.Add(title2);
             // 
             // btnCalculate
             // 
@@ -480,20 +504,20 @@
             // 
             // chartChirp
             // 
-            chartArea35.Name = "ChartArea1";
-            this.chartChirp.ChartAreas.Add(chartArea35);
+            chartArea3.Name = "ChartArea1";
+            this.chartChirp.ChartAreas.Add(chartArea3);
             this.chartChirp.Location = new System.Drawing.Point(21, 100);
             this.chartChirp.Name = "chartChirp";
-            series53.ChartArea = "ChartArea1";
-            series53.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series53.Name = "Chirp";
-            this.chartChirp.Series.Add(series53);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Name = "Chirp";
+            this.chartChirp.Series.Add(series5);
             this.chartChirp.Size = new System.Drawing.Size(336, 169);
             this.chartChirp.TabIndex = 13;
             this.chartChirp.Text = "PeriodProfile";
-            title35.Name = "Period Profile";
-            title35.Text = "Period Profile";
-            this.chartChirp.Titles.Add(title35);
+            title3.Name = "Period Profile";
+            title3.Text = "Period Profile";
+            this.chartChirp.Titles.Add(title3);
             // 
             // groupBox4
             // 
@@ -508,7 +532,7 @@
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.tb_GratingLength);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.tbGratingPeriod);
+            this.groupBox4.Controls.Add(this.tb_GratingPeriod);
             this.groupBox4.Controls.Add(this.tb_Grating_NEff);
             this.groupBox4.Controls.Add(this.tb_GratingRIM);
             this.groupBox4.Location = new System.Drawing.Point(14, 23);
@@ -615,13 +639,13 @@
             this.label6.Tag = "refractive index modulation";
             this.label6.Text = "rim";
             // 
-            // tbGratingPeriod
+            // tb_GratingPeriod
             // 
-            this.tbGratingPeriod.Location = new System.Drawing.Point(71, 48);
-            this.tbGratingPeriod.Name = "tbGratingPeriod";
-            this.tbGratingPeriod.Size = new System.Drawing.Size(100, 20);
-            this.tbGratingPeriod.TabIndex = 5;
-            this.tbGratingPeriod.TextChanged += new System.EventHandler(this.tb_GratingPeriod_TextChanged);
+            this.tb_GratingPeriod.Location = new System.Drawing.Point(71, 48);
+            this.tb_GratingPeriod.Name = "tb_GratingPeriod";
+            this.tb_GratingPeriod.Size = new System.Drawing.Size(100, 20);
+            this.tb_GratingPeriod.TabIndex = 5;
+            this.tb_GratingPeriod.TextChanged += new System.EventHandler(this.tb_GratingPeriod_TextChanged);
             // 
             // tb_Grating_NEff
             // 
@@ -703,21 +727,21 @@
             // 
             // chartApod
             // 
-            chartArea36.Name = "ChartArea1";
-            this.chartApod.ChartAreas.Add(chartArea36);
+            chartArea4.Name = "ChartArea1";
+            this.chartApod.ChartAreas.Add(chartArea4);
             this.chartApod.Location = new System.Drawing.Point(6, 100);
             this.chartApod.Name = "chartApod";
-            series54.ChartArea = "ChartArea1";
-            series54.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series54.Name = "Apodisation";
-            this.chartApod.Series.Add(series54);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Name = "Apodisation";
+            this.chartApod.Series.Add(series6);
             this.chartApod.Size = new System.Drawing.Size(336, 169);
             this.chartApod.TabIndex = 12;
             this.chartApod.Text = "Apodisation Profile";
-            title36.IsDockedInsideChartArea = false;
-            title36.Name = "Apodisation Profile";
-            title36.Text = "Apodisation Profile";
-            this.chartApod.Titles.Add(title36);
+            title4.IsDockedInsideChartArea = false;
+            title4.Name = "Apodisation Profile";
+            title4.Text = "Apodisation Profile";
+            this.chartApod.Titles.Add(title4);
             // 
             // groupBox6
             // 
@@ -774,6 +798,15 @@
             this.tb_result_fwhm.Size = new System.Drawing.Size(186, 20);
             this.tb_result_fwhm.TabIndex = 15;
             // 
+            // btn_result_adjacent_dynamic
+            // 
+            this.btn_result_adjacent_dynamic.Location = new System.Drawing.Point(301, 97);
+            this.btn_result_adjacent_dynamic.Name = "btn_result_adjacent_dynamic";
+            this.btn_result_adjacent_dynamic.Size = new System.Drawing.Size(20, 20);
+            this.btn_result_adjacent_dynamic.TabIndex = 22;
+            this.btn_result_adjacent_dynamic.UseVisualStyleBackColor = true;
+            this.btn_result_adjacent_dynamic.Click += new System.EventHandler(this.btn_result_adjacent_dynamic_Click);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -782,6 +815,15 @@
             this.label11.Size = new System.Drawing.Size(51, 13);
             this.label11.TabIndex = 11;
             this.label11.Text = "dynamics";
+            // 
+            // btn_result_fwhm
+            // 
+            this.btn_result_fwhm.Location = new System.Drawing.Point(301, 71);
+            this.btn_result_fwhm.Name = "btn_result_fwhm";
+            this.btn_result_fwhm.Size = new System.Drawing.Size(20, 20);
+            this.btn_result_fwhm.TabIndex = 21;
+            this.btn_result_fwhm.UseVisualStyleBackColor = true;
+            this.btn_result_fwhm.Click += new System.EventHandler(this.btn_result_fwhm_Click);
             // 
             // label12
             // 
@@ -793,6 +835,15 @@
             this.label12.Tag = "";
             this.label12.Text = "central wavelenght";
             // 
+            // btn_result_dynamic
+            // 
+            this.btn_result_dynamic.Location = new System.Drawing.Point(301, 45);
+            this.btn_result_dynamic.Name = "btn_result_dynamic";
+            this.btn_result_dynamic.Size = new System.Drawing.Size(20, 20);
+            this.btn_result_dynamic.TabIndex = 20;
+            this.btn_result_dynamic.UseVisualStyleBackColor = true;
+            this.btn_result_dynamic.Click += new System.EventHandler(this.btn_result_dynamic_Click);
+            // 
             // tb_result_dynamic
             // 
             this.tb_result_dynamic.Location = new System.Drawing.Point(112, 45);
@@ -800,6 +851,15 @@
             this.tb_result_dynamic.ReadOnly = true;
             this.tb_result_dynamic.Size = new System.Drawing.Size(186, 20);
             this.tb_result_dynamic.TabIndex = 13;
+            // 
+            // btn_result_wavelength
+            // 
+            this.btn_result_wavelength.Location = new System.Drawing.Point(301, 19);
+            this.btn_result_wavelength.Name = "btn_result_wavelength";
+            this.btn_result_wavelength.Size = new System.Drawing.Size(20, 20);
+            this.btn_result_wavelength.TabIndex = 19;
+            this.btn_result_wavelength.UseVisualStyleBackColor = true;
+            this.btn_result_wavelength.Click += new System.EventHandler(this.btn_result_wavelength_Click);
             // 
             // tb_result_wavelength
             // 
@@ -840,6 +900,15 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Results";
             // 
+            // btn_loaded_adjacent_dynamic
+            // 
+            this.btn_loaded_adjacent_dynamic.Location = new System.Drawing.Point(301, 97);
+            this.btn_loaded_adjacent_dynamic.Name = "btn_loaded_adjacent_dynamic";
+            this.btn_loaded_adjacent_dynamic.Size = new System.Drawing.Size(20, 20);
+            this.btn_loaded_adjacent_dynamic.TabIndex = 26;
+            this.btn_loaded_adjacent_dynamic.UseVisualStyleBackColor = true;
+            this.btn_loaded_adjacent_dynamic.Click += new System.EventHandler(this.btn_loaded_adjacent_dynamic_Click);
+            // 
             // tb_loaded_adjacent_dynamic
             // 
             this.tb_loaded_adjacent_dynamic.Location = new System.Drawing.Point(112, 97);
@@ -847,6 +916,15 @@
             this.tb_loaded_adjacent_dynamic.ReadOnly = true;
             this.tb_loaded_adjacent_dynamic.Size = new System.Drawing.Size(186, 20);
             this.tb_loaded_adjacent_dynamic.TabIndex = 17;
+            // 
+            // btn_loaded_fwhm
+            // 
+            this.btn_loaded_fwhm.Location = new System.Drawing.Point(301, 71);
+            this.btn_loaded_fwhm.Name = "btn_loaded_fwhm";
+            this.btn_loaded_fwhm.Size = new System.Drawing.Size(20, 20);
+            this.btn_loaded_fwhm.TabIndex = 25;
+            this.btn_loaded_fwhm.UseVisualStyleBackColor = true;
+            this.btn_loaded_fwhm.Click += new System.EventHandler(this.btn_loaded_fwhm_Click);
             // 
             // label18
             // 
@@ -857,6 +935,15 @@
             this.label18.TabIndex = 16;
             this.label18.Text = "adjacent dynamics";
             // 
+            // btn_loaded_dynamic
+            // 
+            this.btn_loaded_dynamic.Location = new System.Drawing.Point(301, 45);
+            this.btn_loaded_dynamic.Name = "btn_loaded_dynamic";
+            this.btn_loaded_dynamic.Size = new System.Drawing.Size(20, 20);
+            this.btn_loaded_dynamic.TabIndex = 24;
+            this.btn_loaded_dynamic.UseVisualStyleBackColor = true;
+            this.btn_loaded_dynamic.Click += new System.EventHandler(this.btn_loaded_dynamic_Click);
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -865,6 +952,15 @@
             this.label19.Size = new System.Drawing.Size(41, 13);
             this.label19.TabIndex = 14;
             this.label19.Text = "FWHM";
+            // 
+            // btn_loaded_wavelength
+            // 
+            this.btn_loaded_wavelength.Location = new System.Drawing.Point(301, 18);
+            this.btn_loaded_wavelength.Name = "btn_loaded_wavelength";
+            this.btn_loaded_wavelength.Size = new System.Drawing.Size(20, 21);
+            this.btn_loaded_wavelength.TabIndex = 23;
+            this.btn_loaded_wavelength.UseVisualStyleBackColor = true;
+            this.btn_loaded_wavelength.Click += new System.EventHandler(this.btn_loaded_wavelength_Click);
             // 
             // tb_loaded_fwhm
             // 
@@ -909,78 +1005,6 @@
             this.tb_loaded_wavelength.Size = new System.Drawing.Size(186, 20);
             this.tb_loaded_wavelength.TabIndex = 12;
             // 
-            // btn_result_wavelength
-            // 
-            this.btn_result_wavelength.Location = new System.Drawing.Point(301, 19);
-            this.btn_result_wavelength.Name = "btn_result_wavelength";
-            this.btn_result_wavelength.Size = new System.Drawing.Size(20, 20);
-            this.btn_result_wavelength.TabIndex = 19;
-            this.btn_result_wavelength.UseVisualStyleBackColor = true;
-            this.btn_result_wavelength.Click += new System.EventHandler(this.btn_result_wavelength_Click);
-            // 
-            // btn_result_dynamic
-            // 
-            this.btn_result_dynamic.Location = new System.Drawing.Point(301, 45);
-            this.btn_result_dynamic.Name = "btn_result_dynamic";
-            this.btn_result_dynamic.Size = new System.Drawing.Size(20, 20);
-            this.btn_result_dynamic.TabIndex = 20;
-            this.btn_result_dynamic.UseVisualStyleBackColor = true;
-            this.btn_result_dynamic.Click += new System.EventHandler(this.btn_result_dynamic_Click);
-            // 
-            // btn_result_fwhm
-            // 
-            this.btn_result_fwhm.Location = new System.Drawing.Point(301, 71);
-            this.btn_result_fwhm.Name = "btn_result_fwhm";
-            this.btn_result_fwhm.Size = new System.Drawing.Size(20, 20);
-            this.btn_result_fwhm.TabIndex = 21;
-            this.btn_result_fwhm.UseVisualStyleBackColor = true;
-            this.btn_result_fwhm.Click += new System.EventHandler(this.btn_result_fwhm_Click);
-            // 
-            // btn_result_adjacent_dynamic
-            // 
-            this.btn_result_adjacent_dynamic.Location = new System.Drawing.Point(301, 97);
-            this.btn_result_adjacent_dynamic.Name = "btn_result_adjacent_dynamic";
-            this.btn_result_adjacent_dynamic.Size = new System.Drawing.Size(20, 20);
-            this.btn_result_adjacent_dynamic.TabIndex = 22;
-            this.btn_result_adjacent_dynamic.UseVisualStyleBackColor = true;
-            this.btn_result_adjacent_dynamic.Click += new System.EventHandler(this.btn_result_adjacent_dynamic_Click);
-            // 
-            // btn_loaded_wavelength
-            // 
-            this.btn_loaded_wavelength.Location = new System.Drawing.Point(301, 18);
-            this.btn_loaded_wavelength.Name = "btn_loaded_wavelength";
-            this.btn_loaded_wavelength.Size = new System.Drawing.Size(20, 21);
-            this.btn_loaded_wavelength.TabIndex = 23;
-            this.btn_loaded_wavelength.UseVisualStyleBackColor = true;
-            this.btn_loaded_wavelength.Click += new System.EventHandler(this.btn_loaded_wavelength_Click);
-            // 
-            // btn_loaded_dynamic
-            // 
-            this.btn_loaded_dynamic.Location = new System.Drawing.Point(301, 45);
-            this.btn_loaded_dynamic.Name = "btn_loaded_dynamic";
-            this.btn_loaded_dynamic.Size = new System.Drawing.Size(20, 20);
-            this.btn_loaded_dynamic.TabIndex = 24;
-            this.btn_loaded_dynamic.UseVisualStyleBackColor = true;
-            this.btn_loaded_dynamic.Click += new System.EventHandler(this.btn_loaded_dynamic_Click);
-            // 
-            // btn_loaded_fwhm
-            // 
-            this.btn_loaded_fwhm.Location = new System.Drawing.Point(301, 71);
-            this.btn_loaded_fwhm.Name = "btn_loaded_fwhm";
-            this.btn_loaded_fwhm.Size = new System.Drawing.Size(20, 20);
-            this.btn_loaded_fwhm.TabIndex = 25;
-            this.btn_loaded_fwhm.UseVisualStyleBackColor = true;
-            this.btn_loaded_fwhm.Click += new System.EventHandler(this.btn_loaded_fwhm_Click);
-            // 
-            // btn_loaded_adjacent_dynamic
-            // 
-            this.btn_loaded_adjacent_dynamic.Location = new System.Drawing.Point(301, 97);
-            this.btn_loaded_adjacent_dynamic.Name = "btn_loaded_adjacent_dynamic";
-            this.btn_loaded_adjacent_dynamic.Size = new System.Drawing.Size(20, 20);
-            this.btn_loaded_adjacent_dynamic.TabIndex = 26;
-            this.btn_loaded_adjacent_dynamic.UseVisualStyleBackColor = true;
-            this.btn_loaded_adjacent_dynamic.Click += new System.EventHandler(this.btn_loaded_adjacent_dynamic_Click);
-            // 
             // btn_ClearResults
             // 
             this.btn_ClearResults.Location = new System.Drawing.Point(1173, 316);
@@ -991,11 +1015,151 @@
             this.btn_ClearResults.UseVisualStyleBackColor = true;
             this.btn_ClearResults.Click += new System.EventHandler(this.btn_ClearResults_Click);
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.chartTransient);
+            this.groupBox10.Controls.Add(this.btn_SimulateSet);
+            this.groupBox10.Controls.Add(this.groupBox11);
+            this.groupBox10.Controls.Add(this.cb_SimulationSetVariableProperty);
+            this.groupBox10.Controls.Add(this.label22);
+            this.groupBox10.Location = new System.Drawing.Point(485, 506);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(799, 423);
+            this.groupBox10.TabIndex = 20;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Set of simulation";
+            // 
+            // chartTransient
+            // 
+            chartArea5.Name = "ChartArea1";
+            this.chartTransient.ChartAreas.Add(chartArea5);
+            this.chartTransient.Location = new System.Drawing.Point(12, 86);
+            this.chartTransient.Name = "chartTransient";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Name = "centralWavelenght";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Name = "dynamics";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Name = "fwhm";
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Name = "adjacentDynamics";
+            this.chartTransient.Series.Add(series7);
+            this.chartTransient.Series.Add(series8);
+            this.chartTransient.Series.Add(series9);
+            this.chartTransient.Series.Add(series10);
+            this.chartTransient.Size = new System.Drawing.Size(781, 331);
+            this.chartTransient.TabIndex = 7;
+            this.chartTransient.Text = "Transient Characteristics";
+            title5.Name = "TransientCharacteristics";
+            title5.Text = "Transient Characteristics";
+            this.chartTransient.Titles.Add(title5);
+            // 
+            // btn_SimulateSet
+            // 
+            this.btn_SimulateSet.Enabled = false;
+            this.btn_SimulateSet.Location = new System.Drawing.Point(12, 43);
+            this.btn_SimulateSet.Name = "btn_SimulateSet";
+            this.btn_SimulateSet.Size = new System.Drawing.Size(286, 37);
+            this.btn_SimulateSet.TabIndex = 6;
+            this.btn_SimulateSet.Text = "Simulate set";
+            this.btn_SimulateSet.UseVisualStyleBackColor = true;
+            this.btn_SimulateSet.Click += new System.EventHandler(this.btn_SimulateSet_Click);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.tb_SimulationSetRangeStep);
+            this.groupBox11.Controls.Add(this.tb_SimulationSetRangeTo);
+            this.groupBox11.Controls.Add(this.tb_SimulationSetRangeFrom);
+            this.groupBox11.Controls.Add(this.label23);
+            this.groupBox11.Controls.Add(this.label25);
+            this.groupBox11.Controls.Add(this.label24);
+            this.groupBox11.Location = new System.Drawing.Point(304, 16);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(489, 64);
+            this.groupBox11.TabIndex = 5;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Range";
+            // 
+            // tb_SimulationSetRangeStep
+            // 
+            this.tb_SimulationSetRangeStep.Location = new System.Drawing.Point(367, 22);
+            this.tb_SimulationSetRangeStep.Name = "tb_SimulationSetRangeStep";
+            this.tb_SimulationSetRangeStep.Size = new System.Drawing.Size(100, 20);
+            this.tb_SimulationSetRangeStep.TabIndex = 7;
+            // 
+            // tb_SimulationSetRangeTo
+            // 
+            this.tb_SimulationSetRangeTo.Location = new System.Drawing.Point(206, 22);
+            this.tb_SimulationSetRangeTo.Name = "tb_SimulationSetRangeTo";
+            this.tb_SimulationSetRangeTo.Size = new System.Drawing.Size(100, 20);
+            this.tb_SimulationSetRangeTo.TabIndex = 6;
+            // 
+            // tb_SimulationSetRangeFrom
+            // 
+            this.tb_SimulationSetRangeFrom.Location = new System.Drawing.Point(53, 22);
+            this.tb_SimulationSetRangeFrom.Name = "tb_SimulationSetRangeFrom";
+            this.tb_SimulationSetRangeFrom.Size = new System.Drawing.Size(100, 20);
+            this.tb_SimulationSetRangeFrom.TabIndex = 5;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(20, 25);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(27, 13);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "from";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(332, 25);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(27, 13);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "step";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(184, 25);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(16, 13);
+            this.label24.TabIndex = 3;
+            this.label24.Text = "to";
+            // 
+            // cb_SimulationSetVariableProperty
+            // 
+            this.cb_SimulationSetVariableProperty.FormattingEnabled = true;
+            this.cb_SimulationSetVariableProperty.Location = new System.Drawing.Point(112, 16);
+            this.cb_SimulationSetVariableProperty.Name = "cb_SimulationSetVariableProperty";
+            this.cb_SimulationSetVariableProperty.Size = new System.Drawing.Size(186, 21);
+            this.cb_SimulationSetVariableProperty.TabIndex = 2;
+            this.cb_SimulationSetVariableProperty.SelectedIndexChanged += new System.EventHandler(this.cb_SimulationSetVariableProperty_SelectedIndexChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(9, 19);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(85, 13);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "variable property";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FBGForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1296, 941);
+            this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.btn_ClearResults);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.btnLoadCsv);
@@ -1029,6 +1193,12 @@
             this.groupBox6.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTransient)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1052,7 +1222,7 @@
         private System.Windows.Forms.TextBox tb_CountOfProbe;
         private System.Windows.Forms.TextBox tb_Grating_NEff;
         private System.Windows.Forms.TextBox tb_GratingRIM;
-        private System.Windows.Forms.TextBox tbGratingPeriod;
+        private System.Windows.Forms.TextBox tb_GratingPeriod;
         private System.Windows.Forms.TextBox tb_GratingLength;
         private System.Windows.Forms.TextBox tb_GratingParts;
         private System.Windows.Forms.Label label8;
@@ -1117,6 +1287,19 @@
         private System.Windows.Forms.Button btn_loaded_fwhm;
         private System.Windows.Forms.Button btn_loaded_adjacent_dynamic;
         private System.Windows.Forms.Button btn_ClearResults;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btn_SimulateSet;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox tb_SimulationSetRangeStep;
+        private System.Windows.Forms.TextBox tb_SimulationSetRangeTo;
+        private System.Windows.Forms.TextBox tb_SimulationSetRangeFrom;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox cb_SimulationSetVariableProperty;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTransient;
     }
 }
 
