@@ -618,6 +618,7 @@ namespace WindowsFormsApplication1
                     last = false;
                 }
             }
+            Utils.SaveArrayAsCSV(convertedWavelenghts.ToArray(), transformedPowerValues.ToArray(), "C:\\FBG\\fromFile.csv");
             PrintResults(transformedPowerValues, convertedWavelenghts, ResultsKind.LOADED);
         }
 

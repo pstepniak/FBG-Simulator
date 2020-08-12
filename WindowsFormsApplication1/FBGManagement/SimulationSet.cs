@@ -93,13 +93,13 @@ namespace WindowsFormsApplication1.FBGManagement
             }
             for (int i = 0; i < simulationSetResult.transmissionCharacteristicProperties.Count; i++)
             {
-                chart.Series["centralWavelenght"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).centralWavelength);
-                //chart.Series["dynamics"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).dynamics);
+                //chart.Series["centralWavelenght"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).centralWavelength);
+                chart.Series["dynamics"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).dynamics);
                 //chart.Series["fwhm"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).fwhm);
                 //chart.Series["adjacentDynamics"].Points.AddXY(simulationSetResult.gratingVariablePropertyValues.ElementAt(i), simulationSetResult.transmissionCharacteristicProperties.ElementAt(i).adjacentDynamics);
             }
-            chart.ChartAreas[0].AxisY.Minimum = (double)simulationSetResult.transmissionCharacteristicProperties.Min(x => x.centralWavelength);
-            chart.ChartAreas[0].AxisY.Maximum = (double)simulationSetResult.transmissionCharacteristicProperties.Max(x => x.centralWavelength);
+            chart.ChartAreas[0].AxisY.Minimum = (double)simulationSetResult.transmissionCharacteristicProperties.Min(x => x.dynamics);
+            chart.ChartAreas[0].AxisY.Maximum = (double)simulationSetResult.transmissionCharacteristicProperties.Max(x => x.dynamics);
         }
     }
     public struct SimulationSetResult

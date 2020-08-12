@@ -17,6 +17,14 @@ namespace WindowsFormsApplication1.FBGManagement
             }
         }
 
+        public static void SaveArrayAsCSV(Array col1, Array col2, string fileName)
+        {
+            using (StreamWriter file = new StreamWriter(fileName))
+            {
+                WriteItemsToFile(col1, col2, file);
+            }
+        }
+
         private static void WriteItemsToFile(Array items, TextWriter file)
         {
             foreach (object item in items)
@@ -26,7 +34,30 @@ namespace WindowsFormsApplication1.FBGManagement
                     WriteItemsToFile(item as Array, file);
                     file.Write(Environment.NewLine);
                 }
-                else file.Write(item + ";");
+                else
+                {
+                    file.Write(item + ";");
+                    file.Write(Environment.NewLine);
+                }
+            }
+        }
+
+        private static void WriteItemsToFile(Array col1, Array col2, TextWriter file)
+        {
+            List<string> l1 = new List<string>();
+            List<string> l2 = new List<string>();
+            foreach (object item in col1)
+            {
+                l1.Add(item.ToString().Replace(',', '.'));
+            }
+            foreach (object item in col2)
+            {
+                l2.Add(item.ToString().Replace(',', '.'));
+            }
+            for (int i = 0; i<l1.Count; i++)
+            {
+                    file.Write(l1[i] + "," + l2[i]);
+                    file.Write(Environment.NewLine);
             }
         }
         //private static void Save2DArrayAsCSV(Array arrayToSave, string fileName)
