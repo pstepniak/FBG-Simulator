@@ -103,6 +103,11 @@ namespace WindowsFormsApplication1.FBGManagement
             return Sqrt(value.real * value.real + value.imaginary * value.imaginary);
         }
 
+        public static DecComplex Conj(DecComplex value)
+        {
+            return new DecComplex(value.Real, value.Imaginary * -1);
+        }
+
         public static DecComplex Pow(DecComplex value, int exponent)
         {
             if (exponent == 0)

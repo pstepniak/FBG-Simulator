@@ -140,7 +140,7 @@ namespace WindowsFormsApplication1.FBGManagement
                 for (int nn = 0; nn < countOfSections; nn++) //w pętli lecimy po lambda oraz dla danego z
                 {
                     k[ll, nn] = ((decimal)Math.PI / wavelengths.ElementAt(ll)) * grating.refractiveIndexModulation * apodisation.ElementAt(nn); //wzór 3 -7
-                    delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelengths.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));
+                    delta[ll, nn] = 2 * (decimal)Math.PI * grating.neff * ((1 / wavelengths.ElementAt(ll)) - (1 / lambdaBy.ElementAt(nn)));//!zaokr
                     sgm[ll, nn] = delta[ll, nn]; //chirp
                     k2[ll, nn] = (decimal)Math.Pow((double)k[ll, nn], 2);
                     sgm2[ll, nn] = (decimal)Math.Pow((double)sgm[ll, nn], 2);
@@ -181,8 +181,8 @@ namespace WindowsFormsApplication1.FBGManagement
                     F11[ll,nn] = DecComplex.Cosh(gammaB[ll, nn] * (double)lj.ElementAt(nn)) + DecComplex.ImaginaryOne*((double)(sgm[ll, nn]) / gammaB[ll, nn]) *
                         DecComplex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
                     F12[ll,nn] = DecComplex.ImaginaryOne*((double)k[ll, nn] / gammaB[ll, nn]) * DecComplex.Sinh(gammaB[ll, nn] * (double)lj.ElementAt(nn));
-                    F21[ll, nn] = F12[ll, nn];
-                    F22[ll, nn] = F11[ll, nn];
+                    F21[ll, nn] = DecComplex.Conj(F12[ll, nn]);
+                    F22[ll, nn] = DecComplex.Conj(F11[ll, nn]);
                 }
             }
 
@@ -214,12 +214,17 @@ namespace WindowsFormsApplication1.FBGManagement
             int fi = 0; //counter
             while (fi <countOfProbes)
             {
-                for (int e = countOfSections-2;e>=0;--e)
+                for (int e = countOfSections-1;e>=0;--e)
                 {
-                    T[0, 0, fi] = T[0, 0, fi] * D[0, 0, fi, e];
-                    T[0, 1, fi] = T[0, 1, fi] * D[0, 1, fi, e];
-                    T[1, 0, fi] = T[1, 0, fi] * D[1, 0, fi, e];
-                    T[1, 1, fi] = T[1, 1, fi] * D[1, 1, fi, e];
+                    DecComplex T00 = T[0, 0, fi] * D[0, 0, fi, e] + T[0, 1, fi] * D[1, 0, fi, e];
+                    DecComplex T01 = T[0, 0, fi] * D[0, 1, fi, e] + T[0, 1, fi] * D[1, 1, fi, e];
+                    DecComplex T10 = T[1, 0, fi] * D[0, 0, fi, e] + T[1, 1, fi] * D[1, 0, fi, e];
+                    DecComplex T11 = T[1, 0, fi] * D[0, 1, fi, e] + T[1, 1, fi] * D[1, 1, fi, e];
+
+                    T[0, 0, fi] = T00;
+                    T[0, 1, fi] = T01;
+                    T[1, 0, fi] = T10;
+                    T[1, 1, fi] = T11;
                 }
                 DecComplex value = 1d / T[0, 0, fi];
                 decimal doubleValue = (decimal)DecComplex.Abs(value);
